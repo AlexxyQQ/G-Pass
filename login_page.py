@@ -3,7 +3,6 @@ import smtplib
 import random
 import requests
 
-
 # main window for login page
 login = Tk()
 login.geometry('1366x768')
@@ -102,36 +101,31 @@ password = StringVar()
 password.set('Password')
 
 # Button,Label and Placements
-user = Label(login,
-             text='Username',
-             font=('Arial', 20),
-             bg='#2FB2AB'
-             ).place(x=440, y=206)
+
+l_til = Label(login,
+              text='Login',
+              font=('Arial', 54),
+              bg='#2FB2AB', ).place(x=552, y=98, )
 
 userbox = PhotoImage(file='Images/Username Box.png')
 user_bg = Label(login,
                 image=userbox,
                 bg='#2FB2AB',
-                bd=0).place(x=406, y=247, )
+                bd=0).place(x=406, y=236, )
 user_ent = Entry(login,
                  text=username,
                  font=('Arial', 20),
                  bd=0,
                  bg='#C4C4C4',
-                 ).place(x=480, y=275, )
-
-passw = Label(login,
-              text='Password',
-              font=('Arial', 20),
-              bg='#2FB2AB'
-              ).place(x=440, y=363)
+                 )
+user_ent.place(x=500, y=260, )
 
 passbox = PhotoImage(file='Images/Password Box.png')
 passw_bg = Label(login,
                  image=passbox,
                  bg='#2FB2AB',
                  )
-passw_bg.place(x=406, y=406, )
+passw_bg.place(x=406, y=395, )
 
 pass_ent = Entry(login,
                  show='*',
@@ -140,7 +134,7 @@ pass_ent = Entry(login,
                  bd=0,
                  bg='#C4C4C4',
                  )
-pass_ent.place(x=482, y=440, )
+pass_ent.place(x=500, y=424, )
 
 b_login = Button(login,
                  text='Login',
