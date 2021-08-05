@@ -195,10 +195,10 @@ eye.place(x=794, y=419, width=46, height=46)
 
 
 def login_c():
-    if len(password.get()) > 14:
-        too_long = Label(login_frame, text='Bruh can you even remember this? Type something short. ',
-                         font=('Arial', 15), bg='#2FB2AB')
-        too_long.place(x=393, y=495)
+    # if len(password.get()) != password  storedd in database:
+    too_long = Label(login_frame, text='Bruh can you even remember this? Type something short. ',
+                     font=('Arial', 15), bg='#2FB2AB')
+    too_long.place(x=393, y=495)
 
 
 b_login = Button(login_frame,
