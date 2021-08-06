@@ -8,11 +8,20 @@ logsin = Tk()
 logsin.geometry('1366x768')
 logsin.resizable(False, False)  # stop the window from resizing
 
-login_frame = LabelFrame(logsin, width=1366, height=768, bg='#2B958E', bd=0)
+login_frame = LabelFrame(logsin, width=1366, height=768, bd=0)
 login_frame.grid(row=0, column=0)
+
+bg_image = PhotoImage(file='Images/bg2.png')
+bg_img = Label(login_frame, image=bg_image, bg='#2B958E')
+bg_img.place(x=-5, y=-5)
+
 f = PhotoImage(file='Images/Frame.png')
-img_frame = Label(login_frame, image=f, bg='#2B958E')
-img_frame.place(x=330, y=50)
+img_frame = Label(login_frame, image=f, bg='#FFCA41')
+img_frame.place(x=412, y=35)
+
+g_logo = PhotoImage(file='Images/logo.png')
+logo_g = Label(login_frame, image=g_logo, bg='#DFD7C7')
+logo_g.place(x=541, y=46)
 
 
 # window for signup page
@@ -109,39 +118,39 @@ password.set('Password')
 
 # Button,Label and Placements
 
+l_title = PhotoImage(file='Images/User Login.png')
 l_til = Label(login_frame,
-              text='Login',
-              font=('Arial', 54),
-              bg='#2FB2AB', ).place(x=552, y=98, )
+              image=l_title,
+              bg='#565050', ).place(x=552, y=284, )
 
 userbox = PhotoImage(file='Images/Username Box.png')
 user_bg = Label(login_frame,
                 image=userbox,
-                bg='#2FB2AB',
-                bd=0).place(x=406, y=236, )
+                bg='#565050',
+                bd=0).place(x=465, y=379, )
 user_ent = Entry(login_frame,
                  text=username,
-                 font=('Arial', 20),
+                 font=('Arial', 15),
                  bd=0,
-                 bg='#C4C4C4',
+                 bg='#21BF99',
                  )
-user_ent.place(x=500, y=260, )
+user_ent.place(x=526, y=395, )
 
 passbox = PhotoImage(file='Images/Password Box.png')
 passw_bg = Label(login_frame,
                  image=passbox,
-                 bg='#2FB2AB',
+                 bg='#565050',
                  )
-passw_bg.place(x=406, y=395, )
+passw_bg.place(x=465, y=473, )
 
 pass_ent = Entry(login_frame,
                  show='*',
                  text=password,
-                 font=('Arial', 20),
+                 font=('Arial', 15),
                  bd=0,
-                 bg='#C4C4C4',
+                 bg='#21BF99',
                  )
-pass_ent.place(x=500, y=424, )
+pass_ent.place(x=526, y=491, )
 
 
 def eye_o():
@@ -149,85 +158,100 @@ def eye_o():
     passbox = PhotoImage(file='Images/Password Box.png')
     passw_bg = Label(login_frame,
                      image=passbox,
-                     bg='#2FB2AB',
+                     bg='#565050',
                      )
-    passw_bg.place(x=406, y=395, )
+    passw_bg.place(x=465, y=473, )
 
     pass_ent = Entry(login_frame,
                      text=password,
-                     font=('Arial', 20),
+                     font=('Arial', 15),
                      bd=0,
-                     bg='#C4C4C4',
+                     bg='#21BF99',
                      )
-    pass_ent.place(x=500, y=424, )
+    pass_ent.place(x=526, y=491, )
 
     def eye_c():
         global passbox, pass_ent, eye, img_eye
         passbox = PhotoImage(file='Images/Password Box.png')
         passw_bg = Label(login_frame,
                          image=passbox,
-                         bg='#2FB2AB',
+                         bg='#565050',
                          )
-        passw_bg.place(x=406, y=395, )
+        passw_bg.place(x=465, y=473, )
 
         pass_ent = Entry(login_frame,
                          show='*',
                          text=password,
-                         font=('Arial', 20),
+                         font=('Arial', 15),
                          bd=0,
-                         bg='#C4C4C4',
+                         bg='#21BF99',
                          )
-        pass_ent.place(x=500, y=424, )
+        pass_ent.place(x=526, y=491, )
 
         img_eye = PhotoImage(file='Images/eyeclosed.png')
-        eye = Button(login_frame, image=img_eye, bg='#C4C4C4', relief=FLAT, activebackground='#C4C4C4', bd=0,
+        eye = Button(login_frame, image=img_eye, bg='#21BF99', relief=FLAT, activebackground='#21BF99', bd=0,
                      command=eye_o)
-        eye.place(x=794, y=419, width=46, height=46)
+        eye.place(x=772, y=482)
 
     img_eye = PhotoImage(file='Images/Eyeopen.png')
-    eye = Button(login_frame, image=img_eye, bg='#C4C4C4', relief=FLAT, activebackground='#C4C4C4', bd=0, command=eye_c)
-    eye.place(x=794, y=419, width=46, height=46)
+    eye = Button(login_frame, image=img_eye, bg='#21BF99', relief=FLAT, activebackground='#21BF99', bd=0, command=eye_c)
+    eye.place(x=772, y=482, )
 
 
 img_eye = PhotoImage(file='Images/eyeclosed.png')
-eye = Button(login_frame, image=img_eye, bg='#C4C4C4', relief=FLAT, activebackground='#C4C4C4', bd=0, command=eye_o)
-eye.place(x=794, y=419, width=46, height=46)
+eye = Button(login_frame, image=img_eye, bg='#21BF99', relief=FLAT, activebackground='#21BF99', bd=0, command=eye_o)
+eye.place(x=772, y=482)
 
 
 def login_c():
     # if len(password.get()) != password  storedd in database:
+    """
     too_long = Label(login_frame, text='Bruh can you even remember this? Type something short. ',
                      font=('Arial', 15), bg='#2FB2AB')
     too_long.place(x=393, y=495)
+"""
 
 
+login_img = PhotoImage(file='Images/Login Button.png')
 b_login = Button(login_frame,
-                 text='Login',
-                 font=('Arial', 20),
-                 bg='#DED242',
-                 relief=RAISED,
-                 activeforeground='black',
-                 activebackground='#DED242',
+                 image=login_img,
+                 bg='#565050',
+                 bd=0,
+                 activebackground='#565050',
                  command=login_c
                  )
-b_login.place(x=567, y=539, width=145, height=57)
+b_login.place(x=580, y=570)
+
+b_fpass = Button(login_frame,
+                 text='Forgot Password?',
+                 font=('Arial', 10, UNDERLINE),
+                 bg='#565050',
+                 fg='#C09D47',
+                 bd=0,
+                 activeforeground='grey',
+                 activebackground='#565050',
+                 relief=FLAT,
+                 )
+b_fpass.place(x=699, y=536, )
 
 info_sinup = Label(login_frame,
                    text='Dont have an account?',
+                   fg='#C09D47',
                    font=('Arial', 15),
-                   bg='#2FB2AB')
-info_sinup.place(x=495, y=627)
+                   bg='#565050')
+info_sinup.place(x=498, y=632)
 
 b_signup = Button(login_frame,
                   text='Signup',
                   font=('Arial', 15, UNDERLINE),
-                  bg='#2FB2AB',
+                  bg='#565050',
+                  fg='#C09D47',
                   bd=0,
                   activeforeground='grey',
-                  activebackground='#2FB2AB',
+                  activebackground='#565050',
                   command=signup_page,
                   relief=FLAT,
                   )
-b_signup.place(x=697, y=622, width=75, height=39)
+b_signup.place(x=704, y=628, )
 
 logsin.mainloop()
