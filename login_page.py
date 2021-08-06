@@ -17,11 +17,11 @@ bg_img.place(x=-5, y=-5)
 
 f = PhotoImage(file='Images/Frame.png')
 img_frame = Label(login_frame, image=f, bg='#FFCA41')
-img_frame.place(x=412, y=35)
+img_frame.place(x=442, y=35)
 
 g_logo = PhotoImage(file='Images/logo.png')
 logo_g = Label(login_frame, image=g_logo, bg='#DFD7C7')
-logo_g.place(x=541, y=46)
+logo_g.place(x=566, y=46)
 
 
 # window for signup page
@@ -121,27 +121,27 @@ password.set('Password')
 l_title = PhotoImage(file='Images/User Login.png')
 l_til = Label(login_frame,
               image=l_title,
-              bg='#565050', ).place(x=552, y=284, )
+              bg='#565050', ).place(x=582, y=284, )
 
 userbox = PhotoImage(file='Images/Username Box.png')
 user_bg = Label(login_frame,
                 image=userbox,
                 bg='#565050',
-                bd=0).place(x=465, y=379, )
+                bd=0).place(x=495, y=379, )
 user_ent = Entry(login_frame,
                  text=username,
                  font=('Arial', 15),
                  bd=0,
                  bg='#21BF99',
                  )
-user_ent.place(x=526, y=395, )
+user_ent.place(x=556, y=395, )
 
 passbox = PhotoImage(file='Images/Password Box.png')
 passw_bg = Label(login_frame,
                  image=passbox,
                  bg='#565050',
                  )
-passw_bg.place(x=465, y=473, )
+passw_bg.place(x=495, y=473, )
 
 pass_ent = Entry(login_frame,
                  show='*',
@@ -150,7 +150,7 @@ pass_ent = Entry(login_frame,
                  bd=0,
                  bg='#21BF99',
                  )
-pass_ent.place(x=526, y=491, )
+pass_ent.place(x=556, y=491, )
 
 
 def eye_o():
@@ -160,7 +160,7 @@ def eye_o():
                      image=passbox,
                      bg='#565050',
                      )
-    passw_bg.place(x=465, y=473, )
+    passw_bg.place(x=495, y=473, )
 
     pass_ent = Entry(login_frame,
                      text=password,
@@ -168,7 +168,7 @@ def eye_o():
                      bd=0,
                      bg='#21BF99',
                      )
-    pass_ent.place(x=526, y=491, )
+    pass_ent.place(x=556, y=491, )
 
     def eye_c():
         global passbox, pass_ent, eye, img_eye
@@ -177,7 +177,7 @@ def eye_o():
                          image=passbox,
                          bg='#565050',
                          )
-        passw_bg.place(x=465, y=473, )
+        passw_bg.place(x=495, y=473, )
 
         pass_ent = Entry(login_frame,
                          show='*',
@@ -186,21 +186,21 @@ def eye_o():
                          bd=0,
                          bg='#21BF99',
                          )
-        pass_ent.place(x=526, y=491, )
+        pass_ent.place(x=556, y=491, )
 
         img_eye = PhotoImage(file='Images/eyeclosed.png')
         eye = Button(login_frame, image=img_eye, bg='#21BF99', relief=FLAT, activebackground='#21BF99', bd=0,
                      command=eye_o)
-        eye.place(x=772, y=482)
+        eye.place(x=802, y=482)
 
     img_eye = PhotoImage(file='Images/Eyeopen.png')
     eye = Button(login_frame, image=img_eye, bg='#21BF99', relief=FLAT, activebackground='#21BF99', bd=0, command=eye_c)
-    eye.place(x=772, y=482, )
+    eye.place(x=802, y=482, )
 
 
 img_eye = PhotoImage(file='Images/eyeclosed.png')
 eye = Button(login_frame, image=img_eye, bg='#21BF99', relief=FLAT, activebackground='#21BF99', bd=0, command=eye_o)
-eye.place(x=772, y=482)
+eye.place(x=802, y=482)
 
 
 def login_c():
@@ -220,7 +220,7 @@ b_login = Button(login_frame,
                  activebackground='#565050',
                  command=login_c
                  )
-b_login.place(x=580, y=570)
+b_login.place(x=610, y=570)
 
 b_fpass = Button(login_frame,
                  text='Forgot Password?',
@@ -232,14 +232,14 @@ b_fpass = Button(login_frame,
                  activebackground='#565050',
                  relief=FLAT,
                  )
-b_fpass.place(x=699, y=536, )
+b_fpass.place(x=729, y=536, )
 
 info_sinup = Label(login_frame,
                    text='Dont have an account?',
                    fg='#C09D47',
                    font=('Arial', 15),
                    bg='#565050')
-info_sinup.place(x=498, y=632)
+info_sinup.place(x=538, y=632)
 
 b_signup = Button(login_frame,
                   text='Signup',
@@ -252,6 +252,6 @@ b_signup = Button(login_frame,
                   command=signup_page,
                   relief=FLAT,
                   )
-b_signup.place(x=704, y=628, )
+b_signup.place(x=744, y=628, )
 
 logsin.mainloop()
