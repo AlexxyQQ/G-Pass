@@ -1,7 +1,7 @@
 from tkinter import *
 import smtplib
 import random
-import requests
+
 
 # main window for login page
 logsin = Tk()
