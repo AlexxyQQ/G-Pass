@@ -6,6 +6,8 @@ import requests
 # main window for login page
 logsin = Tk()
 logsin.geometry('1280x720')
+logsin.title('G-Pass-LoginSignup')
+logsin.iconbitmap('Images/G-pass_ico.ico')
 logsin.resizable(False, False)  # stop the window from resizing
 
 login_frame = LabelFrame(logsin, width=1280, height=720, bd=0)
@@ -21,7 +23,7 @@ img_frame.place(x=412, y=35)
 
 g_logo = PhotoImage(file='Images/logo.png')
 logo_g = Label(login_frame, image=g_logo, bg='#DFD7C7')
-logo_g.place(x=541, y=46)
+logo_g.place(x=530 , y=46)
 
 
 # window for signup page
@@ -116,25 +118,40 @@ username.set('Email')
 password = StringVar()
 password.set('Password')
 
+
+# deletes the default value present in the email entry
+def delete_user_ent_text(event):
+    if username.get() == 'Email':
+        username.set('')
+
+
+# deletes the default value present in the password entry
+def delete_pass_ent_text(event):
+    if password.get() == 'Password':
+        password.set('')
+
+
 # Button,Label and Placements
 
 l_title = PhotoImage(file='Images/User Login.png')
 l_til = Label(login_frame,
               image=l_title,
-              bg='#565050', ).place(x=552, y=284, )
+              bg='#565050', ).place(x=537, y=297, )
 
 userbox = PhotoImage(file='Images/Username Box.png')
 user_bg = Label(login_frame,
                 image=userbox,
                 bg='#565050',
-                bd=0).place(x=465, y=379, )
+                bd=0).place(x=462, y=379, )
 user_ent = Entry(login_frame,
                  text=username,
                  font=('Arial', 15),
                  bd=0,
                  bg='#21BF99',
                  )
-user_ent.place(x=526, y=395, )
+user_ent.place(x=523, y=395, )
+user_ent.bind("<Button-1>", delete_user_ent_text)
+# when pressed left mouse click on the email entry runs delete_user_ent_text function
 
 passbox = PhotoImage(file='Images/Password Box.png')
 passw_bg = Label(login_frame,
@@ -150,13 +167,16 @@ pass_ent = Entry(login_frame,
                  bd=0,
                  bg='#21BF99',
                  )
-pass_ent.place(x=526, y=491, )
+pass_ent.place(x=523, y=491, )
+pass_ent.bind("<Button-1>", delete_pass_ent_text)
+# when pressed left mouse click on the password entry runs delete_pass_ent_text function
 
 
 def eye_o():
     global passbox, pass_ent, eye, img_eye
     passbox = PhotoImage(file='Images/Password Box.png')
     passw_bg = Label(login_frame,
+
                      image=passbox,
                      bg='#565050',
                      )
@@ -168,7 +188,7 @@ def eye_o():
                      bd=0,
                      bg='#21BF99',
                      )
-    pass_ent.place(x=526, y=491, )
+    pass_ent.place(x=523, y=491, )
 
     def eye_c():
         global passbox, pass_ent, eye, img_eye
@@ -186,7 +206,7 @@ def eye_o():
                          bd=0,
                          bg='#21BF99',
                          )
-        pass_ent.place(x=526, y=491, )
+        pass_ent.place(x=523, y=491, )
 
         img_eye = PhotoImage(file='Images/eyeclosed.png')
         eye = Button(login_frame, image=img_eye, bg='#21BF99', relief=FLAT, activebackground='#21BF99', bd=0,
