@@ -17,7 +17,7 @@ bg_image = PhotoImage(file='Images/bg2.png')
 bg_img = Label(login_frame, image=bg_image, bg='#2B958E')
 bg_img.place(x=-3, y=-3)
 
-f = PhotoImage(file='Images/Frame.png')
+f = PhotoImage(file='Images/LFrame.png')
 img_frame = Label(login_frame, image=f, bg='#FFCA41')
 img_frame.place(x=412, y=35)
 
