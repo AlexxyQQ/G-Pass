@@ -24,24 +24,23 @@ img_frame.place(x=412, y=35)
 
 g_logo = PhotoImage(file='Images/logo.png')
 logo_g = Label(login_frame, image=g_logo, bg='#D9D0BF')
-logo_g.place(x=535, y=75)
+logo_g.place(x=511, y=75)
 
 
-# window for signup page
 def signup_page():
     login_frame.destroy()
     signup_frame = LabelFrame(logsin, width=1366, height=768, bg='#2B958E', bd=0)
     signup_frame.grid(row=0, column=0)
 
     # variables to store user input
-    firstname = StringVar()
-    firstname.set('First Name')
-    lastname = StringVar()
-    lastname.set('Last Name')
+    fname = StringVar()
+    fname.set('Full Name')
     email = StringVar()
-    email.set('XYZ@gmail.com')
+    email.set('Email@gmail.com')
     s_password = StringVar()
     s_password.set('Password')
+    s_cpassword = StringVar()
+    s_cpassword.set('Password')
 
     # function that send an OTP to the user inputted email
     def sign_click():
@@ -58,7 +57,7 @@ def signup_page():
             s.login("theggserver@gmail.com", "@ppleWas01")
             a = random.randint(250000, 999999)  # OTP Generator of 6 digit number
             # Message sent to user
-            message = f'Your OTP code is {a}.\n And your Password,First and last Name are\n First Name: {firstname.get()}\nLast Name: {lastname.get()}\nPassword: {s_password.get()} '
+            message = f'Your OTP code is {a}.'
 
             # sending the mail
             try:
@@ -84,9 +83,9 @@ def signup_page():
                         else:
                             Label(signup_frame, text='Unsuccessful').pack()
 
-                    l_check_otp = Label(signup_frame, text='Enter the OTP').pack()
-                    Otp_entry = Entry(signup_frame, text=otp).pack()
-                    b_opt = Button(signup_frame, text='Confirm', command=check_otp).pack()
+                    Label(signup_frame, text='Enter the OTP').pack()
+                    Entry(signup_frame, text=otp).pack()
+                    Button(signup_frame, text='Confirm', command=check_otp).pack()
                 elif status == "invalid":
                     s.quit()
                     check_email = Label(signup_frame, text='Wrong email, Please check your email address').pack()
@@ -98,19 +97,15 @@ def signup_page():
                 s.quit()
                 check_email = Label(signup_frame, text='Wrong email, Please check your email address').pack()
 
-    l_first_name = Label(signup_frame, text='First Name').pack()
-    e_first_name = Entry(signup_frame, text=firstname).pack()
+    Entry(signup_frame, text=fname).pack()
 
-    l_last_name = Label(signup_frame, text='Last Name').pack()
-    e_last_name = Entry(signup_frame, text=lastname).pack()
+    Entry(signup_frame, text=email).pack()
 
-    l_pass_name = Label(signup_frame, text='Password').pack()
-    e_pass_name = Entry(signup_frame, text=s_password, show='*').pack()
+    Entry(signup_frame, text=s_password, show='*').pack()
 
-    l_email_name = Label(signup_frame, text='First Name').pack()
-    e_email_name = Entry(signup_frame, text=email).pack()
+    Entry(signup_frame, text=s_cpassword, show='*').pack()
 
-    bs_signup = Button(signup_frame, text='Signup', command=sign_click).pack()
+    Button(signup_frame, text='Signup', command=sign_click).pack()
 
 
 # String Variables to store user inputs
@@ -135,15 +130,15 @@ def delete_pass_ent_text(event):
 # Button,Label and Placements
 
 l_title = PhotoImage(file='Images/User Login.png')
-l_til = Label(login_frame,
-              image=l_title,
-              bg='#565050', ).place(x=541, y=294, )
+Label(login_frame,
+      image=l_title,
+      bg='#565050', ).place(x=518, y=286, )
 
 userbox = PhotoImage(file='Images/Username Box.png')
-user_bg = Label(login_frame,
-                image=userbox,
-                bg='#565050',
-                bd=0).place(x=467, y=365, )
+Label(login_frame,
+      image=userbox,
+      bg='#565050',
+      bd=0).place(x=467, y=365, )
 user_ent = Entry(login_frame,
                  text=username,
                  font=('Arial', 15),
