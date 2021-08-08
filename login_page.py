@@ -13,15 +13,15 @@ logsin.resizable(False, False)  # stop the window from resizing
 login_frame = LabelFrame(logsin, width=1280, height=720, bd=0)
 login_frame.grid(row=0, column=0)
 
-bg_image = PhotoImage(file='Images/bg2.png')
+bg_image = PhotoImage(file='Images/Background.png')
 bg_img = Label(login_frame, image=bg_image, bg='#2B958E')
 bg_img.place(x=-3, y=-3)
 
-f = PhotoImage(file='Images/LFrame.png')
+f = PhotoImage(file='Images/Login Frame.png')
 img_frame = Label(login_frame, image=f, bg='#CE9100')
 img_frame.place(x=412, y=35)
 
-g_logo = PhotoImage(file='Images/logo.png')
+g_logo = PhotoImage(file='Images/G-Pass Logo.png')
 logo_g = Label(login_frame, image=g_logo, bg='#D9D0BF')
 logo_g.place(x=511, y=75)
 
@@ -56,7 +56,8 @@ def signup_page():
             s.login("theggserver@gmail.com", "@ppleWas01")
             a = random.randint(250000, 999999)  # OTP Generator of 6 digit number
             # Message sent to user
-            message = f'Your OTP code is {a}.'
+
+            message = f' Your OTP code is {a}.'
 
             # sending the mail
             try:
@@ -128,12 +129,12 @@ def delete_pass_ent_text(event):
 
 # Button,Label and Placements
 
-l_title = PhotoImage(file='Images/User Login.png')
+l_title = PhotoImage(file='Images/USER LOGIN.png')
 Label(login_frame,
       image=l_title,
       bg='#565050', ).place(x=518, y=286, )
 
-userbox = PhotoImage(file='Images/Username Box.png')
+userbox = PhotoImage(file='Images/Login Email Box.png')
 Label(login_frame,
       image=userbox,
       bg='#565050',
@@ -148,7 +149,7 @@ user_ent.place(x=528, y=380, )
 user_ent.bind("<Button-1>", delete_user_ent_text)
 # when pressed left mouse click on the email entry runs delete_user_ent_text function
 
-passbox = PhotoImage(file='Images/Password Box.png')
+passbox = PhotoImage(file='Images/Login Password Box.png')
 passw_bg = Label(login_frame,
                  image=passbox,
                  bg='#565050',
@@ -171,7 +172,7 @@ pass_ent.bind("<Button-1>", delete_pass_ent_text)
 
 def eye_o():
     global passbox, pass_ent, eye, img_eye
-    passbox = PhotoImage(file='Images/Password Box.png')
+    passbox = PhotoImage(file='Images/Login Password Box.png')
     passw_bg = Label(login_frame,
 
                      image=passbox,
@@ -189,7 +190,7 @@ def eye_o():
 
     def eye_c():
         global passbox, pass_ent, eye, img_eye
-        passbox = PhotoImage(file='Images/Password Box.png')
+        passbox = PhotoImage(file='Images/Login Password Box.png')
         passw_bg = Label(login_frame,
                          image=passbox,
                          bg='#565050',
@@ -205,19 +206,19 @@ def eye_o():
                          )
         pass_ent.place(x=528, y=470, )
 
-        img_eye = PhotoImage(file='Images/eyeclosed.png')
+        img_eye = PhotoImage(file='Images/eyec.png')
         eye = Button(login_frame, image=img_eye, bg='#21BF99', relief=FLAT, activebackground='#21BF99', bd=0,
                      command=eye_o)
         eye.place(x=774, y=460)
         pass_ent.bind("<Button-1>", delete_pass_ent_text)
 
-    img_eye = PhotoImage(file='Images/Eyeopen.png')
+    img_eye = PhotoImage(file='Images/eyeo.png')
     eye = Button(login_frame, image=img_eye, bg='#21BF99', relief=FLAT, activebackground='#21BF99', bd=0, command=eye_c)
     eye.place(x=774, y=460)
     pass_ent.bind("<Button-1>", delete_pass_ent_text)
 
 
-img_eye = PhotoImage(file='Images/eyeclosed.png')
+img_eye = PhotoImage(file='Images/eyec.png')
 eye = Button(login_frame, image=img_eye, bg='#21BF99', relief=FLAT, activebackground='#21BF99', bd=0, command=eye_o)
 eye.place(x=774, y=460)
 
