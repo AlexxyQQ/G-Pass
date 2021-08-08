@@ -1,6 +1,8 @@
 from tkinter import *
 
 root = Tk()
+Length_value=StringVar()
+Length_value.set('0')
 
 root.geometry('1280x720')
 root.resizable(False, False)
@@ -18,6 +20,7 @@ pg = PhotoImage(file="Images/Password Generator.png")
 Label(root, image=pg, bg='#565050').place(x=570, y=35)
 
 Label(root, text="Length", fg='#C09D47', bg='#565050', font=('Arial', 20)).place(x=530, y=173)
+Entry(root, text=Length_value, fg='#C09D47', bg='#565050', font=('Arial', 20), width=2, bd=0).place(x=655, y=173)
 
 Label(root, text="A-Z", fg='#C09D47', bg='#565050', font=('Arial', 20)).place(x=530, y=267)
 
@@ -30,16 +33,16 @@ Label(root, text="!@#$%&", fg='#C09D47', bg='#565050', font=('Arial', 20)).place
 horizontal = Scale(root, from_=0, to=44, bg='#565050', bd=0, activebackground='#565050', orient=HORIZONTAL).place(x=854,
                                                                                                                   y=178)
 
-checkButton1 = Checkbutton(root, bg='#565050')
+checkButton1 = Checkbutton(root, bg='#565050', activebackground='#565050')
 checkButton1.deselect()
 checkButton1.place(x=1113, y=261)
-checkButton2 = Checkbutton(root, bg='#565050')
+checkButton2 = Checkbutton(root, bg='#565050', activebackground='#565050')
 checkButton2.deselect()
 checkButton2.place(x=1113, y=361)
-checkButton3 = Checkbutton(root, bg='#565050')
+checkButton3 = Checkbutton(root, bg='#565050', activebackground='#565050')
 checkButton3.deselect()
 checkButton3.place(x=1113, y=461)
-checkButton4 = Checkbutton(root, bg='#565050')
+checkButton4 = Checkbutton(root, bg='#565050', activebackground='#565050')
 checkButton4.deselect()
 checkButton4.place(x=1113, y=561)
 
