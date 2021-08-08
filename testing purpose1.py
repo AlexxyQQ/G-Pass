@@ -25,7 +25,6 @@ g_logo = PhotoImage(file='Images/logo.png')
 logo_g = Label(login_frame, image=g_logo, bg='#DFD7C7')
 logo_g.place(x=541, y=46)
 
-
 # window for signup page
 """
 def pwstrength():
@@ -40,13 +39,12 @@ def pwstrength():
         else:
             print("PW dont match")
     except:
-        
+
 """
 
 
 def signup_page():
-
-    global bg_img, bg_image, f2, gg_logo, flname,sUpemail,sUppassword,sUppassword2,pwstrength
+    global bg_img, bg_image, f2, gg_logo, flname, sUpemail, sUppassword, sUppassword2, pwstrength
     login_frame.destroy()
     signup_frame = LabelFrame(logsin, width=1280, height=720, bg='#2B958E', bd=0)
     signup_frame.grid(row=0, column=0)
@@ -58,25 +56,25 @@ def signup_page():
     f2 = PhotoImage(file='Images/SFrame.png')
     img_frame2 = Label(signup_frame, image=f2, bg='#FFCA41')
     img_frame2.place(x=412, y=35)
-
+    '''
     gg_logo = PhotoImage(file='Images/signup.png')
     logo_gg = Label(signup_frame, image=gg_logo, bg='#DFD7C7')
-    logo_gg.place(x=574, y=69)
+    logo_gg.place(x=574, y=69'''
 
     flname = PhotoImage(file="Images/Fullname Bax.png")
     Label(signup_frame, image=flname, bg="#565050").place(x=462, y=158)
 
-    sUpemail= PhotoImage(file="Images/Emailboxsignup.png")
-    Label(signup_frame,image=sUpemail,bg="#565050").place(x=462,y=226)
+    sUpemail = PhotoImage(file="Images/Email.png")
+    Label(signup_frame, image=sUpemail, bg="#565050").place(x=462, y=226)
 
-    sUppassword=PhotoImage(file="Images/sUppasswordbox.png")
-    Label(signup_frame,image=sUppassword,bg="#565050") .place(x=462,y=289)
+    sUppassword = PhotoImage(file="Images/sUppasswordbox.png")
+    Label(signup_frame, image=sUppassword, bg="#565050").place(x=462, y=289)
 
-    sUppassword2=PhotoImage(file="Images/sUppasswordbox.png")
-    Label(signup_frame,image=sUppassword2,bg="#565050") .place(x=462,y=356)
+    sUppassword2 = PhotoImage(file="Images/sUppasswordbox.png")
+    Label(signup_frame, image=sUppassword2, bg="#565050").place(x=462, y=356)
 
-    pwstrength=Label(signup_frame,text="Password is Weak",font=('Arial', 15),bd=0,color="yellow").place(x=528,y=416) #text=pwpwstrength.ge
-
+    pwstrength = Label(signup_frame, text="Password is Weak", font=('Arial', 15), bd=0, color="yellow").place(x=528,
+                                                                                                              y=416)  # text=pwpwstrength.ge
 
     # variables to store user input
     fullname = StringVar()
@@ -87,7 +85,7 @@ def signup_page():
     email.set('XYZ@gmail.com')
     s_password = StringVar()
     s_password.set('Password')
-    c_password=StringVar()
+    c_password = StringVar()
     c_password.set("Confirm Password")
 
     # nocfpw = str.count(c_password)
@@ -149,23 +147,21 @@ def signup_page():
                 check_email = Label(signup_frame, text='Wrong email, Please check your email address').pack()
 
     Entry(signup_frame, text=fullname, bg="#21BF99", font=('Arial', 15),
-                         bd=0, ).place(x=523, y=177, )
+          bd=0, ).place(x=523, y=177, )
 
-    Entry(signup_frame, text=username,bg="#21BF99",font=('Arial', 15),bd=0,).place(x=523,y=243)
+    Entry(signup_frame, text=username, bg="#21BF99", font=('Arial', 15), bd=0, ).place(x=523, y=243)
 
-    Entry(signup_frame, text=s_password, show='*',bg="#21BF99",font=('Arial', 15),bd=0,).place(x=523, y=310)
+    Entry(signup_frame, text=s_password, show='*', bg="#21BF99", font=('Arial', 15), bd=0, ).place(x=523, y=310)
     sUppasswordeye = PhotoImage(file=" ")
-    sUpeye = Button(signup_frame, image=sUppasswordeye, bg='#21BF99', relief=FLAT, activebackground='#21BF99', bd=0, command=eye_o)
-    sUpeye.place(x=769,y=298)
+    sUpeye = Button(signup_frame, image=sUppasswordeye, bg='#21BF99', relief=FLAT, activebackground='#21BF99', bd=0,
+                    command=eye_o)
+    sUpeye.place(x=769, y=298)
 
-    Entry(signup_frame, text=c_password, show='*',bg="#21BF99",font=('Arial', 15),bd=0,).place(x=523,y=399)
+    Entry(signup_frame, text=c_password, show='*', bg="#21BF99", font=('Arial', 15), bd=0, ).place(x=523, y=399)
     sUppasswordeye2 = PhotoImage(file=" ")
     sUpeye2 = Button(signup_frame, image=sUppasswordeye2, bg='#21BF99', relief=FLAT, activebackground='#21BF99', bd=0,
-                    command=eye_o)
-    sUpeye2.place(x= 769,y=365)
-
-
-
+                     command=eye_o)
+    sUpeye2.place(x=769, y=365)
 
     Button(signup_frame, text='Signup', command=sign_click).place(x=570, y=541)
 
