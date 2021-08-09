@@ -32,21 +32,21 @@ def pwstrength():
     try:
         if s_password == c_password:
             if nofpw < 8 and nofcpw < 8:
-                print("UR PW is small like ur pp")
+                print("UR PW is Weak")
             elif nofpw > 13 and nofcpw > 13:
-                print("PW is strong my G ")
+                print("PW is strong")
             else:
                 print("Pff! Nice PW")
         else:
             print("PW dont match")
     except:
-        
+        print("Something went Wrong!")
 """
 
 
 def signup_page():
 
-    global bg_img, bg_image, f2, gg_logo, flname,sUpemail,sUppassword,sUppassword2,pwstrength
+    global bg_img, bg_image, f2, gg_logo, flname,sUpemail,sUppassword,sUppassword2,pwstrength,signup_button
     login_frame.destroy()
     signup_frame = LabelFrame(logsin, width=1280, height=720, bg='#2B958E', bd=0)
     signup_frame.grid(row=0, column=0)
@@ -69,13 +69,11 @@ def signup_page():
     sUpemail= PhotoImage(file="Images/Emailboxsignup.png")
     Label(signup_frame,image=sUpemail,bg="#565050").place(x=462,y=226)
 
-    sUppassword=PhotoImage(file="Images/sUppasswordbox.png")
+    sUppassword=PhotoImage(file="Images/Password Box.png")
     Label(signup_frame,image=sUppassword,bg="#565050") .place(x=462,y=289)
 
-    sUppassword2=PhotoImage(file="Images/sUppasswordbox.png")
+    sUppassword2=PhotoImage(file="Images/Password Box.png")
     Label(signup_frame,image=sUppassword2,bg="#565050") .place(x=462,y=356)
-
-    pwstrength=Label(signup_frame,text="Password is Weak",font=('Arial', 15),bd=0,color="yellow").place(x=528,y=416) #text=pwpwstrength.ge
 
 
     # variables to store user input
@@ -90,8 +88,8 @@ def signup_page():
     c_password=StringVar()
     c_password.set("Confirm Password")
 
-    # nocfpw = str.count(c_password)
-    # nofpw  = str.count(s_password)
+    #nocfpw = str.count(c_password)
+    #nofpw  = str.count(s_password)
 
     # function that send an OTP to the user inputted email
     def sign_click():
@@ -148,23 +146,28 @@ def signup_page():
                 s.quit()
                 check_email = Label(signup_frame, text='Wrong email, Please check your email address').pack()
 
+#signup entries
     Entry(signup_frame, text=fullname, bg="#21BF99", font=('Arial', 15),
                          bd=0, ).place(x=523, y=177, )
 
     Entry(signup_frame, text=username,bg="#21BF99",font=('Arial', 15),bd=0,).place(x=523,y=243)
 
     Entry(signup_frame, text=s_password, show='*',bg="#21BF99",font=('Arial', 15),bd=0,).place(x=523, y=310)
-    sUppasswordeye = PhotoImage(file=" ")
-    sUpeye = Button(signup_frame, image=sUppasswordeye, bg='#21BF99', relief=FLAT, activebackground='#21BF99', bd=0, command=eye_o)
+    Entry(signup_frame, text=c_password, show='*', bg="#21BF99", font=('Arial', 15), bd=0, ).place(x=531, y=377)
+
+
+    sUppasswordeye=PhotoImage(file="Images/eyeclosed.png")
+    sUpeye = Button(signup_frame, image=sUppasswordeye, bg='#21BF99', relief=FLAT, activebackground='#21BF99', bd=0,)
     sUpeye.place(x=769,y=298)
 
-    Entry(signup_frame, text=c_password, show='*',bg="#21BF99",font=('Arial', 15),bd=0,).place(x=523,y=399)
-    sUppasswordeye2 = PhotoImage(file=" ")
-    sUpeye2 = Button(signup_frame, image=sUppasswordeye2, bg='#21BF99', relief=FLAT, activebackground='#21BF99', bd=0,
-                    command=eye_o)
+   # Entry(signup_frame, text=c_password, show='*',bg="#21BF99",font=('Arial', 15),bd=0,).place(x=523,y=399)
+    sUppasswordeye2 = PhotoImage(file="Images/eyeclosed.png")
+    sUpeye2 = Button(signup_frame, image=sUppasswordeye2, bg='#21BF99', relief=FLAT, activebackground='#21BF99', bd=0,)
     sUpeye2.place(x= 769,y=365)
 
-
+    signup_button=PhotoImage(file='Images/signupbutton.png')
+    signup_btn=Button(signup_frame,image=signup_button,bg="#FFCA41",relief=FLAT,bd=0,)
+    signup_btn.place(x=579,y=465)
 
 
     Button(signup_frame, text='Signup', command=sign_click).place(x=570, y=541)
