@@ -75,8 +75,25 @@ c_p.place(x=531, y=377)
 c_p.bind("<Button-1>", c_pclear)
 
 
+otp_frame=LabelFrame(signup_frame,font=('Arial', 15),width=261, height=138, bg='#565050', bd=2).place(x=509,y=530)
+otp_frame_l=PhotoImage(file="Images/Otp Frame.png")
+
+otp_l=Label(otp_frame,text="Enter OTP here",font=('Arial', 15),fg="#C09D47",bg="#565050").place(x=576,y=540)
+
+otp_entry_l= PhotoImage(file="Images/Otp Box.png")
+Label(otp_frame,image=otp_entry_l,bg="#565050",).place(x=535,y=565)
+
+otp_confirm=PhotoImage(file="Images/Confirm Button.png")
+Label(otp_frame,image=otp_confirm,bg="#565050").place(x=590,y=617)
+
+
+
+
+
+
+
 def seye_o():
-    global sUppassword2, sUpeye2,sUppassword,s_p,c_p
+    global sUppassword2, sUpeye2, sUppassword, s_p, c_p
 
     sUppassword = PhotoImage(file="Images/Signup Password Box.png")
     Label(signup_frame, image=sUppassword, bg="#565050").place(x=462, y=289)
@@ -114,8 +131,6 @@ def seye_o():
                          command=seye_o)
         sUpeye2.place(x=769, y=365)
 
-
-
     sUppasswordeye2 = PhotoImage(file="Images/eyeo.png")
     sUpeye2 = Button(signup_frame, image=sUppasswordeye2, bg='#21BF99', activebackground='#21BF99', bd=0,
                      command=seye_c)
@@ -127,8 +142,23 @@ sUpeye2 = Button(signup_frame, image=sUppasswordeye2, bg='#21BF99', relief=FLAT,
                  command=seye_o)
 sUpeye2.place(x=769, y=365)
 
+
+def passwcheck():
+
+    if c_password.get() != s_password.get():
+        Label(signup_frame, text='Password don\'t match').place(x=531, y=430)
+
+    if any(char.isdigit() for char in c_password.get())!=True:
+        Label(signup_frame, text='Input some digit').place(x=531, y=430)
+
+    if len(c_password.get())<4:
+        Label(signup_frame, text='Password weak').place(x=531, y=430)
+
+
+
 signup_button = PhotoImage(file='Images/Singup Button.png')
-Button(signup_frame, image=signup_button, bg="#FFCA41", relief=FLAT, bd=0, ).place(x=579, y=465)
+Button(signup_frame, image=signup_button, bg="#565050", relief=FLAT, bd=0, command=passwcheck).place(x=579, y=465)
+
 
 mainloop()
-#qwert
+
