@@ -21,7 +21,7 @@ Label(signup_frame, image=gg_logo, bg='#D9D0BF').place(x=561, y=62)
 
 # variables to store user input
 fullname = StringVar()
-fullname.set('Full Name ')
+fullname.set('Full Name')
 email = StringVar()
 email.set('XYZ@gmail.com')
 s_password = StringVar()
@@ -37,7 +37,7 @@ def fnclear(event):
 
 def emclear(event):
     if email.get() == "XYZ@gmail.com":
-        email.set("")
+        email.set("@gmail.com")
 
 
 def s_pclear(event):
@@ -58,73 +58,72 @@ fn.place(x=523, y=177, )
 fn.bind("<Button-1>", fnclear)
 
 semail = PhotoImage(file="Images/Signup Email Box.png")
-Label(signup_frame, image=semail, bg="#565050").place(x=462, y=226)
+Label(signup_frame, image=semail, bg="#565050").place(x=462, y=230)
 
 em = Entry(signup_frame, text=email, bg="#21BF99", font=('Arial', 15), bd=0, )
 em.place(x=523, y=243)
 em.bind("<Button-1>", emclear)
 
 spasswordi = PhotoImage(file="Images/Signup Password Box.png")
-Label(signup_frame, image=spasswordi, bg="#565050").place(x=462, y=289)
+Label(signup_frame, image=spasswordi, bg="#565050").place(x=462, y=301)
 
 s_p = Entry(signup_frame, text=s_password, show='*', bg="#21BF99", font=('Arial', 15), bd=0, )
-s_p.place(x=523, y=300)
+s_p.place(x=523, y=312)
 s_p.bind("<Button-1>", s_pclear)
 
 scpasswordi = PhotoImage(file="Images/Signup CPassword Box.png")
-Label(signup_frame, image=scpasswordi, bg="#565050").place(x=462, y=356)
+Label(signup_frame, image=scpasswordi, bg="#565050").place(x=462, y=372)
 
 c_p = Entry(signup_frame, text=c_password, show='*', bg="#21BF99", font=('Arial', 15), bd=0, )
-c_p.place(x=523, y=369)
+c_p.place(x=523, y=383)
 c_p.bind("<Button-1>", c_pclear)
 
 
 def seye_o():
     global spasswordi, s_p, scpasswordi, c_p, img_eyes, eyes
     spasswordi = PhotoImage(file="Images/Signup Password Box.png")
-    Label(signup_frame, image=spasswordi, bg="#565050").place(x=462, y=289)
+    Label(signup_frame, image=spasswordi, bg="#565050").place(x=462, y=301)
 
     s_p = Entry(signup_frame, text=s_password, bg="#21BF99", font=('Arial', 15), bd=0, )
-    s_p.place(x=523, y=300)
+    s_p.place(x=523, y=312)
     s_p.bind("<Button-1>", s_pclear)
 
     scpasswordi = PhotoImage(file="Images/Signup CPassword Box.png")
-    Label(signup_frame, image=scpasswordi, bg="#565050").place(x=462, y=356)
-
+    Label(signup_frame, image=scpasswordi, bg="#565050").place(x=462, y=372)
     c_p = Entry(signup_frame, text=c_password, bg="#21BF99", font=('Arial', 15), bd=0, )
-    c_p.place(x=523, y=369)
+    c_p.place(x=523, y=383)
     c_p.bind("<Button-1>", c_pclear)
 
     def seye_c():
         global spasswordi, s_p, scpasswordi, c_p, img_eyes, eyes
         spasswordi = PhotoImage(file="Images/Signup Password Box.png")
-        Label(signup_frame, image=spasswordi, bg="#565050").place(x=462, y=289)
+        Label(signup_frame, image=spasswordi, bg="#565050").place(x=462, y=301)
 
         s_p = Entry(signup_frame, text=s_password, show='*', bg="#21BF99", font=('Arial', 15), bd=0, )
-        s_p.place(x=523, y=300)
+        s_p.place(x=523, y=312)
         s_p.bind("<Button-1>", s_pclear)
 
         scpasswordi = PhotoImage(file="Images/Signup CPassword Box.png")
-        Label(signup_frame, image=scpasswordi, bg="#565050").place(x=462, y=356)
+        Label(signup_frame, image=scpasswordi, bg="#565050").place(x=462, y=372)
 
         c_p = Entry(signup_frame, text=c_password, show='*', bg="#21BF99", font=('Arial', 15), bd=0, )
-        c_p.place(x=523, y=369)
+        c_p.place(x=523, y=383)
         c_p.bind("<Button-1>", c_pclear)
 
         img_eyes = PhotoImage(file='Images/eyec.png')
         eyes = Button(signup_frame, image=img_eyes, bg='#21BF99', relief=FLAT, activebackground='#21BF99', bd=0,
                       command=seye_o)
-        eyes.place(x=769, y=360)
+        eyes.place(x=769, y=375)
 
     img_eyes = PhotoImage(file='Images/eyeo.png')
     eyes = Button(signup_frame, image=img_eyes, bg='#21BF99', relief=FLAT, activebackground='#21BF99', bd=0,
                   command=seye_c)
-    eyes.place(x=769, y=360)
+    eyes.place(x=769, y=375)
 
 
 img_eyes = PhotoImage(file='Images/eyec.png')
 eyes = Button(signup_frame, image=img_eyes, bg='#21BF99', relief=FLAT, activebackground='#21BF99', bd=0, command=seye_o)
-eyes.place(x=769, y=360)
+eyes.place(x=769, y=375)
 
 
 def passwcheck():
