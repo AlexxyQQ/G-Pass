@@ -28,9 +28,19 @@ logo_g.place(x=511, y=75)
 
 
 def signup_page():
+    global supbg, supf, supl, fn, emn, suppas, supcpas, supb
     login_frame.destroy()
-    signup_frame = LabelFrame(logsin, width=1366, height=768, bg='#2B958E', bd=0)
+    signup_frame = LabelFrame(logsin, width=1280, height=720, bg='#2B958E', bd=0)
     signup_frame.grid(row=0, column=0)
+
+    supbg = PhotoImage(file='Images/Background.png')
+    Label(signup_frame, image=supbg, bg='#2B958E').place(x=-3, y=-3)
+
+    supf = PhotoImage(file='Images/Signup Frame.png')
+    Label(signup_frame, image=supf, bg='#CE9100').place(x=412, y=34)
+
+    supl = PhotoImage(file='Images/Signup Logo.png')
+    Label(signup_frame, image=supl, bg='#D9D0BF').place(x=561, y=62)
 
     # variables to store user input
     fname = StringVar()
@@ -98,15 +108,25 @@ def signup_page():
                 s.quit()
                 check_email = Label(signup_frame, text='Wrong email, Please check your email address').pack()
 
-    Entry(signup_frame, text=fname).pack()
+    fn = PhotoImage(file='Images/Fullname Box.png')
+    Label(signup_frame, image=fn, bg='#565050').place(x=462, y=158)
+    Entry(signup_frame, text=fname).place(x=523, y=168)
 
-    Entry(signup_frame, text=email).pack()
+    emn = PhotoImage(file='Images/Signup Email Box.png')
+    Label(signup_frame, image=emn, bg='#565050').place(x=462, y=230)
+    Entry(signup_frame, text=email).place(x=523, y=241)
 
-    Entry(signup_frame, text=s_password, show='*').pack()
+    suppas = PhotoImage(file='Images/Signup Password Box.png')
+    Label(signup_frame, image=suppas, bg='#565050').place(x=462, y=301)
+    Entry(signup_frame, text=s_password, show='*').place(x=523, y=312)
 
-    Entry(signup_frame, text=s_cpassword, show='*').pack()
+    supcpas = PhotoImage(file='Images/Signup CPassword Box.png')
+    Label(signup_frame, image=supcpas, bg='#565050').place(x=462, y=372)
+    Entry(signup_frame, text=s_cpassword, show='*').place(x=523, y=383)
 
-    Button(signup_frame, text='Signup', command=sign_click).pack()
+    supb = PhotoImage(file='Images/Singup Button.png')
+    Button(signup_frame, image=supb, bd=0, command=sign_click, bg='#565050', activebackground='#565050').place(x=579,
+                                                                                                               y=465)
 
 
 # String Variables to store user inputs
@@ -225,7 +245,7 @@ eye.place(x=774, y=460)
 
 
 def login_c():
-    # if len(password.get()) != password  storedd in database:
+    # if len(password.get()) != password stored in database:
     """
     too_long = Label(login_frame, text='Bruh can you even remember this? Type something short. ',
                      font=('Arial', 15), bg='#2FB2AB')
