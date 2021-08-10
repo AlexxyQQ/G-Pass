@@ -74,17 +74,18 @@ c_p = Entry(signup_frame, text=c_password, show='*', bg="#21BF99", font=('Arial'
 c_p.place(x=531, y=377)
 c_p.bind("<Button-1>", c_pclear)
 
+def signuppressed():
 
-otp_frame=LabelFrame(signup_frame,font=('Arial', 15),width=261, height=138, bg='#565050', bd=2).place(x=509,y=530)
-otp_frame_l=PhotoImage(file="Images/Otp Frame.png")
+    otp_frame=LabelFrame(signup_frame,font=('Arial', 15),width=261, height=138, bg='#565050', bd=2).place(x=509,y=530)
+    otp_frame_l=PhotoImage(file="Images/Otp Frame.png")
 
-otp_l=Label(otp_frame,text="Enter OTP here",font=('Arial', 15),fg="#C09D47",bg="#565050").place(x=576,y=540)
+    otp_l=Label(otp_frame,text="Enter OTP here",font=('Arial', 15),fg="#C09D47",bg="#565050").place(x=576,y=540)
 
-otp_entry_l= PhotoImage(file="Images/Otp Box.png")
-Label(otp_frame,image=otp_entry_l,bg="#565050",).place(x=535,y=565)
+    otp_entry_l= PhotoImage(file="Images/Otp Box.png")
+    Label(otp_frame,image=otp_entry_l,bg="#565050",).place(x=535,y=565)
 
-otp_confirm=PhotoImage(file="Images/Confirm Button.png")
-Label(otp_frame,image=otp_confirm,bg="#565050").place(x=590,y=617)
+    otp_confirm=PhotoImage(file="Images/Confirm Button.png")
+    Label(otp_frame,image=otp_confirm,bg="#565050").place(x=590,y=617)
 
 
 
@@ -146,13 +147,13 @@ sUpeye2.place(x=769, y=365)
 def passwcheck():
 
     if c_password.get() != s_password.get():
-        Label(signup_frame, text='Password don\'t match').place(x=531, y=430)
+        Label(signup_frame, text="Password don't match",bg="#565050",font=('Arial', 10)).place(x=560, y=430)
 
     if any(char.isdigit() for char in c_password.get())!=True:
-        Label(signup_frame, text='Input some digit').place(x=531, y=430)
+        Label(signup_frame, text='Input some digit',bg="#565050",font=('Arial', 10)).place(x=560, y=430)
 
     if len(c_password.get())<4:
-        Label(signup_frame, text='Password weak').place(x=531, y=430)
+        Label(signup_frame, text='Password weak',bg="#565050").place(x=560, y=430)
 
 
 
