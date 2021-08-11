@@ -26,7 +26,7 @@ g_logo = PhotoImage(file='Images/G-Pass Logo.png')
 logo_g = Label(login_frame, image=g_logo, bg='#D9D0BF')
 logo_g.place(x=511, y=75)
 
-
+'''
 def signup_page():
     global supbg, supf, supl, fn, emn, suppas, supcpas, supb
     login_frame.destroy()
@@ -128,6 +128,7 @@ def signup_page():
     Button(signup_frame, image=supb, bd=0, command=sign_click, bg='#565050', activebackground='#565050').place(x=579,
                                                                                                                y=465)
 
+'''
 
 # String Variables to store user inputs
 username = StringVar()
@@ -290,7 +291,6 @@ b_signup = Button(login_frame,
                   bd=0,
                   activeforeground='grey',
                   activebackground='#565050',
-                  command=signup_page,
                   relief=FLAT,
                   )
 b_signup.place(x=713, y=639, )
