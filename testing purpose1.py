@@ -2,7 +2,47 @@ from tkinter import *
 import smtplib
 import random
 import requests
+import sqlite3
+from tkinter import messagebox
+from tkinter import filedialog
 
+  #Database here
+db=sqlite3.connect('signup_info.db')
+d=db.cursor()
+
+'''
+# Create table
+d.execute(""" CREATE TABLE addresses(
+      first_name text,
+      last_name text,
+      address text,
+      city text,
+      state text,
+      zipcode integer
+) """)
+'''
+
+def submit():
+                                  # connecting to database
+    db= sqlite3.connect('signup_info.db')
+
+    #creating cursor
+    d= db.cursor()
+
+    # Inserting valvues in to table
+    d.execute("INSERT INTO addresses VALUES (:f_name,:email,:password,:cpassword)", {
+        'f_name': fullname.get(),
+        'email': email.get(),
+        'password': s_password.get(),
+        'cpassword': c_password.get(),
+    })
+    db.commit()
+    db.close()
+
+
+
+
+#SIGNUPFRAME HERE
 logsin = Tk()
 
 # global bg_img, bg_image, f2, gg_logo, flname, sUpemail, sUppassword, sUppassword2, pwstrength, signup_button
@@ -21,7 +61,7 @@ Label(signup_frame, image=gg_logo, bg='#D9D0BF').place(x=561, y=62)
 
 # variables to store user input
 fullname = StringVar()
-fullname.set('Full Name ')
+fullname.set('Full Name')
 email = StringVar()
 email.set('XYZ@gmail.com')
 s_password = StringVar()
@@ -37,7 +77,7 @@ def fnclear(event):
 
 def emclear(event):
     if email.get() == "XYZ@gmail.com":
-        email.set("")
+        email.set("@gmail.com")
 
 
 def s_pclear(event):
@@ -58,73 +98,72 @@ fn.place(x=523, y=177, )
 fn.bind("<Button-1>", fnclear)
 
 semail = PhotoImage(file="Images/Signup Email Box.png")
-Label(signup_frame, image=semail, bg="#565050").place(x=462, y=226)
+Label(signup_frame, image=semail, bg="#565050").place(x=462, y=230)
 
 em = Entry(signup_frame, text=email, bg="#21BF99", font=('Arial', 15), bd=0, )
 em.place(x=523, y=243)
 em.bind("<Button-1>", emclear)
 
 spasswordi = PhotoImage(file="Images/Signup Password Box.png")
-Label(signup_frame, image=spasswordi, bg="#565050").place(x=462, y=289)
+Label(signup_frame, image=spasswordi, bg="#565050").place(x=462, y=301)
 
 s_p = Entry(signup_frame, text=s_password, show='*', bg="#21BF99", font=('Arial', 15), bd=0, )
-s_p.place(x=523, y=300)
+s_p.place(x=523, y=312)
 s_p.bind("<Button-1>", s_pclear)
 
 scpasswordi = PhotoImage(file="Images/Signup CPassword Box.png")
-Label(signup_frame, image=scpasswordi, bg="#565050").place(x=462, y=356)
+Label(signup_frame, image=scpasswordi, bg="#565050").place(x=462, y=372)
 
 c_p = Entry(signup_frame, text=c_password, show='*', bg="#21BF99", font=('Arial', 15), bd=0, )
-c_p.place(x=523, y=369)
+c_p.place(x=523, y=383)
 c_p.bind("<Button-1>", c_pclear)
 
 
 def seye_o():
     global spasswordi, s_p, scpasswordi, c_p, img_eyes, eyes
     spasswordi = PhotoImage(file="Images/Signup Password Box.png")
-    Label(signup_frame, image=spasswordi, bg="#565050").place(x=462, y=289)
+    Label(signup_frame, image=spasswordi, bg="#565050").place(x=462, y=301)
 
     s_p = Entry(signup_frame, text=s_password, bg="#21BF99", font=('Arial', 15), bd=0, )
-    s_p.place(x=523, y=300)
+    s_p.place(x=523, y=312)
     s_p.bind("<Button-1>", s_pclear)
 
     scpasswordi = PhotoImage(file="Images/Signup CPassword Box.png")
-    Label(signup_frame, image=scpasswordi, bg="#565050").place(x=462, y=356)
-
+    Label(signup_frame, image=scpasswordi, bg="#565050").place(x=462, y=372)
     c_p = Entry(signup_frame, text=c_password, bg="#21BF99", font=('Arial', 15), bd=0, )
-    c_p.place(x=523, y=369)
+    c_p.place(x=523, y=383)
     c_p.bind("<Button-1>", c_pclear)
 
     def seye_c():
         global spasswordi, s_p, scpasswordi, c_p, img_eyes, eyes
         spasswordi = PhotoImage(file="Images/Signup Password Box.png")
-        Label(signup_frame, image=spasswordi, bg="#565050").place(x=462, y=289)
+        Label(signup_frame, image=spasswordi, bg="#565050").place(x=462, y=301)
 
         s_p = Entry(signup_frame, text=s_password, show='*', bg="#21BF99", font=('Arial', 15), bd=0, )
-        s_p.place(x=523, y=300)
+        s_p.place(x=523, y=312)
         s_p.bind("<Button-1>", s_pclear)
 
         scpasswordi = PhotoImage(file="Images/Signup CPassword Box.png")
-        Label(signup_frame, image=scpasswordi, bg="#565050").place(x=462, y=356)
+        Label(signup_frame, image=scpasswordi, bg="#565050").place(x=462, y=372)
 
         c_p = Entry(signup_frame, text=c_password, show='*', bg="#21BF99", font=('Arial', 15), bd=0, )
-        c_p.place(x=523, y=369)
+        c_p.place(x=523, y=383)
         c_p.bind("<Button-1>", c_pclear)
 
         img_eyes = PhotoImage(file='Images/eyec.png')
         eyes = Button(signup_frame, image=img_eyes, bg='#21BF99', relief=FLAT, activebackground='#21BF99', bd=0,
                       command=seye_o)
-        eyes.place(x=769, y=360)
+        eyes.place(x=769, y=375)
 
     img_eyes = PhotoImage(file='Images/eyeo.png')
     eyes = Button(signup_frame, image=img_eyes, bg='#21BF99', relief=FLAT, activebackground='#21BF99', bd=0,
                   command=seye_c)
-    eyes.place(x=769, y=360)
+    eyes.place(x=769, y=375)
 
 
 img_eyes = PhotoImage(file='Images/eyec.png')
 eyes = Button(signup_frame, image=img_eyes, bg='#21BF99', relief=FLAT, activebackground='#21BF99', bd=0, command=seye_o)
-eyes.place(x=769, y=360)
+eyes.place(x=769, y=375)
 
 
 def passwcheck():
@@ -157,13 +196,22 @@ def passwcheck():
             otp_entry_l = PhotoImage(file="Images/Otp Box.png")
             Label(otp_frame, image=otp_entry_l, bg="#565050", ).place(x=535, y=565)
 
+            otp_entry=Entry(otp_frame, text="Enter code", font=('Arial', 15),
+                  bd=0,
+                  bg='#5EB29F',width=10,relief=FLAT)
+            otp_entry.place(x=560, y=572)
+
             otp_confirm = PhotoImage(file="Images/Confirm Button.png")
             Label(otp_frame, image=otp_confirm, bg="#565050").place(x=590, y=617)
+
+
 
 
 signup_button = PhotoImage(file='Images/Singup Button.png')
 Button(signup_frame, image=signup_button, bg="#565050", relief=FLAT, bd=0, activebackground="#565050",
        command=passwcheck).place(x=579, y=465)
 
+
+db.commit()
+db.close()
 mainloop()
-#asdf
