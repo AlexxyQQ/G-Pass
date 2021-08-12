@@ -1,300 +1,392 @@
 from tkinter import *
 
+# creating a settings window
 settings = Tk()
-settings.geometry("1280x720")
+settings.geometry('1280x720')
 settings.resizable(False, False)
-confirm = PhotoImage(file="Images/Confirm Button.png")
+
+confirm = PhotoImage(file='Images/Settings Confirm Button.png')
 sub_fr = PhotoImage(file='Images/Settings Small Frame.png')
+
 
 def addfol():
     ''' Function to add new folders'''
 
-    global sub_fr, addfol_img, addbtn_img
+    global addfol_img, addbtn_img
 
-    addfol_frame = LabelFrame(settings_frame, width="744", height="552", bg="#C4C4C4")
+    # creating frame
+    addfol_frame = LabelFrame(settings_frame, width='744', height='552'
+                              , bg='#C4C4C4')
     addfol_frame.place(x=490, y=129)
 
-    sub_fr=PhotoImage(file='Images/Settings Small Frame.png')
-    bg = Label(
-        addfol_frame,
-        image=sub_fr,
-        bg='#565050'
-    )
+    # adding widgets
+    bg = Label(addfol_frame, image=sub_fr, bg='#565050')
     bg.place(x=-8, y=-3)
 
     addfol_img = PhotoImage(file='Images/Add folder Label.png')
-    addfold = Label(
-        addfol_frame,
-        image=addfol_img,bg='#C4C4C4')
+    addfold = Label(addfol_frame, image=addfol_img, bg='#C4C4C4')
     addfold.place(x=62, y=30)
 
-    addbtn_img=PhotoImage(file='Images/Plus button.png')
-    addbtn=Button(addfol_frame, bg='#A3A0A0',image=addbtn_img, cursor='hand2', bd=0, activebackground='#A3A0A0')
+    addbtn_img = PhotoImage(file='Images/Plus button.png')
+    addbtn = Button(
+        addfol_frame,
+        bg='#A3A0A0',
+        image=addbtn_img,
+        cursor='hand2',
+        bd=0,
+        activebackground='#A3A0A0',
+    )
     addbtn.place(x=579, y=55)
-
-
-def logout():
-    """function to logout of the password manager"""
-
-    global sure, confirm, sub_fr
-
-    logout_frame = LabelFrame(settings_frame, width="744", height=552, bg="#C4C4C4")
-    logout_frame.place(x=490, y=129)
-
-    sub_fr=PhotoImage(file='Images/Settings Small Frame.png')
-    bg = Label(
-        logout_frame,
-        image=sub_fr,
-        bg='#565050'
-    )
-    bg.place(x=-8, y=-3)
-
-    sure = PhotoImage(file="Images/Logout Sure.png")
-    lo_text = Label(
-        logout_frame,
-        image=sure,
-        bg='#C4C4C4'
-    )
-    lo_text.place(x=161, y=99)
-
-    # placing confirm button
-    lo_confirm = Button(logout_frame, image=confirm, cursor="hand2", bd=0, bg='#C4C4C4', activebackground='#C4C4C4')
-    lo_confirm.place(x=298, y=370)
 
 
 def changepassword():
     '''
     function to change the master key/ main password
     '''
+
     global passbox, bbg, confirmp, img_eyes, sub_fr
 
-    def seye_c():
-        global img_eyes
-        # entering new password
-        newpass_bg = Label(
-            changepass_frame,
-            image=passbox,
-            bg="#c4c4c4",
-        )
-        newpass_bg.place(x=104, y=194)
-        np_entry = Entry(changepass_frame, text=new_password, show='*', font=("Arial", 20), bd=0, bg="#05fbc1",
-                         width=18)
-        np_entry.place(x=188, y=216)
+    def eye_close():
+        '''
+         A function that hides the entered password
+        '''
 
-        # confirm new password
-        newpassc_bg = Label(
+        global img_eyes, sub_frame
+
+        # entering new password
+        newpass_bg = Label(changepass_frame, image=passbox, bg='#c4c4c4'
+                           )
+        newpass_bg.place(x=130, y=165)
+        np_entry = Entry(
             changepass_frame,
-            image=passbox,
-            bg="#c4c4c4",
+            text=new_password,
+            show='*',
+            font=('Arial', 20),
+            bd=0,
+            bg='#48E8C2',
+            width=18,
         )
-        newpassc_bg.place(x=104, y=325)
+        np_entry.place(x=220, y=180)
+
+        # confirming new password
+        newpassc_bg = Label(changepass_frame, image=passbox,
+                            bg='#c4c4c4')
+        newpassc_bg.place(x=130, y=239)
         npc_entry = Entry(
-            changepass_frame, text=new_password, font=("Arial", 20), show='*', bd=0, bg="#05fbc1", width=18,
+            changepass_frame,
+            text=new_passwordc,
+            show='*',
+            font=('Arial', 20),
+            bd=0,
+            bg='#48E8C2',
+            width=20,
             relief=FLAT,
         )
-        npc_entry.place(x=188, y=346)
+        npc_entry.place(x=220, y=254)
 
         img_eyes = PhotoImage(file='Images/eyec.png')
-        eyes = Button(changepass_frame, image=img_eyes, bg='#21BF99', relief=FLAT, activebackground='#21BF99', bd=0,
-                      command=eye_open)
-        eyes.place(x=569, y=343)
+        eyes = Button(
+            changepass_frame,
+            image=img_eyes,
+            bg='#48E8C2',
+            relief=FLAT,
+            activebackground='#48E8C2',
+            bd=0,
+            command=eye_open,
+        )
+        eyes.place(x=553, y=254)
 
     def eye_open():
+        """
+        function to make the password visible
+        """
         global img_eyes, sub_frame
-        # entering new password
-        newpass_bg = Label(
-            changepass_frame,
-            image=passbox,
-            bg="#c4c4c4",
-        )
-        newpass_bg.place(x=104, y=194)
-        np_entry = Entry(changepass_frame, text=new_password, font=("Arial", 20), bd=0, bg="#05fbc1",
-                         width=18)
-        np_entry.place(x=188, y=216)
 
-        # confirm new password
-        newpassc_bg = Label(
+        # entering new password
+        newpass_bg = Label(changepass_frame, image=passbox, bg='#c4c4c4'
+                           )
+        newpass_bg.place(x=130, y=165)
+        np_entry = Entry(
             changepass_frame,
-            image=passbox,
-            bg="#c4c4c4",
+            text=new_password,
+            font=('Arial', 20),
+            bd=0,
+            bg='#48E8C2',
+            width=18,
         )
-        newpassc_bg.place(x=104, y=325)
+        np_entry.place(x=220, y=180)
+
+        # confirming new password
+        newpassc_bg = Label(changepass_frame, image=passbox,
+                            bg='#c4c4c4')
+        newpassc_bg.place(x=130, y=239)
         npc_entry = Entry(
-            changepass_frame, text=new_password, font=("Arial", 20), bd=0, bg="#05fbc1", width=18,
+            changepass_frame,
+            text=new_passwordc,
+            font=('Arial', 20),
+            bd=0,
+            bg='#48E8C2',
+            width=20,
             relief=FLAT,
         )
-        npc_entry.place(x=188, y=346)
+        npc_entry.place(x=220, y=254)
 
         img_eyes = PhotoImage(file='Images/eyeo.png')
-        eyes = Button(changepass_frame, bg='#05fbc1', image=img_eyes, relief=FLAT, activebackground='#21BF99', bd=0,
-                      command=seye_c)
-        eyes.place(x=569, y=343)
+        eyes = Button(
+            changepass_frame,
+            image=img_eyes,
+            bg='#48E8C2',
+            relief=FLAT,
+            activebackground='#48E8C2',
+            bd=0,
+            command=eye_close,
+        )
+        eyes.place(x=553, y=254)
 
-    changepass_frame = LabelFrame(settings_frame, width="744", height="552", bg="#c4c4c4", )
+    # creating a frame
+    changepass_frame = LabelFrame(settings_frame, width='744',
+                                  height='552', bg='#c4c4c4')
     changepass_frame.place(x=490, y=129)
 
-    sub_fr=PhotoImage(file='Images/Settings Small Frame.png')
-    bg = Label(
-        changepass_frame,
-        image=sub_fr,
-        bg='#565050'
-    )
+    sub_fr = PhotoImage(file='Images/Settings Small Frame.png')
+    bg = Label(changepass_frame, image=sub_fr, bg='#565050')
     bg.place(x=-8, y=-3)
-
 
     # String Variables to store new password
     old_password = StringVar()
-    old_password.set("Old Password")
+    old_password.set('Old Password')
     new_password = StringVar()
-    new_password.set("New Password")
+    new_password.set('New Password')
     new_passwordc = StringVar()
-    new_passwordc.set("Confirm New Password")
+    new_passwordc.set('Confirm New Password')
 
-    passbox = PhotoImage(file="Images/Settings Password Box.png")
+    passbox = PhotoImage(file='Images/Settings Password Box.png')
 
     # entering old password
-    oldpass_bg = Label(
-        changepass_frame,
-        image=passbox,
-        bg="#c4c4c4",
 
-    )
-    oldpass_bg.place(
-        x=130,
-        y=92,
-    )
+    oldpass_bg = Label(changepass_frame, image=passbox, bg='#c4c4c4')
+
+    oldpass_bg.place(x=130, y=92)
     op_entry = Entry(
         changepass_frame,
         text=old_password,
-        font=("Arial", 20),
-        bg="#1CF4C1",
+        font=('Arial', 20),
+        bg='#48E8C2',
         bd=0,
         width=18,
-
     )
-    op_entry.place(x=188, y=96)
+
+    op_entry.place(x=220, y=110)
 
     # entering new password
-    newpass_bg = Label(
-        changepass_frame,
-        image=passbox,
-        bg="#c4c4c4",
-    )
-    newpass_bg.place(x=104, y=194)
-    np_entry = Entry(changepass_frame, text=new_password, show='*', font=("Arial", 20), bd=0, bg="#05fbc1", width=18)
-    np_entry.place(x=188, y=216)
 
-    if len(np_entry.get()) < 7:
-        warning1 = Label(changepass_frame, text='Password too short', bg="#c4c4c4", bd=0, font=('Arial', 15))
-        warning1.place(x=114, y=161)
-
-    # confirm new password
-    newpassc_bg = Label(
+    newpass_bg = Label(changepass_frame, image=passbox, bg='#c4c4c4')
+    newpass_bg.place(x=130, y=165)
+    np_entry = Entry(
         changepass_frame,
-        image=passbox,
-        bg="#c4c4c4",
+        text=new_password,
+        show='*',
+        font=('Arial', 20),
+        bd=0,
+        bg='#48E8C2',
+        width=18,
     )
-    newpassc_bg.place(x=104, y=325)
+    np_entry.place(x=220, y=180)
+
+    # confirming new password
+
+    newpassc_bg = Label(changepass_frame, image=passbox, bg='#c4c4c4')
+    newpassc_bg.place(x=130, y=239)
     npc_entry = Entry(
-        changepass_frame, text=new_password, show='*', font=("Arial", 20), bd=0, bg="#05fbc1", width=18, relief=FLAT,
+        changepass_frame,
+        text=new_passwordc,
+        show='*',
+        font=('Arial', 20),
+        bd=0,
+        bg='#48E8C2',
+        width=20,
+        relief=FLAT,
     )
-    npc_entry.place(x=188, y=346)
+    npc_entry.place(x=220, y=254)
 
     img_eyes = PhotoImage(file='Images/eyec.png')
-    eyes = Button(changepass_frame, image=img_eyes, bg='#05fbc1', relief=FLAT, activebackground='#21BF99', bd=0,
-                  command=eye_open)
-    eyes.place(x=569, y=343)
+    eyes = Button(
+        changepass_frame,
+        image=img_eyes,
+        bg='#48E8C2',
+        relief=FLAT,
+        activebackground='#48E8C2',
+        bd=0,
+        command=eye_open,
+    )
+    eyes.place(x=553, y=254)
+
+    def password_warn():
+        """
+        function to check the strength of passwords
+        """
+
+        if np_entry.get != npc_entry.get:
+            warn_text = 'Passwords do not match'
+        elif not any(char.isdigit() for char in np_entry.get()):
+            warn_text = 'Input Digit'
+        elif not any(char.isalpha() for char in np_entry.get()):
+            warn_text = 'Input Characters'
+        elif len(np_entry.get()) <= 6:
+            warn_text = 'Password Too Weak'
+        else:
+            warn_text = 'Done'
+
+        warn = Label(changepass_frame, text=warn_text, font=('Arial',
+                                                             20), bg='#c4c4c4')
+        warn.place(x=201, y=314)
 
     # confirm button
-    confirmp = PhotoImage(file='Images/Confirm button.png')
-    confm = Button(changepass_frame, image=confirmp, bg='#C4C4C4', cursor='hand2', bd=0, activebackground="#c4c4c4", )
-    confm.place(x=282, y=467)
+
+    confm = Button(
+        changepass_frame,
+        image=confirm,
+        bg='#C4C4C4',
+        cursor='hand2',
+        bd=0,
+        activebackground='#c4c4c4',
+        command=password_warn,
+    )
+    confm.place(x=282, y=380)
 
 
 def export():
+    """
+    function to export all data to a file
+    """
+
     global sub_fr, expor
 
-    exp_frame = LabelFrame(settings_frame, width="744", height="552", bg="#C4C4C4")
+    # frame
+    exp_frame = LabelFrame(settings_frame, width='744', height='552',
+                           bg='#C4C4C4')
     exp_frame.place(x=490, y=129)
 
-    sub_fr=PhotoImage(file='Images/Settings Small Frame.png')
-    bg = Label(
-        exp_frame,
-        image=sub_fr,
-        bg='#565050'
-    )
+    # placing widgets
+
+    sub_fr = PhotoImage(file='Images/Settings Small Frame.png')
+    bg = Label(exp_frame, image=sub_fr, bg='#565050')
     bg.place(x=-8, y=-3)
 
     expor = PhotoImage(file='Images/Export.png')
     export_text = Label(exp_frame, image=expor, bd=0, bg='#C4C4C4')
     export_text.place(x=161, y=99)
 
-    lo_confirm = Button(exp_frame, image=confirm, cursor="hand2", bd=0, bg='#C4C4C4', activebackground='#C4C4C4')
-    lo_confirm.place(x=298, y=370)
+    lo_confirm = Button(
+        exp_frame,
+        image=confirm,
+        cursor='hand2',
+        bd=0,
+        bg='#C4C4C4',
+        activebackground='#C4C4C4',
+    )
+    lo_confirm.place(x=282, y=380)
 
 
-global sett, bg_image, back, elog, cplog, aflog, lolog
-settings_frame = LabelFrame(settings, width="1280", height="720")
+def logout():
+    """
+    function to logout of the password manager
+    """
+
+    global sure, confirm, sub_fr
+
+    #frame
+    logout_frame = LabelFrame(settings_frame, width='744', height=552,
+                              bg='#C4C4C4')
+    logout_frame.place(x=490, y=129)
+
+    #widgets
+
+    sub_fr = PhotoImage(file='Images/Settings Small Frame.png')
+    bg = Label(logout_frame, image=sub_fr, bg='#565050')
+    bg.place(x=-8, y=-3)
+
+    sure = PhotoImage(file='Images/Logout Sure.png')
+    lo_text = Label(logout_frame, image=sure, bg='#C4C4C4')
+    lo_text.place(x=161, y=99)
+
+    lo_confirm = Button(
+        logout_frame,
+        image=confirm,
+        cursor='hand2',
+        bd=0,
+        bg='#C4C4C4',
+        activebackground='#C4C4C4',
+    )
+    lo_confirm.place(x=282, y=380)
+
+
+global sett, bg_image, back, ebtn, cpbtn, afbtn, lobtn
+
+# creating the settings frame
+
+settings_frame = LabelFrame(settings, width='1280', height='720')
 settings_frame.place(x=0, y=0)
 
-bg_image = PhotoImage(file="Images/Background.png")
+bg_image = PhotoImage(file='Images/Background.png')
 bg_img = Label(settings_frame, image=bg_image)
 bg_img.place(x=0, y=0)
 
-back = PhotoImage(file="Images/Setting Frame.png")
-back_img = Label(settings_frame, image=back, bg="#855700")
+back = PhotoImage(file='Images/Setting Frame.png')
+back_img = Label(settings_frame, image=back, bg='#CE9100')
 back_img.place(x=26, y=20)
 
-sett = PhotoImage(file="Images/Settings.png")
-Label(settings_frame, image=sett, bg="#5d5a5a").place(x=748, y=47)
-# defining and placing the buttons
+sett = PhotoImage(file='Images/Settings.png')
+Label(settings_frame, image=sett, bg='#5d5a5a').place(x=748, y=47)
 
-elog = PhotoImage(file="Images/Settings Export.png")
-e_logo = Button(
+# defining and placing the major buttons
+
+ebtn = PhotoImage(file='Images/Settings Export.png')
+exp_btn = Button(
     settings_frame,
-    image=elog,
-    bg="#c4c4c4",
-    bd="0",
-    activebackground="#c4c4c4",
-    cursor="hand2",
+    image=ebtn,
+    bg='#c4c4c4',
+    bd='0',
+    activebackground='#c4c4c4',
+    cursor='hand2',
     command=export,
 )
-e_logo.place(x=71, y=392)
+exp_btn.place(x=71, y=392)
 
-cplog = PhotoImage(file="Images/Settings Change Password.png")
-cp_logo = Button(
+cpbtn = PhotoImage(file='Images/Settings Change Password.png')
+cp_btn = Button(
     settings_frame,
-    image=cplog,
-    bg="#c4c4c4",
-    bd="0",
-    activebackground="#c4c4c4",
-    cursor="hand2",
-    command=changepassword
+    image=cpbtn,
+    bg='#c4c4c4',
+    bd='0',
+    activebackground='#c4c4c4',
+    cursor='hand2',
+    command=changepassword,
 )
-cp_logo.place(x=71, y=256)
+cp_btn.place(x=71, y=256)
 
-aflog = PhotoImage(file="Images/Settings Folder.png")
-fol_logo = Button(
+afbtn = PhotoImage(file='Images/Settings Folder.png')
+fol_btn = Button(
     settings_frame,
-    image=aflog,
-    bg="#c4c4c4",
-    bd="0",
-    activebackground="#c4c4c4",
-    cursor="hand2",
-    command=addfol
+    image=afbtn,
+    bg='#c4c4c4',
+    bd='0',
+    activebackground='#c4c4c4',
+    cursor='hand2',
+    command=addfol,
 )
-fol_logo.place(x=71, y=120)
+fol_btn.place(x=71, y=120)
 
-lolog = PhotoImage(file="Images/Settings Logout.png")
-lo_logo = Button(
+lobtn = PhotoImage(file='Images/Settings Logout.png')
+lo_btn = Button(
     settings_frame,
-    image=lolog,
-    bg="#c4c4c4",
-    bd="0",
-    activebackground="#c4c4c4",
+    image=lobtn,
+    bg='#c4c4c4',
+    bd='0',
+    activebackground='#c4c4c4',
     command=logout,
-    cursor="hand2",
+    cursor='hand2',
 )
-lo_logo.place(x=71, y=529)
+lo_btn.place(x=71, y=529)
 
 settings.mainloop()
