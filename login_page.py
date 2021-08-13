@@ -4,42 +4,52 @@ import smtplib
 import random
 import requests
 
-
-# main window for login page
+# main window for login and signup page
 logsin = Tk()
-logsin.geometry("1280x720")
-logsin.title("G-Pass-LoginSignup")
-logsin.iconbitmap("Images/G-pass_ico.ico")
+logsin.geometry("1280x720")  # resolution of the window
+logsin.title("G-Pass-LoginSignup")  # title of the window
+logsin.iconbitmap("Images/G-pass_ico.ico")  # icon of the window
 logsin.resizable(False, False)  # stop the window from resizing
 
+# Frame for login page
 login_frame = LabelFrame(logsin, width=1280, height=720, bd=0)
 login_frame.grid(row=0, column=0)
 
+# Background image of the login page
 bg_image = PhotoImage(file="Images/Background.png")
 bg_img = Label(login_frame, image=bg_image, bg="#2B958E")
 bg_img.place(x=-3, y=-3)
 
+# Background frame of login section
 f = PhotoImage(file="Images/Login Frame.png")
 img_frame = Label(login_frame, image=f, bg="#CE9100")
 img_frame.place(x=412, y=35)
 
+# logo of the app
 g_logo = PhotoImage(file="Images/G-Pass Logo.png")
 logo_g = Label(login_frame, image=g_logo, bg="#D9D0BF")
 logo_g.place(x=511, y=75)
 
 
 def signup_page():
+    """ Signup Page section  """
     global supbg, supf, supl, fn, emn, suppas, supcpas, supb
-    login_frame.destroy()
+
+    login_frame.destroy()  # removes the login frame and replaces with signup frame
+
+    # Frame for signup page
     signup_frame = LabelFrame(logsin, width=1280, height=720, bg="#2B958E", bd=0)
     signup_frame.grid(row=0, column=0)
 
+    # Background image of the signup page
     supbg = PhotoImage(file="Images/Background.png")
     Label(signup_frame, image=supbg, bg="#2B958E").place(x=-3, y=-3)
 
+    # Background frame of signup section
     supf = PhotoImage(file="Images/Signup Frame.png")
     Label(signup_frame, image=supf, bg="#CE9100").place(x=412, y=34)
 
+    # Signup Text
     supl = PhotoImage(file="Images/Signup Logo.png")
     Label(signup_frame, image=supl, bg="#D9D0BF").place(x=561, y=62)
 
@@ -53,8 +63,9 @@ def signup_page():
     s_cpassword = StringVar()
     s_cpassword.set("Password")
 
-    # function that send an OTP to the user inputted email
     def sign_click():
+        """ Checks user email, password and sends OTP message to user inputted email if it exits """
+
         if len(s_password.get()) > 14:
             too_long = Label(
                 signup_frame,
@@ -64,39 +75,51 @@ def signup_page():
             )
             too_long.pack()
         else:
+            """ Setup the OTP message sending process """
 
             s = smtplib.SMTP("smtp.gmail.com", 587)  # (host domain , port)
+
             # start TLS for security
             s.starttls()
-            # Authentication
-            s.login("theggserver@gmail.com", "@ppleWas01")
-            a = random.randint(250000, 999999)  # OTP Generator of 6 digit number
-            # Message sent to user
 
+            # Authentication for the email that send OTP (not user email)
+            s.login("theggserver@gmail.com", "@ppleWas01")
+
+            # OTP Generator of 6 digit number
+            a = random.randint(250000, 999999)
+
+            # Message sent to user
             message = f" Your OTP code is {a}."
 
-            # sending the mail
             try:
+                """ Tries to send the email if it exists """
+
+                # Fetch the user inputted email address
                 email_address = email.get()
+
+                # Check the email
                 response = requests.get(
                     "https://isitarealemail.com/api/email/validate",
                     # Checks email is valid or invalid using isitrealemail api
                     params={"email": email_address},
                 )
 
-                status = response.json()[
-                    "status"
-                ]  # returns the status of email, either valid or invalid
+                # returns the status of email, either valid or invalid
+                status = response.json()["status"]
 
+                # if the email is valid then sends the OTP email to the user email
                 if status == "valid":
+                    # sending the message to user email
                     s.sendmail("theggserver@gmail.com", email.get(), message)
                     s.quit()  # stops the protocol
 
+                    # Otp variable to store user inputted OTP code
                     otp = StringVar()
-                    otp.set("123456")
+                    otp.set("123456")  # Sets the default value to 123456
 
-                    # checks if opt user entered is correct
                     def check_otp():
+                        """ checks if opt user entered is correct """
+
                         if otp.get() == str(a):
                             success = Label(signup_frame, text="Successful").pack()
                         else:
@@ -105,6 +128,7 @@ def signup_page():
                     Label(signup_frame, text="Enter the OTP").pack()
                     Entry(signup_frame, text=otp).pack()
                     Button(signup_frame, text="Confirm", command=check_otp).pack()
+
                 elif status == "invalid":
                     s.quit()
                     check_email = Label(
@@ -155,14 +179,14 @@ password = StringVar()
 password.set("Password")
 
 
-# deletes the default value present in the email entry
 def delete_user_ent_text(event):
+    """ deletes the default value present in the email entry """
     if username.get() == "Email":
         username.set("")
 
 
-# deletes the default value present in the password entry
 def delete_pass_ent_text(event):
+    """ deletes the default value present in the password entry """
     if password.get() == "Password":
         password.set("")
 
@@ -170,7 +194,7 @@ def delete_pass_ent_text(event):
 # Button,Label and Placements
 
 l_title = PhotoImage(file="Images/USER LOGIN.png")
-Label(login_frame, image=l_title, bg="#565050",).place(
+Label(login_frame, image=l_title, bg="#565050", ).place(
     x=518,
     y=286,
 )
@@ -224,6 +248,8 @@ pass_ent.bind("<Button-1>", delete_pass_ent_text)
 
 
 def eye_o():
+    """ Shows the password  """
+    # Updating the entries and eye button
     global passbox, pass_ent, eye, img_eye
     passbox = PhotoImage(file="Images/Login Password Box.png")
     passw_bg = Label(
@@ -249,7 +275,10 @@ def eye_o():
     )
 
     def eye_c():
+        """ Hides the password """
         global passbox, pass_ent, eye, img_eye
+
+        # Updating the entries and eye button
         passbox = PhotoImage(file="Images/Login Password Box.png")
         passw_bg = Label(
             login_frame,
@@ -283,6 +312,7 @@ def eye_o():
             activebackground="#21BF99",
             bd=0,
             command=eye_o,
+            # runs the eye_o function to show the password again
         )
         eye.place(x=774, y=460)
         pass_ent.bind("<Button-1>", delete_pass_ent_text)
@@ -296,11 +326,13 @@ def eye_o():
         activebackground="#21BF99",
         bd=0,
         command=eye_c,
+        # runs the eye_c function to hide the password again
     )
     eye.place(x=774, y=460)
     pass_ent.bind("<Button-1>", delete_pass_ent_text)
 
 
+# Eye button that shows the password
 img_eye = PhotoImage(file="Images/eyec.png")
 eye = Button(
     login_frame,
