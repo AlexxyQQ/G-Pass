@@ -63,6 +63,7 @@ def signup_page():
     otp.set("123456")
 
     def fnclear(event):
+        """ Clears the deafult value after """
         if fullname.get() == "Full Name":
             fullname.set("")
 
