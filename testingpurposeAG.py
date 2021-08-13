@@ -1,394 +1,121 @@
 from tkinter import *
+import random
+import string
 
-settings = Tk()
-settings.geometry("1280x720")
-settings.resizable(False, False)
-confirm = PhotoImage(file="Images/Settings Confirm Button.png")
-sub_fr = PhotoImage(file="Images/Settings Small Frame.png")
+root = Tk()
+Length_value = StringVar()
+Length_value.set('0')
 
+root.geometry('1280x720')
+root.resizable(False, False)
 
-def addfol():
-    """ Function to add new folders"""
+bgi = PhotoImage(file="Images/Generator Background.png")
+Label(root, image=bgi).place(x=-3, y=-3)
 
-    global sub_fr, addfol_img, addbtn_img
+bgf = PhotoImage(file="Images/Generat Frame.png")
+Label(root, image=bgf, bg='#855700').place(x=26, y=20)
 
-    addfol_frame = LabelFrame(settings_frame, width="744", height="552", bg="#C4C4C4")
-    addfol_frame.place(x=490, y=129)
+lines = PhotoImage(file="Images/Lines.png")
+Label(root, image=lines, bg='#565050').place(x=514, y=234)
 
-    sub_fr = PhotoImage(file="Images/Settings Small Frame.png")
-    bg = Label(addfol_frame, image=sub_fr, bg="#565050")
-    bg.place(x=-8, y=-3)
+pg = PhotoImage(file="Images/Password Generator.png")
+Label(root, image=pg, bg='#565050').place(x=570, y=35)
 
-    addfol_img = PhotoImage(file="Images/Add folder Label.png")
-    addfold = Label(addfol_frame, image=addfol_img, bg="#C4C4C4")
-    addfold.place(x=62, y=30)
+Label(root, text="Length", fg='#C09D47', bg='#565050', font=('Arial', 20)).place(x=530, y=173)
+Entry(root, text=Length_value, fg='#C09D47', bg='#565050', font=('Arial', 20), width=2, bd=0).place(x=655, y=173)
 
-    addbtn_img = PhotoImage(file="Images/Plus button.png")
-    addbtn = Button(
-        addfol_frame,
-        bg="#A3A0A0",
-        image=addbtn_img,
-        cursor="hand2",
-        bd=0,
-        activebackground="#A3A0A0",
-    )
-    addbtn.place(x=579, y=55)
+Label(root, text="A-Z", fg='#C09D47', bg='#565050', font=('Arial', 20)).place(x=530, y=267)
 
+Label(root, text="a-z", fg='#C09D47', bg='#565050', font=('Arial', 20)).place(x=530, y=367)
 
-def changepassword():
-    """
-    function to change the master key/ main password
-    """
-    global passbox, bbg, confirmp, img_eyes, sub_fr
+Label(root, text="0-9", fg='#C09D47', bg='#565050', font=('Arial', 20)).place(x=530, y=467)
 
-    def eye_close():
-        # entering new password
-        global img_eyes, sub_frame
-        newpass_bg = Label(
-            changepass_frame,
-            image=passbox,
-            bg="#c4c4c4",
-        )
-        newpass_bg.place(
-            x=130,
-            y=165,
-        )
-        np_entry = Entry(
-            changepass_frame,
-            text=new_password,
-            show="*",
-            font=("Arial", 20),
-            bd=0,
-            bg="#48E8C2",
-            width=18,
-        )
-        np_entry.place(x=220, y=180)
+Label(root, text="!@#$%&", fg='#C09D47', bg='#565050', font=('Arial', 20)).place(x=530, y=567)
 
-        # confirm new password
-        newpassc_bg = Label(
-            changepass_frame,
-            image=passbox,
-            bg="#c4c4c4",
-        )
-        newpassc_bg.place(x=130, y=239)
-        npc_entry = Entry(
-            changepass_frame,
-            text=new_passwordc,
-            show="*",
-            font=("Arial", 20),
-            bd=0,
-            bg="#48E8C2",
-            width=20,
-            relief=FLAT,
-        )
-        npc_entry.place(x=220, y=254)
+hor=IntVar()
+horizontal = Scale(root, from_=0, to=44, bg='#565050', bd=0, activebackground='#565050', orient=HORIZONTAL, variable=hor).place(x=854,
+                                                                                                                  y=178)
+var1 = IntVar()
+var2 = IntVar()
+var3 = IntVar()
+var4 = IntVar()
 
-        img_eyes = PhotoImage(file="Images/eyec.png")
-        eyes = Button(
-            changepass_frame,
-            image=img_eyes,
-            bg="#48E8C2",
-            relief=FLAT,
-            activebackground="#48E8C2",
-            bd=0,
-            command=eye_open,
-        )
-        eyes.place(x=553, y=254)
-
-    def eye_open():
-        global img_eyes, sub_frame
-        # entering new password
-        # entering new password
-        newpass_bg = Label(
-            changepass_frame,
-            image=passbox,
-            bg="#c4c4c4",
-        )
-        newpass_bg.place(
-            x=130,
-            y=165,
-        )
-        np_entry = Entry(
-            changepass_frame,
-            text=new_password,
-            font=("Arial", 20),
-            bd=0,
-            bg="#48E8C2",
-            width=18,
-        )
-        np_entry.place(x=220, y=180)
-
-        # confirm new password
-        newpassc_bg = Label(
-            changepass_frame,
-            image=passbox,
-            bg="#c4c4c4",
-        )
-        newpassc_bg.place(x=130, y=239)
-        npc_entry = Entry(
-            changepass_frame,
-            text=new_passwordc,
-            font=("Arial", 20),
-            bd=0,
-            bg="#48E8C2",
-            width=20,
-            relief=FLAT,
-        )
-        npc_entry.place(x=220, y=254)
-
-        img_eyes = PhotoImage(file="Images/eyeo.png")
-        eyes = Button(
-            changepass_frame,
-            image=img_eyes,
-            bg="#48E8C2",
-            relief=FLAT,
-            activebackground="#48E8C2",
-            bd=0,
-            command=eye_close,
-        )
-        eyes.place(x=553, y=254)
-
-    changepass_frame = LabelFrame(
-        settings_frame,
-        width="744",
-        height="552",
-        bg="#c4c4c4",
-    )
-    changepass_frame.place(x=490, y=129)
-
-    sub_fr = PhotoImage(file="Images/Settings Small Frame.png")
-    bg = Label(changepass_frame, image=sub_fr, bg="#565050")
-    bg.place(x=-8, y=-3)
-
-    # String Variables to store new password
-    old_password = StringVar()
-    old_password.set("Old Password")
-    new_password = StringVar()
-    new_password.set("New Password")
-    new_passwordc = StringVar()
-    new_passwordc.set("Confirm New Password")
-
-    passbox = PhotoImage(file="Images/Settings Password Box.png")
-
-    # entering old password
-    oldpass_bg = Label(
-        changepass_frame,
-        image=passbox,
-        bg="#c4c4c4",
-    )
-    oldpass_bg.place(
-        x=130,
-        y=92,
-    )
-    op_entry = Entry(
-        changepass_frame,
-        text=old_password,
-        font=("Arial", 20),
-        bg="#48E8C2",
-        bd=0,
-        width=18,
-    )
-    op_entry.place(x=220, y=110)
-
-    # entering new password
-    newpass_bg = Label(
-        changepass_frame,
-        image=passbox,
-        bg="#c4c4c4",
-    )
-    newpass_bg.place(
-        x=130,
-        y=165,
-    )
-    np_entry = Entry(
-        changepass_frame,
-        text=new_password,
-        show="*",
-        font=("Arial", 20),
-        bd=0,
-        bg="#48E8C2",
-        width=18,
-    )
-    np_entry.place(x=220, y=180)
-
-    # confirm new password
-    newpassc_bg = Label(
-        changepass_frame,
-        image=passbox,
-        bg="#c4c4c4",
-    )
-    newpassc_bg.place(x=130, y=239)
-    npc_entry = Entry(
-        changepass_frame,
-        text=new_passwordc,
-        show="*",
-        font=("Arial", 20),
-        bd=0,
-        bg="#48E8C2",
-        width=20,
-        relief=FLAT,
-    )
-    npc_entry.place(x=220, y=254)
-
-    img_eyes = PhotoImage(file="Images/eyec.png")
-    eyes = Button(
-        changepass_frame,
-        image=img_eyes,
-        bg="#48E8C2",
-        relief=FLAT,
-        activebackground="#48E8C2",
-        bd=0,
-        command=eye_open,
-    )
-    eyes.place(x=553, y=254)
-
-    def password_warn():
-        """
-        function to check the strength of passwords
-        """
-        if np_entry.get != npc_entry.get:
-            warn_text = "Passwords do not match"
-        elif not any(char.isdigit() for char in np_entry.get()):
-            warn_text = "Input Digit"
-        elif not any(char.isalpha() for char in np_entry.get()):
-            warn_text = "Input Characters"
-        elif len(np_entry.get()) <= 6:
-            warn_text = "Password Too Weak"
-        else:
-            warn_text = "Done"
-
-        warn = Label(changepass_frame, text=warn_text, font=("Arial", 20), bg="#c4c4c4")
-        warn.place(x=201, y=314)
-
-    # confirm button
-    confm = Button(
-        changepass_frame,
-        image=confirm,
-        bg="#C4C4C4",
-        cursor="hand2",
-        bd=0,
-        activebackground="#c4c4c4",
-        command=password_warn,
-    )
-    confm.place(x=282, y=380)
+checkButton1 = Checkbutton(root, bg='#565050', activebackground='#565050', variable=var1, onvalue=1, offvalue=0)
+checkButton1.deselect()
+checkButton1.place(x=1113, y=261)
+checkButton2 = Checkbutton(root, bg='#565050', activebackground='#565050', variable=var2, onvalue=1, offvalue=0 )
+checkButton2.deselect()
+checkButton2.place(x=1113, y=361)
+checkButton3 = Checkbutton(root, bg='#565050', activebackground='#565050', variable=var3, onvalue=1, offvalue=0)
+checkButton3.deselect()
+checkButton3.place(x=1113, y=461)
+checkButton4 = Checkbutton(root, bg='#565050', activebackground='#565050', variable=var4, onvalue=1, offvalue=0)
+checkButton4.deselect()
+checkButton4.place(x=1113, y=561)
 
 
-def export():
-    """ function to export all data to a file"""
-    global sub_fr, expor
+def gen_password():
 
-    exp_frame = LabelFrame(settings_frame, width="744", height="552", bg="#C4C4C4")
-    exp_frame.place(x=490, y=129)
+    try:
+        Lab.destroy()
 
-    sub_fr = PhotoImage(file="Images/Settings Small Frame.png")
-    bg = Label(exp_frame, image=sub_fr, bg="#565050")
-    bg.place(x=-8, y=-3)
+        spec = '!@#$%&'
 
-    expor = PhotoImage(file="Images/Export.png")
-    export_text = Label(exp_frame, image=expor, bd=0, bg="#C4C4C4")
-    export_text.place(x=161, y=99)
+        allc=''
 
-    lo_confirm = Button(
-        exp_frame,
-        image=confirm,
-        cursor="hand2",
-        bd=0,
-        bg="#C4C4C4",
-        activebackground="#C4C4C4",
-    )
-    lo_confirm.place(x=282, y=380)
+        if var1.get() == 1:
+            allc = allc + string.ascii_lowercase
+
+        if var2.get()==1:
+            allc= allc+string.ascii_uppercase
+
+        if var3.get()==1:
+            allc= allc+string.digits
+
+        if var3.get() == 1:
+            allc = allc + spec
 
 
-def logout():
-    """function to logout of the password manager"""
+        a=hor.get()
 
-    global sure, confirm, sub_fr
+        pas = ''.join(random.choice(allc) for i in range(a))
+        PAS = str(pas)
+        Lab = Label(root, text=PAS, bg='#C4C4C4', font=('Arial', 25))
+        Lab.place(x=61, y=307)
+    except:
 
-    logout_frame = LabelFrame(settings_frame, width="744", height=552, bg="#C4C4C4")
-    logout_frame.place(x=490, y=129)
+        spec = '!@#$%&'
 
-    sub_fr = PhotoImage(file="Images/Settings Small Frame.png")
-    bg = Label(logout_frame, image=sub_fr, bg="#565050")
-    bg.place(x=-8, y=-3)
+        allc = ''
 
-    sure = PhotoImage(file="Images/Logout Sure.png")
-    lo_text = Label(logout_frame, image=sure, bg="#C4C4C4")
-    lo_text.place(x=161, y=99)
+        if var1.get() == 1:
+            allc = allc + string.ascii_lowercase
 
-    # placing confirm button
-    lo_confirm = Button(
-        logout_frame,
-        image=confirm,
-        cursor="hand2",
-        bd=0,
-        bg="#C4C4C4",
-        activebackground="#C4C4C4",
-    )
-    lo_confirm.place(x=282, y=380)
+        if var2.get() == 1:
+            allc = allc + string.ascii_uppercase
+
+        if var3.get() == 1:
+            allc = allc + string.digits
+
+        if var3.get() == 1:
+            allc = allc + spec
+
+        a = hor.get()
+
+        pas = ''.join(random.choice(allc) for i in range(a))
+        PAS = str(pas)
+        Lab = Label(root, text=PAS, bg='#C4C4C4', font=('Arial', 25))
+        Lab.place(x=61, y=307)
 
 
-global sett, bg_image, back, elog, cplog, aflog, lolog
-settings_frame = LabelFrame(settings, width="1280", height="720")
-settings_frame.place(x=0, y=0)
 
-bg_image = PhotoImage(file="Images/Background.png")
-bg_img = Label(settings_frame, image=bg_image)
-bg_img.place(x=0, y=0)
+'''   
+    allc = string.ascii_lowercase + string.ascii_uppercase + string.digit + spec
 
-back = PhotoImage(file="Images/Setting Frame.png")
-back_img = Label(settings_frame, image=back, bg="#CE9100")
-back_img.place(x=26, y=20)
+'''
 
-sett = PhotoImage(file="Images/Settings.png")
-Label(settings_frame, image=sett, bg="#5d5a5a").place(x=748, y=47)
-# defining and placing the buttons
 
-elog = PhotoImage(file="Images/Settings Export.png")
-e_logo = Button(
-    settings_frame,
-    image=elog,
-    bg="#c4c4c4",
-    bd="0",
-    activebackground="#c4c4c4",
-    cursor="hand2",
-    command=export,
-)
-e_logo.place(x=71, y=392)
+regen = PhotoImage(file="Images/Regenerate Button.png")
+Button(root, image=regen, bg='#C4C4C4', bd=0, activebackground='#C4C4C4', command=gen_password).place(x=51, y=163)
 
-cplog = PhotoImage(file="Images/Settings Change Password.png")
-cp_logo = Button(
-    settings_frame,
-    image=cplog,
-    bg="#c4c4c4",
-    bd="0",
-    activebackground="#c4c4c4",
-    cursor="hand2",
-    command=changepassword,
-)
-cp_logo.place(x=71, y=256)
-
-aflog = PhotoImage(file="Images/Settings Folder.png")
-fol_logo = Button(
-    settings_frame,
-    image=aflog,
-    bg="#c4c4c4",
-    bd="0",
-    activebackground="#c4c4c4",
-    cursor="hand2",
-    command=addfol,
-)
-fol_logo.place(x=71, y=120)
-
-lolog = PhotoImage(file="Images/Settings Logout.png")
-lo_logo = Button(
-    settings_frame,
-    image=lolog,
-    bg="#c4c4c4",
-    bd="0",
-    activebackground="#c4c4c4",
-    command=logout,
-    cursor="hand2",
-)
-lo_logo.place(x=71, y=529)
-
-settings.mainloop()
+root.mainloop()
