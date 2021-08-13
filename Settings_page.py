@@ -229,29 +229,89 @@ def changepassword():
 
         warn_text = StringVar()
 
-        if np_entry.get() == npc_entry.get():
-            try:
-                warn.destroy()
-            except:
-
-                warn_text.set('Passwords match')
-                warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
-                                                                           20), bg='#c4c4c4')
-                warn.place(x=201, y=314)
-
         if np_entry.get() != npc_entry.get():
-            try:
-                warn.destroy()
 
-            except:
-                pass
+            warn_text.set('Passwords do not match')
+            warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
+                                                                       20), bg='#c4c4c4')
+            warn.place(x=201, y=314)
+
+        elif len(npc_entry.get()) < 6:
+
+            try:
+
+                warn.destroy()
 
             finally:
-                warn_text.set('Passwords do not match')
+                warn_text.set('Password too weak')
                 warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
                                                                            20), bg='#c4c4c4')
                 warn.place(x=201, y=314)
 
+        elif not any(char.isdigit() for char in np_entry.get()):
+
+            try:
+                warn.destroy()
+                warn_text.set('Input number')
+                warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
+                                                                           20), bg='#c4c4c4')
+                warn.place(x=201, y=314)
+
+            except:
+                warn_text.set('Input number')
+                warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
+                                                                           20), bg='#c4c4c4')
+                warn.place(x=201, y=314)
+
+        elif not any(char.isalpha() for char in np_entry.get()):
+            try:
+                warn.destroy()
+
+            finally:
+                warn_text.set('Input alphabets')
+                warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
+                                                                           20), bg='#c4c4c4')
+                warn.place(x=201, y=314)
+
+        elif any(char.isspace() for char in np_entry.get()):
+            try:
+                warn.destroy()
+                warn_text.set('Do not enter space')
+                warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
+                                                                       20), bg='#c4c4c4')
+                warn.place(x=201, y=314)
+
+            except:
+                warn_text.set('Do not enter space')
+                warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
+                                                                           20), bg='#c4c4c4')
+                warn.place(x=201, y=314)
+
+
+        elif any(not char.isdigit() and not char.isalpha() and char.isspace() for char in np_entry.get()):
+            try:
+                warn.destroy()
+                warn_text.set('Input special characters')
+                warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
+                                                                           20), bg='#c4c4c4')
+                warn.place(x=201, y=314)
+
+            except:
+                warn_text.set('Input special characters')
+                warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
+                                                                           20), bg='#c4c4c4')
+                warn.place(x=201, y=314)
+
+
+        else:
+            try:
+                warn.destroy()
+
+            finally:
+                warn_text.set('done')
+                warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
+                                                                           20), bg='#c4c4c4')
+                warn.place(x=201, y=314)
 
     # confirm button
 
