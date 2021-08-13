@@ -125,6 +125,7 @@ img_eyes = PhotoImage(file='Images/eyec.png')
 eyes = Button(signup_frame, image=img_eyes, bg='#21BF99', relief=FLAT, activebackground='#21BF99', bd=0, command=seye_o)
 eyes.place(x=769, y=375)
 
+z
 
 def passwcheck():
     global otp_entry_l, otp_confirm, warn
