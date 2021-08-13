@@ -1,7 +1,9 @@
 from tkinter import *
+import random
+import string
 
 root = Tk()
-Length_value=StringVar()
+Length_value = StringVar()
 Length_value.set('0')
 
 root.geometry('1280x720')
@@ -46,8 +48,16 @@ checkButton4 = Checkbutton(root, bg='#565050', activebackground='#565050')
 checkButton4.deselect()
 checkButton4.place(x=1113, y=561)
 
-def gen_password ():
-    Label(root, text="abcdefghijklmnopqrstuvwxyz1234567890!@#$%&*", bg='#C4C4C4', font=('Arial', 25)).place(x=61, y=307)
+
+def gen_password():
+    global Lab
+    spec = '!@#$%&'
+    allc = string.ascii_lowercase + string.ascii_uppercase + string.digit + spec
+    pas = ''.join(random.choice(allc) for i in range(44))
+    PAS = str (pas)
+    Lab = Label(root, text=PAS, bg='#C4C4C4', font=('Arial', 25))
+    Lab.place(x=61, y=307)
+
 
 regen = PhotoImage(file="Images/Regenerate Button.png")
 Button(root, image=regen, bg='#C4C4C4', bd=0, activebackground='#C4C4C4', command=gen_password).place(x=51, y=163)
