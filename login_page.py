@@ -672,19 +672,25 @@ eye.place(x=774, y=460)
 
 
 def login_c():
+    global username, password
     db = sqlite3.connect("Loginandsignups.db")
     d = db.cursor()
     d.execute("SELECT *, oid FROM Signups")
     rec = d.fetchall()
+    logintry = False
     for i in rec:
         if i[1] == username.get() and i[2]:
             logintry = True
         else:
-            print('Wrong pass')
+            pass
     if logintry:
         newww = Tk()
         newww.config(bg='red')
         newww.geometry("1280x720")
+    else:
+        print('Wrong password')
+    username.set("Email")
+    password.set("Password")
     db.commit()
     db.close()
 
