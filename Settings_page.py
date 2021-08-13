@@ -273,7 +273,22 @@ def changepassword():
                                                                            20), bg='#c4c4c4')
                 warn.place(x=201, y=314)
 
-        elif (not char.isdigit() and not char.get().isalpha() and not char.get().isspace() for char in np_entry.get()):
+        elif any(char.isspace() for char in np_entry.get()):
+            try:
+                warn.destroy()
+                warn_text.set('Do not enter space')
+                warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
+                                                                       20), bg='#c4c4c4')
+                warn.place(x=201, y=314)
+
+            except:
+                warn_text.set('Do not enter space')
+                warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
+                                                                           20), bg='#c4c4c4')
+                warn.place(x=201, y=314)
+
+
+        elif any(not char.isdigit() and not char.isalpha() and char.isspace() for char in np_entry.get()):
             try:
                 warn.destroy()
                 warn_text.set('Input special characters')
@@ -283,16 +298,6 @@ def changepassword():
 
             except:
                 warn_text.set('Input special characters')
-                warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
-                                                                           20), bg='#c4c4c4')
-                warn.place(x=201, y=314)
-
-        elif any(char.isspace() for char in np_entry.get()):
-            try:
-                warn.destroy()
-
-            finally:
-                warn_text.set('Do not enter space')
                 warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
                                                                            20), bg='#c4c4c4')
                 warn.place(x=201, y=314)
