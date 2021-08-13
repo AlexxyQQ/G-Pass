@@ -225,21 +225,33 @@ def changepassword():
         """
         function to check the strength of passwords
         """
+        global warn_text, warn
 
-        if np_entry.get != npc_entry.get:
-            warn_text = 'Passwords do not match'
-        elif not any(char.isdigit() for char in np_entry.get()):
-            warn_text = 'Input Digit'
-        elif not any(char.isalpha() for char in np_entry.get()):
-            warn_text = 'Input Characters'
-        elif len(np_entry.get()) <= 6:
-            warn_text = 'Password Too Weak'
-        else:
-            warn_text = 'Done'
+        warn_text = StringVar()
 
-        warn = Label(changepass_frame, text=warn_text, font=('Arial',
-                                                             20), bg='#c4c4c4')
-        warn.place(x=201, y=314)
+        if np_entry.get() == npc_entry.get():
+            try:
+                warn.destroy()
+            except:
+
+                warn_text.set('Passwords match')
+                warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
+                                                                           20), bg='#c4c4c4')
+                warn.place(x=201, y=314)
+
+        if np_entry.get() != npc_entry.get():
+            try:
+                warn.destroy()
+
+            except:
+                pass
+
+            finally:
+                warn_text.set('Passwords do not match')
+                warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
+                                                                           20), bg='#c4c4c4')
+                warn.place(x=201, y=314)
+
 
     # confirm button
 
@@ -295,12 +307,12 @@ def logout():
 
     global sure, confirm, sub_fr
 
-    #frame
+    # frame
     logout_frame = LabelFrame(settings_frame, width='744', height=552,
                               bg='#C4C4C4')
     logout_frame.place(x=490, y=129)
 
-    #widgets
+    # widgets
 
     sub_fr = PhotoImage(file='Images/Settings Small Frame.png')
     bg = Label(logout_frame, image=sub_fr, bg='#565050')
