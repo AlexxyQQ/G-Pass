@@ -33,6 +33,7 @@ logo_g.place(x=511, y=75)
 
 
 def signup_page():
+    """ Signup page function """
     global bg_image, f2, gg_logo, flname, semail, spasswordi, scpasswordi, signup_button, email, \
         c_password, s_password, signup_frame, spasswordi, s_p, scpasswordi, c_p, img_eyes, eyes, \
         warn, fullname, email, c_password, s_password, signup_frame, otp_frame_bg, otp_confirm, warn, otp
