@@ -244,6 +244,7 @@ eyes = Button(
 )
 eyes.place(x=769, y=375)
 
+z
 
 def passwcheck():
     global otp_entry_l, otp_confirm, warn
