@@ -32,7 +32,7 @@ Label(root, text="0-9", fg='#C09D47', bg='#565050', font=('Arial', 20)).place(x=
 
 Label(root, text="!@#$%&", fg='#C09D47', bg='#565050', font=('Arial', 20)).place(x=530, y=567)
 
-horizontal = Scale(root, from_=0, to=44, bg='#565050', bd=0, activebackground='#565050', orient=HORIZONTAL).place(x=854,
+horizontal = Scale(root, from_=0, to=44, bg='#565050', bd=0, activebackground='#565050', orient=HORIZONTAL).place(x=1070,
                                                                                                                   y=178)
 
 checkButton1 = Checkbutton(root, bg='#565050', activebackground='#565050')
@@ -47,6 +47,25 @@ checkButton3.place(x=1113, y=461)
 checkButton4 = Checkbutton(root, bg='#565050', activebackground='#565050')
 checkButton4.deselect()
 checkButton4.place(x=1113, y=561)
+
+def gen_password():
+    global Lab
+    spec = '!@#$%&'
+    if checkButton1.get() == 1:
+        UC = string.ascii_uppercase
+    if checkButton2.get() == 1:
+        LC = string.ascii_lowercase
+    if checkButton3.get() == 1:
+        DIG = string.digits
+    if checkButton4.get() == 1:
+        SPEC = spec
+    allc = string.ascii_lowercase + string.ascii_uppercase + string.digits + spec
+    pas = ''.join(random.choice(allc) for i in range(44))
+    print("Random Password: ", pas)
+    a = str (pas)
+    Lab = Label(root, text=a, bg='#C4C4C4', font=('Arial', 25))
+    Lab.place(x=61, y=307)
+
 
 regen = PhotoImage(file="Images/Regenerate Button.png")
 Button(root, image=regen, bg='#C4C4C4', bd=0, activebackground='#C4C4C4', command=gen_password).place(x=51, y=163)
