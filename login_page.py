@@ -68,6 +68,7 @@ def signup_page():
             fullname.set("")
 
     def emclear(event):
+        """ Clears the deafult value after """
         if email.get() == "XYZ@gmail.com":
             email.set("")
 
