@@ -1,9 +1,9 @@
+# importing files
 from tkinter import *
 import smtplib
 import random
 import requests
 
-# importing files
 
 # main window for login page
 logsin = Tk()
