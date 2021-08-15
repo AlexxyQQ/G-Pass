@@ -28,35 +28,35 @@ Label(
     text='Length',
     fg='#C09D47',
     bg='#565050',
-    font=('Arial', 20)).place(x=530, y=173)
+    font=('Arial', 20, 'bold')).place(x=530, y=173)
 
 Label(
     root,
     text='A-Z',
     fg='#C09D47',
     bg='#565050',
-    font=('Arial', 20)).place(x=530, y=267)
+    font=('Arial', 20, 'bold')).place(x=530, y=267)
 
 Label(
     root,
     text='a-z',
     fg='#C09D47',
     bg='#565050',
-    font=('Arial', 20)).place(x=530, y=367)
+    font=('Arial', 20, 'bold')).place(x=530, y=367)
 
 Label(
     root,
     text='0-9',
     fg='#C09D47',
     bg='#565050',
-    font=('Arial', 20)).place(x=530, y=467)
+    font=('Arial', 20, 'bold')).place(x=530, y=467)
 
 Label(
     root,
     text='!@#$%&',
     fg='#C09D47',
     bg='#565050',
-    font=('Arial', 20)).place(x=530, y=567)
+    font=('Arial', 20, 'bold')).place(x=530, y=567)
 
 horizontal = Scale(
     root,
@@ -68,7 +68,7 @@ horizontal = Scale(
     orient=HORIZONTAL,
     variable=hor,
     showvalue=0,
-    cursor='dot',
+    cursor='hand2',
     troughcolor='cyan',
     highlightbackground='#565050',
     length=200,
@@ -81,7 +81,7 @@ Entry(
     text=hor,
     fg='#C09D47',
     bg='#565050',
-    font=('Arial', 20),
+    font=('Arial', 20,'bold'),
     width=2,
     bd=0,
 ).place(x=655, y=173)
@@ -224,9 +224,6 @@ def gen_password():
             command=copying,
         ).place(x=127, y=557)
 
-        '''
-        check try box and rewrite codes  
-        '''
 
         try:
             Labe.destroy()
@@ -243,7 +240,7 @@ def gen_password():
 name this generate and change the image from 'Regenerate' to 'Generate' as well
 '''
 
-regen = PhotoImage(file='Images/Regenerate Button.png')
+regen = PhotoImage(file='Images/Settings Generate Button.png')
 Button(
     root,
     image=regen,
