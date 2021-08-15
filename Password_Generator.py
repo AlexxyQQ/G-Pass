@@ -68,8 +68,8 @@ horizontal = Scale(
     orient=HORIZONTAL,
     variable=hor,
     showvalue=0,
-    cursor='hand2',
-    troughcolor='#C4C4C4',
+    cursor='dot',
+    troughcolor='cyan',
     highlightbackground='#565050',
     length=200,
     width=10,
@@ -79,9 +79,9 @@ horizontal = Scale(
 Entry(
     root,
     text=hor,
-    fg='#06EBB4',
+    fg='#C09D47',
     bg='#565050',
-    font=('Arial', 20,'bold'),
+    font=('Arial', 20),
     width=2,
     bd=0,
 ).place(x=655, y=173)
