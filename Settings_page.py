@@ -46,6 +46,18 @@ def changepassword():
 
     global passbox, bbg, confirmp, img_eyes, sub_fr
 
+    def clearoldpass(event):
+        if old_password.get() == "Old Password":
+            old_password.set('')
+
+    def clearnewpass(event):
+        if new_password.get() == "New Password":
+            new_password.set('')
+
+    def clearnewcpass(event):
+        if new_passwordc.get() == "Confirm New Password":
+            new_passwordc.set('')
+
     def eye_close():
         '''
          A function that hides the entered password
@@ -67,6 +79,7 @@ def changepassword():
             width=18,
         )
         np_entry.place(x=220, y=180)
+        np_entry.bind('<Button-1>', clearnewpass)
 
         # confirming new password
         newpassc_bg = Label(changepass_frame, image=passbox,
@@ -83,6 +96,7 @@ def changepassword():
             relief=FLAT,
         )
         npc_entry.place(x=220, y=254)
+        npc_entry.bind('<Button-1>', clearnewcpass)
 
         img_eyes = PhotoImage(file='Images/eyec.png')
         eyes = Button(
@@ -115,6 +129,7 @@ def changepassword():
             width=18,
         )
         np_entry.place(x=220, y=180)
+        np_entry.bind('<Button-1>', clearnewpass)
 
         # confirming new password
         newpassc_bg = Label(changepass_frame, image=passbox,
@@ -130,6 +145,7 @@ def changepassword():
             relief=FLAT,
         )
         npc_entry.place(x=220, y=254)
+        npc_entry.bind('<Button-1>', clearnewcpass)
 
         img_eyes = PhotoImage(file='Images/eyeo.png')
         eyes = Button(
@@ -177,6 +193,7 @@ def changepassword():
     )
 
     op_entry.place(x=220, y=110)
+    op_entry.bind('<Button-1>', clearoldpass)
 
     # entering new password
 
@@ -192,6 +209,7 @@ def changepassword():
         width=18,
     )
     np_entry.place(x=220, y=180)
+    np_entry.bind('<Button-1>', clearnewpass)
 
     # confirming new password
 
@@ -208,6 +226,7 @@ def changepassword():
         relief=FLAT,
     )
     npc_entry.place(x=220, y=254)
+    npc_entry.bind('<Button-1>', clearnewcpass)
 
     img_eyes = PhotoImage(file='Images/eyec.png')
     eyes = Button(
@@ -237,12 +256,14 @@ def changepassword():
             warn.place(x=201, y=314)
 
         elif len(npc_entry.get()) < 6:
-
             try:
-
                 warn.destroy()
+                warn_text.set('Password too weak')
+                warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
+                                                                           20), bg='#c4c4c4')
+                warn.place(x=201, y=314)
 
-            finally:
+            except:
                 warn_text.set('Password too weak')
                 warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
                                                                            20), bg='#c4c4c4')
@@ -266,23 +287,13 @@ def changepassword():
         elif not any(char.isalpha() for char in np_entry.get()):
             try:
                 warn.destroy()
-
-            finally:
                 warn_text.set('Input alphabets')
                 warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
                                                                            20), bg='#c4c4c4')
                 warn.place(x=201, y=314)
 
-        elif (not char.isdigit() and not char.get().isalpha() and not char.get().isspace() for char in np_entry.get()):
-            try:
-                warn.destroy()
-                warn_text.set('Input special characters')
-                warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
-                                                                           20), bg='#c4c4c4')
-                warn.place(x=201, y=314)
-
             except:
-                warn_text.set('Input special characters')
+                warn_text.set('Input alphabets')
                 warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
                                                                            20), bg='#c4c4c4')
                 warn.place(x=201, y=314)
@@ -290,23 +301,53 @@ def changepassword():
         elif any(char.isspace() for char in np_entry.get()):
             try:
                 warn.destroy()
+                warn_text.set('Do not enter space')
+                warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
+                                                                           20), bg='#c4c4c4')
+                warn.place(x=201, y=314)
 
-            finally:
+            except:
                 warn_text.set('Do not enter space')
                 warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
                                                                            20), bg='#c4c4c4')
                 warn.place(x=201, y=314)
 
 
-        else:
-            try:
-                warn.destroy()
+        elif np_entry.get() == npc_entry.get():
+            spe = ['!', '@', "#", '$', '%', '&', '*']
+            specialcharcheck = False
+            for i in np_entry.get():
+                if i in spe:
+                    specialcharcheck = True
+                else:
+                    specialcharcheck = False
 
-            finally:
-                warn_text.set('done')
-                warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
-                                                                           20), bg='#c4c4c4')
-                warn.place(x=201, y=314)
+            if not specialcharcheck:
+                try:
+                    warn.destroy()
+                    warn_text.set('Input special characters')
+                    warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
+                                                                               20), bg='#c4c4c4')
+                    warn.place(x=201, y=314)
+
+                except:
+                    warn_text.set('Input special characters')
+                    warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
+                                                                               20), bg='#c4c4c4')
+                    warn.place(x=201, y=314)
+            else:
+                try:
+                    warn.destroy()
+                    warn_text.set('done')
+                    warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
+                                                                               20), bg='#c4c4c4')
+                    warn.place(x=201, y=314)
+
+                except:
+                    warn_text.set('done')
+                    warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
+                                                                               20), bg='#c4c4c4')
+                    warn.place(x=201, y=314)
 
     # confirm button
 
@@ -392,12 +433,12 @@ global sett, bg_image, back, ebtn, cpbtn, afbtn, lobtn
 
 # creating the settings frame
 
-settings_frame = LabelFrame(settings, width='1280', height='720')
+settings_frame = LabelFrame(settings, width='1280', height='720', bd=0)
 settings_frame.place(x=0, y=0)
 
 bg_image = PhotoImage(file='Images/Background.png')
 bg_img = Label(settings_frame, image=bg_image)
-bg_img.place(x=0, y=0)
+bg_img.place(x=-2, y=-2)
 
 back = PhotoImage(file='Images/Setting Frame.png')
 back_img = Label(settings_frame, image=back, bg='#CE9100')
