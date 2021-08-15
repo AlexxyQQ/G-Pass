@@ -1,169 +1,623 @@
+# importing files
 from tkinter import *
 import smtplib
 import random
+import sqlite3
+import requests
 
-
-# main window for login page
+# main window for login and signup page
 logsin = Tk()
-logsin.geometry('1280x720')
-logsin.title('G-Pass-LoginSignup')
-logsin.iconbitmap('Images/G-pass_ico.ico')
+logsin.geometry("1280x720")  # resolution of the window
+logsin.title("G-Pass-LoginSignup")  # title of the window
+logsin.iconbitmap("Images/G-pass_ico.ico")  # icon of the window
 logsin.resizable(False, False)  # stop the window from resizing
 
+# Frame for login page
 login_frame = LabelFrame(logsin, width=1280, height=720, bd=0)
 login_frame.grid(row=0, column=0)
 
-bg_image = PhotoImage(file='Images/Background.png')
-bg_img = Label(login_frame, image=bg_image, bg='#2B958E')
+# Background image of the login page
+bg_image = PhotoImage(file="Images/Background.png")
+bg_img = Label(login_frame, image=bg_image, bg="#2B958E")
 bg_img.place(x=-3, y=-3)
 
-f = PhotoImage(file='Images/Login Frame.png')
-img_frame = Label(login_frame, image=f, bg='#CE9100')
+# Background frame of login section
+f = PhotoImage(file="Images/Login Frame.png")
+img_frame = Label(login_frame, image=f, bg="#CE9100")
 img_frame.place(x=412, y=35)
 
-g_logo = PhotoImage(file='Images/G-Pass Logo.png')
-logo_g = Label(login_frame, image=g_logo, bg='#D9D0BF')
+# logo of the app
+g_logo = PhotoImage(file="Images/G-Pass Logo.png")
+logo_g = Label(login_frame, image=g_logo, bg="#D9D0BF")
 logo_g.place(x=511, y=75)
 
 
 def signup_page():
-    login_frame.destroy()
-    signup_frame = LabelFrame(logsin, width=1366, height=768, bg='#2B958E', bd=0)
+    """ Signup page function """
+    global bg_image, f2, snup_logo, flname, semail, spasswordi, scpasswordi, signup_button, email, c_password, s_password, signup_frame, spasswordi, s_p, scpasswordi, c_p, img_eyes, eyes, warn, fullname, email, c_password, s_password, signup_frame, otp_frame_bg, otp_confirm, warn, otp
+    # This many global for all the variable assigned inside the function.
+
+    # New frame for signup window
+    signup_frame = LabelFrame(logsin, width=1280, height=720, bg="#2B958E", bd=0)
     signup_frame.grid(row=0, column=0)
 
-    # variables to store user input
-    fname = StringVar()
-    fname.set('Full Name')
+    # Background of the signup frame
+    bg_image = PhotoImage(file="Images/Background.png")
+    Label(signup_frame, image=bg_image, bg="#2B958E").place(x=-3, y=-3)
+
+    # Background frame of the signup
+    f2 = PhotoImage(file="Images/Signup Frame.png")
+    Label(signup_frame, image=f2, bg="#CE9100").place(x=412, y=35)
+
+    # Signup logo (Actually is text-image)
+    snup_logo = PhotoImage(file="Images/Signup Logo.png")
+    Label(signup_frame, image=snup_logo, bg="#D9D0BF").place(x=561, y=62)
+
+    # variables to store user input in Signup section
+    fullname = StringVar()
+    fullname.set("Full Name")
     email = StringVar()
-    email.set('Email@gmail.com')
+    email.set("XYZ@gmail.com")
     s_password = StringVar()
-    s_password.set('Password')
-    s_cpassword = StringVar()
-    s_cpassword.set('Password')
+    s_password.set("Password")
+    c_password = StringVar()
+    c_password.set("Confirm Password")
+    otp = StringVar()
+    otp.set("123456")
 
-    # function that send an OTP to the user inputted email
-    def sign_click():
-        if len(s_password.get()) > 14:
-            too_long = Label(signup_frame, text='Bruh can you even remember this? Type something short. ',
-                             font=('Arial', 15), bg='#2FB2AB')
-            too_long.pack()
+    def fnclear(event):
+        """ Clears the default value of the Fullname entry after execution """
+        if fullname.get() == "Full Name":
+            fullname.set("")
+
+    def emclear(event):
+        """ Clears the default value of Email entry after execution """
+        if email.get() == "XYZ@gmail.com":
+            email.set("")
+
+    def s_pclear(event):
+        """ Clears the default value of Password entry after execution """
+        if s_password.get() == "Password":
+            s_password.set("")
+
+    def c_pclear(event):
+        """ Clears the default value of Confirm Password entry after execution """
+        if c_password.get() == "Confirm Password":
+            c_password.set("")
+
+    # Background of the Fullname entry
+    flname = PhotoImage(file="Images/Fullname Box.png")
+    Label(signup_frame, image=flname, bg="#565050").place(x=462, y=158)
+
+    fn = Entry(
+        signup_frame,
+        text=fullname,
+        bg="#21BF99",
+        font=("Arial", 15),
+        bd=0,
+    )
+    fn.place(
+        x=523,
+        y=177,
+    )
+    fn.bind("<Button-1>", fnclear)
+    # when pressed left mouse click on the fullname entry runs fnclear function
+
+    # Background of the Email entry
+    semail = PhotoImage(file="Images/Signup Email Box.png")
+    Label(signup_frame, image=semail, bg="#565050").place(x=462, y=230)
+
+    em = Entry(
+        signup_frame,
+        text=email,
+        bg="#21BF99",
+        font=("Arial", 15),
+        bd=0,
+    )
+    em.place(x=523, y=243)
+    em.bind("<Button-1>", emclear)
+    # when pressed left mouse click on the email entry runs emclear function
+
+    # Background of the Password entry
+    spasswordi = PhotoImage(file="Images/Signup Password Box.png")
+    Label(signup_frame, image=spasswordi, bg="#565050").place(x=462, y=301)
+
+    s_p = Entry(
+        signup_frame,
+        text=s_password,
+        show="*",
+        bg="#21BF99",
+        font=("Arial", 15),
+        bd=0,
+    )
+    s_p.place(x=523, y=312)
+    s_p.bind("<Button-1>", s_pclear)
+    # when pressed left mouse click on the password entry runs s_pclear function
+
+    # Background of the Confirm Password entry
+    scpasswordi = PhotoImage(file="Images/Signup CPassword Box.png")
+    Label(signup_frame, image=scpasswordi, bg="#565050").place(x=462, y=372)
+
+    c_p = Entry(
+        signup_frame,
+        text=c_password,
+        show="*",
+        bg="#21BF99",
+        font=("Arial", 15),
+        bd=0,
+    )
+    c_p.place(x=523, y=383)
+    c_p.bind("<Button-1>", c_pclear)
+
+    # when pressed left mouse click on the confirm password entry runs c_pclear function
+
+    def seye_o():
+        """ Function to show the text entered in the password entries """
+        global spasswordi, s_p, scpasswordi, c_p, img_eyes, eyes
+        spasswordi = PhotoImage(file="Images/Signup Password Box.png")
+        Label(signup_frame, image=spasswordi, bg="#565050").place(x=462, y=301)
+
+        s_p = Entry(
+            signup_frame,
+            text=s_password,
+            bg="#21BF99",
+            font=("Arial", 15),
+            bd=0,
+        )
+        s_p.place(x=523, y=312)
+        s_p.bind("<Button-1>", s_pclear)
+
+        scpasswordi = PhotoImage(file="Images/Signup CPassword Box.png")
+        Label(signup_frame, image=scpasswordi, bg="#565050").place(x=462, y=372)
+        c_p = Entry(
+            signup_frame,
+            text=c_password,
+            bg="#21BF99",
+            font=("Arial", 15),
+            bd=0,
+        )
+        c_p.place(x=523, y=383)
+        c_p.bind("<Button-1>", c_pclear)
+
+        def seye_c():
+            """ Function to hide the text entered in the password entries """
+            global spasswordi, s_p, scpasswordi, c_p, img_eyes, eyes
+            spasswordi = PhotoImage(file="Images/Signup Password Box.png")
+            Label(signup_frame, image=spasswordi, bg="#565050").place(x=462, y=301)
+
+            s_p = Entry(
+                signup_frame,
+                text=s_password,
+                show="*",
+                bg="#21BF99",
+                font=("Arial", 15),
+                bd=0,
+            )
+            s_p.place(x=523, y=312)
+            s_p.bind("<Button-1>", s_pclear)
+
+            scpasswordi = PhotoImage(file="Images/Signup CPassword Box.png")
+            Label(signup_frame, image=scpasswordi, bg="#565050").place(x=462, y=372)
+
+            c_p = Entry(
+                signup_frame,
+                text=c_password,
+                show="*",
+                bg="#21BF99",
+                font=("Arial", 15),
+                bd=0,
+            )
+            c_p.place(x=523, y=383)
+            c_p.bind("<Button-1>", c_pclear)
+
+            # image for the button
+            img_eyes = PhotoImage(file="Images/eyec.png")
+            eyes = Button(
+                signup_frame,
+                image=img_eyes,
+                bg="#21BF99",
+                relief=FLAT,
+                activebackground="#21BF99",
+                bd=0,
+                command=seye_o,
+            )
+            eyes.place(x=769, y=375)
+
+        img_eyes = PhotoImage(file="Images/eyeo.png")
+        eyes = Button(
+            signup_frame,
+            image=img_eyes,
+            bg="#21BF99",
+            relief=FLAT,
+            activebackground="#21BF99",
+            bd=0,
+            command=seye_c,
+        )
+        eyes.place(x=769, y=375)
+
+    img_eyes = PhotoImage(file="Images/eyec.png")
+    eyes = Button(
+        signup_frame,
+        image=img_eyes,
+        bg="#21BF99",
+        relief=FLAT,
+        activebackground="#21BF99",
+        bd=0,
+        command=seye_o,
+    )
+    eyes.place(x=769, y=375)
+
+    def checkmail():
+        """ Function that checks the email entered is correct or not and checks the password is safe or not """
+        global otp_frame_bg, otp_confirm, warn, otp
+
+        """ First check's if the email is already is in the database or not  """
+        db = sqlite3.connect("Loginandsignups.db")
+        d = db.cursor()
+        d.execute("SELECT *, oid FROM Signups")
+        emailcheckdb = d.fetchall()
+        checking = False
+        for i in emailcheckdb:
+            if i[1] == email.get():
+                checking = True
+        if checking:
+            # Warning to notify the use that email is already is in use
+            warn = Label(
+                signup_frame,
+                text="Email already in use.",
+                fg="#C09D47",
+                bg="#565050",
+                font=("Arial", 15),
+            )
+            warn.place(x=555, y=430)
         else:
+            """ If email doesn't exist in database checks if email is real or not  """
+            # Fetch the user inputted email address
+            email_address = email.get()
 
-            s = smtplib.SMTP('smtp.gmail.com', 587)  # (host domain , port)
-            # start TLS for security
-            s.starttls()
-            # Authentication
-            s.login("theggserver@gmail.com", "@ppleWas01")
-            a = random.randint(250000, 999999)  # OTP Generator of 6 digit number
-            # Message sent to user
+            # Check the email
+            response = requests.get(
+                "https://isitarealemail.com/api/email/validate",
+                # Checks email is valid or invalid using isitrealemail api
+                params={"email": email_address},
+            )
 
-            message = f' Your OTP code is {a}.'
+            # returns the status of email, either valid or invalid
+            status = response.json()["status"]
 
-            # sending the mail
-            try:
-                email_address = email.get()
-                response = requests.get(
-                    "https://isitarealemail.com/api/email/validate",
-                    # Checks email is valid or invalid using isitrealemail api
-                    params={'email': email_address})
+            # if the email is valid then sends the OTP email to the user email
+            if status == "valid":
+                # sending the message to user email
+                """s.sendmail("theggserver@gmail.com", email.get(), message)"""
+                # s.quit()  # stops the protocol
 
-                status = response.json()['status']  # returns the status of email, either valid or invalid
+                """ Password validation for security of user """
 
-                if status == "valid":
-                    s.sendmail("theggserver@gmail.com", email.get(), message)
-                    s.quit()  # stops the protocol
+                if c_password.get() != s_password.get():
+                    try:
+                        warn.destroy()
+                        warn = Label(
+                            signup_frame,
+                            text="Password doesn't match",
+                            fg="#C09D47",
+                            bg="#565050",
+                            font=("Arial", 15),
+                        )
+                        warn.place(x=538, y=430)
+                    except:
+                        warn = Label(
+                            signup_frame,
+                            text="Password doesn't match",
+                            fg="#C09D47",
+                            bg="#565050",
+                            font=("Arial", 15),
+                        )
+                        warn.place(x=538, y=430)
 
-                    otp = StringVar()
-                    otp.set('123456')
+                elif len(c_password.get()) <= 6:
+                    try:
+                        warn.destroy()
+                        warn = Label(
+                            signup_frame,
+                            text="Enter more characters",
+                            fg="#C09D47",
+                            bg="#565050",
+                            font=("Arial", 15),
+                        )
+                        warn.place(x=542, y=430)
+                    except:
+                        warn = Label(
+                            signup_frame,
+                            text="Enter more characters",
+                            fg="#C09D47",
+                            bg="#565050",
+                            font=("Arial", 15),
+                        )
+                        warn.place(x=542, y=430)
 
-                    # checks if opt user entered is correct
-                    def check_otp():
+                elif not any(char.isdigit() for char in c_password.get()):
+                    try:
+                        warn.destroy()
+                        warn = Label(
+                            signup_frame,
+                            text="Input some digits",
+                            fg="#C09D47",
+                            bg="#565050",
+                            font=("Arial", 15),
+                        )
+                        warn.place(x=567, y=430)
+                    except:
+                        warn = Label(
+                            signup_frame,
+                            text="Input some digits",
+                            fg="#C09D47",
+                            bg="#565050",
+                            font=("Arial", 15),
+                        )
+                        warn.place(x=567, y=430)
+
+                elif c_password.get() == s_password.get():
+
+                    warn = Label(
+                        signup_frame,
+                        text="OTP has been sent to your email.",
+                        fg="#C09D47",
+                        bg="#565050",
+                        font=("Arial", 15),
+                    )
+                    warn.place(x=500, y=430)
+
+                    """ Setup the OTP message sending process """
+
+                    s = smtplib.SMTP("smtp.gmail.com", 587)  # (host domain , port)
+
+                    # start TLS for security
+                    s.starttls()
+
+                    # Authentication for the email that send OTP (not user email)
+                    s.login("theggserver@gmail.com", "@ppleWas01")
+
+                    # OTP Generator of 6 digit number
+                    a = random.randint(250000, 999999)
+                    print(a)
+
+                    # Message sent to user
+                    message = f" Your OTP code is {a}."
+
+                    """ New frame after OTP is sent to user successfully """
+                    otp_frame = LabelFrame(
+                        signup_frame,
+                        width=261,
+                        height=138,
+                        bd=0,
+                    ).place(x=509, y=530)
+
+                    # Background frame of OTP
+                    otp_frame_bg = PhotoImage(file="Images/OTP section.png")
+                    Label(
+                        otp_frame,
+                        image=otp_frame_bg,
+                        bg="#565050",
+                    ).place(x=509, y=530)
+
+                    otp_entry = Entry(
+                        otp_frame,
+                        text=otp,
+                        font=("Arial", 15),
+                        bd=0,
+                        width=10,
+                        bg="#5E9387",
+                    )
+                    otp_entry.place(x=564, y=580)
+
+                    def submit():
+                        """ Checks the user inputted OTP and saves the new user info in database of OTP is correct """
+                        global warn, fullname, email, c_password, s_password, signup_frame
+
                         if otp.get() == str(a):
-                            success = Label(signup_frame, text='Successful').pack()
+                            try:
+                                warn.destroy()
+                                warn = Label(
+                                    signup_frame,
+                                    text="Signup Successful",
+                                    fg="#C09D47",
+                                    bg="#565050",
+                                    font=("Arial", 15),
+                                )
+                                warn.place(x=560, y=430)
+                                # s.quit()
+                            except:
+                                warn = Label(
+                                    signup_frame,
+                                    text="Signup Successful",
+                                    fg="#C09D47",
+                                    bg="#565050",
+                                    font=("Arial", 15),
+                                )
+                                warn.place(x=560, y=430)
+
+                            # connecting to database
+                            db = sqlite3.connect("Loginandsignups.db")
+
+                            # creating cursor
+                            d = db.cursor()
+
+                            # Inserting valvues in to table
+                            try:
+                                # Create table if it doesn't already exist
+                                d.execute(
+                                    " CREATE TABLE Signups(fullname text,email text,password text) "
+                                )
+                                db.commit()
+                                # writing in table if it doesn't already exist
+                                d.execute(
+                                    "INSERT INTO Signups VALUES (:f_name,:email,:cpassword)",
+                                    {
+                                        "f_name": fullname.get(),
+                                        "email": email.get(),
+                                        "cpassword": c_password.get(),
+                                    },
+                                )
+                                db.commit()
+                                db.close()
+                            except:
+
+                                d.execute(
+                                    "INSERT INTO Signups VALUES (:f_name,:email,:cpassword)",
+                                    {
+                                        "f_name": fullname.get(),
+                                        "email": email.get(),
+                                        "cpassword": c_password.get(),
+                                    },
+                                )
+                                db.commit()
+                                db.close()
+
+                                """ Setting the user inputs to default after the succession of the execution """
+
+                                fullname.set("Full Name")
+                                email.set("XYZ@gmail.com")
+                                s_password.set("Password")
+                                c_password.set("Confirm Password")
                         else:
-                            Label(signup_frame, text='Unsuccessful').pack()
+                            """ In event of database failure user is notified with friendly message """
+                            try:
+                                warn.destroy()
+                                warn = Label(
+                                    signup_frame,
+                                    text="Signup Unsuccessful",
+                                    fg="#C09D47",
+                                    bg="#565050",
+                                    font=("Arial", 15),
+                                )
+                                warn.place(x=560, y=430)
 
-                    Label(signup_frame, text='Enter the OTP').pack()
-                    Entry(signup_frame, text=otp).pack()
-                    Button(signup_frame, text='Confirm', command=check_otp).pack()
-                elif status == "invalid":
-                    s.quit()
-                    check_email = Label(signup_frame, text='Wrong email, Please check your email address').pack()
-                else:
-                    s.quit()
-                    check_email = Label(signup_frame, text='Email is unknown').pack()
-            except:
-                # if user input email is incorrect notifies the user
-                s.quit()
-                check_email = Label(signup_frame, text='Wrong email, Please check your email address').pack()
+                            except:
+                                warn = Label(
+                                    signup_frame,
+                                    text="Signup Unsuccessful",
+                                    fg="#C09D47",
+                                    bg="#565050",
+                                    font=("Arial", 15),
+                                )
+                                warn.place(x=560, y=430)
 
-    Entry(signup_frame, text=fname).pack()
+                    # Image of the confirm button of OTP frame
+                    otp_confirm = PhotoImage(file="Images/Confirm Button.png")
+                    Button(
+                        otp_frame,
+                        image=otp_confirm,
+                        bg="#5E5A5A",
+                        bd=0,
+                        activebackground="#5E5A5A",
+                        command=submit,
+                    ).place(x=595, y=624)
 
-    Entry(signup_frame, text=email).pack()
+            else:
+                """ If email isn't real notifies the user """
+                try:
+                    warn.destroy()
+                    warn = Label(
+                        signup_frame,
+                        text="Incorrect email",
+                        fg="#C09D47",
+                        bg="#565050",
+                        font=("Arial", 15),
+                    )
+                    warn.place(x=577, y=430)
+                    # s.quit()
+                except:
+                    warn = Label(
+                        signup_frame,
+                        text="Incorrect email",
+                        fg="#C09D47",
+                        bg="#565050",
+                        font=("Arial", 15),
+                    )
+                    warn.place(x=577, y=430)
 
-    Entry(signup_frame, text=s_password, show='*').pack()
+    # Image of signup button
+    signup_button = PhotoImage(file="Images/Singup Button.png")
+    Button(
+        signup_frame,
+        image=signup_button,
+        bg="#565050",
+        relief=FLAT,
+        bd=0,
+        activebackground="#565050",
+        command=checkmail,
+    ).place(x=579, y=465)
 
-    Entry(signup_frame, text=s_cpassword, show='*').pack()
 
-    Button(signup_frame, text='Signup', command=sign_click).pack()
-
-
-# String Variables to store user inputs
+# String Variables to store user inputs for login section
 username = StringVar()
-username.set('Email')
+username.set("Email")
 password = StringVar()
-password.set('Password')
+password.set("Password")
 
 
-# deletes the default value present in the email entry
 def delete_user_ent_text(event):
-    if username.get() == 'Email':
-        username.set('')
+    """ deletes the default value present in the email entry """
+    if username.get() == "Email":
+        username.set("")
 
 
-# deletes the default value present in the password entry
 def delete_pass_ent_text(event):
-    if password.get() == 'Password':
-        password.set('')
+    """ deletes the default value present in the password entry """
+    if password.get() == "Password":
+        password.set("")
 
 
-# Button,Label and Placements
+# Button,Label and Placements for Input section
 
-l_title = PhotoImage(file='Images/USER LOGIN.png')
-Label(login_frame,
-      image=l_title,
-      bg='#565050', ).place(x=518, y=286, )
+l_title = PhotoImage(file="Images/USER LOGIN.png")
+Label(login_frame, image=l_title, bg="#565050",).place(
+    x=518,
+    y=286,
+)
 
-userbox = PhotoImage(file='Images/Login Email Box.png')
-Label(login_frame,
-      image=userbox,
-      bg='#565050',
-      bd=0).place(x=467, y=365, )
-user_ent = Entry(login_frame,
-                 text=username,
-                 font=('Arial', 15),
-                 bd=0,
-                 bg='#21BF99',
-                 )
-user_ent.place(x=528, y=380, )
+userbox = PhotoImage(file="Images/Login Email Box.png")
+Label(login_frame, image=userbox, bg="#565050", bd=0).place(
+    x=467,
+    y=365,
+)
+user_ent = Entry(
+    login_frame,
+    text=username,
+    font=("Arial", 15),
+    bd=0,
+    bg="#21BF99",
+)
+user_ent.place(
+    x=528,
+    y=380,
+)
 user_ent.bind("<Button-1>", delete_user_ent_text)
 # when pressed left mouse click on the email entry runs delete_user_ent_text function
 
-passbox = PhotoImage(file='Images/Login Password Box.png')
-passw_bg = Label(login_frame,
-                 image=passbox,
-                 bg='#565050',
-                 )
-passw_bg.place(x=467, y=451, )
+passbox = PhotoImage(file="Images/Login Password Box.png")
+passw_bg = Label(
+    login_frame,
+    image=passbox,
+    bg="#565050",
+)
+passw_bg.place(
+    x=467,
+    y=451,
+)
 
-pass_ent = Entry(login_frame,
-                 show='*',
-                 text=password,
-                 font=('Arial', 15),
-                 bd=0,
-                 bg='#21BF99',
-                 )
-pass_ent.place(x=528, y=470, )
+pass_ent = Entry(
+    login_frame,
+    show="*",
+    text=password,
+    font=("Arial", 15),
+    bd=0,
+    bg="#21BF99",
+)
+pass_ent.place(
+    x=528,
+    y=470,
+)
 pass_ent.bind("<Button-1>", delete_pass_ent_text)
 
 
@@ -171,107 +625,192 @@ pass_ent.bind("<Button-1>", delete_pass_ent_text)
 
 
 def eye_o():
+    """ Shows the password  """
+    # Updating the entries and eye button
     global passbox, pass_ent, eye, img_eye
-    passbox = PhotoImage(file='Images/Login Password Box.png')
-    passw_bg = Label(login_frame,
+    passbox = PhotoImage(file="Images/Login Password Box.png")
+    passw_bg = Label(
+        login_frame,
+        image=passbox,
+        bg="#565050",
+    )
+    passw_bg.place(
+        x=467,
+        y=451,
+    )
 
-                     image=passbox,
-                     bg='#565050',
-                     )
-    passw_bg.place(x=467, y=451, )
-
-    pass_ent = Entry(login_frame,
-                     text=password,
-                     font=('Arial', 15),
-                     bd=0,
-                     bg='#21BF99',
-                     )
-    pass_ent.place(x=528, y=470, )
+    pass_ent = Entry(
+        login_frame,
+        text=password,
+        font=("Arial", 15),
+        bd=0,
+        bg="#21BF99",
+    )
+    pass_ent.place(
+        x=528,
+        y=470,
+    )
 
     def eye_c():
+        """ Hides the password """
         global passbox, pass_ent, eye, img_eye
-        passbox = PhotoImage(file='Images/Login Password Box.png')
-        passw_bg = Label(login_frame,
-                         image=passbox,
-                         bg='#565050',
-                         )
-        passw_bg.place(x=467, y=451, )
 
-        pass_ent = Entry(login_frame,
-                         show='*',
-                         text=password,
-                         font=('Arial', 15),
-                         bd=0,
-                         bg='#21BF99',
-                         )
-        pass_ent.place(x=528, y=470, )
+        # Updating the entries and eye button
+        passbox = PhotoImage(file="Images/Login Password Box.png")
+        passw_bg = Label(
+            login_frame,
+            image=passbox,
+            bg="#565050",
+        )
+        passw_bg.place(
+            x=467,
+            y=451,
+        )
 
-        img_eye = PhotoImage(file='Images/eyec.png')
-        eye = Button(login_frame, image=img_eye, bg='#21BF99', relief=FLAT, activebackground='#21BF99', bd=0,
-                     command=eye_o)
+        pass_ent = Entry(
+            login_frame,
+            show="*",
+            text=password,
+            font=("Arial", 15),
+            bd=0,
+            bg="#21BF99",
+        )
+        pass_ent.place(
+            x=528,
+            y=470,
+        )
+
+        img_eye = PhotoImage(file="Images/eyec.png")
+        eye = Button(
+            login_frame,
+            image=img_eye,
+            bg="#21BF99",
+            relief=FLAT,
+            activebackground="#21BF99",
+            bd=0,
+            command=eye_o,
+            # runs the eye_o function to show the password again
+        )
         eye.place(x=774, y=460)
         pass_ent.bind("<Button-1>", delete_pass_ent_text)
 
-    img_eye = PhotoImage(file='Images/eyeo.png')
-    eye = Button(login_frame, image=img_eye, bg='#21BF99', relief=FLAT, activebackground='#21BF99', bd=0, command=eye_c)
+    img_eye = PhotoImage(file="Images/eyeo.png")
+    eye = Button(
+        login_frame,
+        image=img_eye,
+        bg="#21BF99",
+        relief=FLAT,
+        activebackground="#21BF99",
+        bd=0,
+        command=eye_c,
+        # runs the eye_c function to hide the password again
+    )
     eye.place(x=774, y=460)
     pass_ent.bind("<Button-1>", delete_pass_ent_text)
 
 
-img_eye = PhotoImage(file='Images/eyec.png')
-eye = Button(login_frame, image=img_eye, bg='#21BF99', relief=FLAT, activebackground='#21BF99', bd=0, command=eye_o)
+# Eye button that shows the password
+img_eye = PhotoImage(file="Images/eyec.png")
+eye = Button(
+    login_frame,
+    image=img_eye,
+    bg="#21BF99",
+    relief=FLAT,
+    activebackground="#21BF99",
+    bd=0,
+    command=eye_o,
+)
 eye.place(x=774, y=460)
 
 
 def login_c():
-    # if len(password.get()) != password  storedd in database:
-    """
-    too_long = Label(login_frame, text='Bruh can you even remember this? Type something short. ',
-                     font=('Arial', 15), bg='#2FB2AB')
-    too_long.place(x=393, y=495)
-"""
+    """ Checks the login info from database """
+    global username, password
+
+    db = sqlite3.connect("Loginandsignups.db")
+    d = db.cursor()
+    d.execute("SELECT *, oid FROM Signups")
+    rec = d.fetchall()
+
+    emailtry = False
+    passtry = False
+
+    for i in rec:
+        if i[1] == username.get():
+            emailtry = True
+
+        elif i[2] == password.get():
+            passtry = True
+
+    if emailtry and passtry:
+        """ Takes user to dashboard after login """
+        username.set("Email")
+        password.set("Password")
+        newww = Tk()
+        newww.config(bg="red")
+        newww.geometry("1280x720")
+
+    elif not emailtry:
+        print("Email not registered")
+
+    elif not passtry:
+        print("Wrong password")
+
+    db.commit()
+    db.close()
 
 
-login_img = PhotoImage(file='Images/Login Button.png')
-b_login = Button(login_frame,
-                 image=login_img,
-                 bg='#565050',
-                 bd=0,
-                 activebackground='#565050',
-                 command=login_c
-                 )
+login_img = PhotoImage(file="Images/Login Button.png")
+b_login = Button(
+    login_frame,
+    image=login_img,
+    bg="#565050",
+    bd=0,
+    activebackground="#565050",
+    command=login_c,
+)
 b_login.place(x=584, y=562)
 
-b_fpass = Button(login_frame,
-                 text='Forgot Password?',
-                 font=('Arial', 10, UNDERLINE),
-                 bg='#565050',
-                 fg='#C09D47',
-                 bd=0,
-                 activeforeground='grey',
-                 activebackground='#565050',
-                 relief=FLAT,
-                 )
-b_fpass.place(x=699, y=505, )
+b_fpass = Button(
+    login_frame,
+    text="Forgot Password?",
+    font=("Arial", 10, UNDERLINE),
+    bg="#565050",
+    fg="#C09D47",
+    bd=0,
+    activeforeground="grey",
+    activebackground="#565050",
+    relief=FLAT,
+)
+b_fpass.place(
+    x=699,
+    y=505,
+)
 
-info_sinup = Label(login_frame,
-                   text='Don\'t have an account?',
-                   fg='#C09D47',
-                   font=('Arial', 15),
-                   bg='#565050')
+info_sinup = Label(
+    login_frame,
+    text="Don't have an account?",
+    fg="#C09D47",
+    font=("Arial", 15),
+    bg="#565050",
+)
 info_sinup.place(x=505, y=642)
 
-b_signup = Button(login_frame,
-                  text='Signup',
-                  font=('Arial', 15, UNDERLINE),
-                  bg='#565050',
-                  fg='#C09D47',
-                  bd=0,
-                  activeforeground='grey',
-                  activebackground='#565050',
-                  command=signup_page,
-                  relief=FLAT,
-                  )
-b_signup.place(x=713, y=639, )
+b_signup = Button(
+    login_frame,
+    text="Signup",
+    font=("Arial", 15, UNDERLINE),
+    bg="#565050",
+    fg="#C09D47",
+    bd=0,
+    activeforeground="grey",
+    activebackground="#565050",
+    command=signup_page,
+    relief=FLAT,
+)
+b_signup.place(
+    x=713,
+    y=639,
+)
 
 logsin.mainloop()
