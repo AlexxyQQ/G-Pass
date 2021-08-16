@@ -755,7 +755,7 @@ def login_c():
             passtry = True
 
     if emailtry and passtry:
-        """ Takes user to dashboard after login """
+        """ Takes user to dashboard after login successfully """
         username.set("Email")
         password.set("Password")
         newww = Tk()
