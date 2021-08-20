@@ -1,3 +1,4 @@
+#dashboard
 from tkinter import *
 
 root = Tk()
