@@ -1,4 +1,4 @@
-#dashboard
+#dashboards
 from tkinter import *
 
 root = Tk()
