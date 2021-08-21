@@ -5,6 +5,7 @@ import random
 import sqlite3
 import requests
 
+
 # main window for login and signup page
 logsin = Tk()
 logsin.geometry("1280x720")  # resolution of the window
@@ -14,7 +15,7 @@ logsin.resizable(False, False)  # stop the window from resizing
 
 
 def login_page():
-    global bg_image, f, g_logo, l_title, userbox, passbox, img_eye, login_img
+    global bg_image, f, g_logo, l_title, userbox, passbox, img_eye, login_img, username, password
 
     # Frame for login page
     login_frame = LabelFrame(logsin,
@@ -462,22 +463,23 @@ def login_page():
                             if otp.get() == str(a):
                                 try:
                                     warn.destroy()
-                                    warn = Label(signup_frame,
-                                                 text="Signup Successful",
-                                                 fg="#C09D47",
-                                                 bg="#565050",
-                                                 font=("Arial", 15),
-                                                 )
-                                    warn.place(x=560, y=430)
-                                    # s.quit()
+                                    Label(signup_frame,
+                                          text="Signup Successful",
+                                          fg="#C09D47",
+                                          bg="#565050",
+                                          font=("Arial", 15),
+                                          ).place(x=560, y=430)
+                                    login_page()
+
+
                                 except:
-                                    warn = Label(signup_frame,
-                                                 text="Signup Successful",
-                                                 fg="#C09D47",
-                                                 bg="#565050",
-                                                 font=("Arial", 15),
-                                                 )
-                                    warn.place(x=560, y=430)
+                                    Label(signup_frame,
+                                          text="Signup Successful",
+                                          fg="#C09D47",
+                                          bg="#565050",
+                                          font=("Arial", 15),
+                                          ).place(x=560, y=430)
+                                    login_page()
 
                                 # connecting to database
                                 db = sqlite3.connect("Loginandsignups.db")
@@ -753,6 +755,7 @@ def login_page():
         """ Checks the login info from database """
         global username, password
 
+
         db = sqlite3.connect("Loginandsignups.db")
         d = db.cursor()
         d.execute("SELECT *, oid FROM Signups")
@@ -772,9 +775,9 @@ def login_page():
             """ Takes user to dashboard after login successfully """
             username.set("Email")
             password.set("Password")
-            newww = Tk()
-            newww.config(bg="red")
-            newww.geometry("1280x720")
+            logsin.quit()
+
+            import Settings_page
 
         elif not emailtry:
             print("Email not registered")
