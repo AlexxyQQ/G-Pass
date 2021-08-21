@@ -4,6 +4,8 @@ from tkinter import *
 settings = Tk()
 settings.geometry('1280x720')
 settings.resizable(False, False)
+settings.title('Settings')
+settings.iconbitmap('Images/G-pass_ico.ico')
 
 confirm = PhotoImage(file='Images/Settings Confirm Button.png')
 sub_fr = PhotoImage(file='Images/Settings Small Frame.png')
