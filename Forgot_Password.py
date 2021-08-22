@@ -1,4 +1,5 @@
 from tkinter import *
+import sqlite3
 
 ForgotPass = Tk()
 ForgotPass.geometry('1280x720')
@@ -7,13 +8,27 @@ ForgotPass.iconbitmap('Images/G-pass_ico.ico')
 ForgotPass.title('Forgot Password')
 
 
+def check_mail():
+    """
+    function to check if the email is registered .
+    """
+    db = sqlite3.connect("Loginandsignups.db")
+    c = db.cursor()
+
+    c.execute("SELECT * from Signups")
+
+    db_email = c.fetchall()
+
+    if db_email == Reg_email.get:
+        ConformationID()
+    else:
+        no_mail = Label()
+
+
 def ConformationID():
-    '''
-
-    Function to check if the given mail is registered or not.
-    If mail is registered, confirmation ID is sent
-
-    '''
+    """
+    function to send conformation if mail is registered
+    """
 
     global IdBg, cbtn
 
@@ -50,7 +65,7 @@ def ConformationID():
         bd=0,
         bg='#5E5A5A',
         fg='#FFCA41',
-        )
+    )
     EntId_txt.place(x=581, y=473)
     ID = IntVar()
     ID.set(123456)
@@ -63,7 +78,7 @@ def ConformationID():
         bg='#5E9487',
         fg='black',
         width=16,
-        )
+    )
     EnterID.place(x=555, y=510)
     EnterID.bind('<Button-1>', clrid)
 
@@ -75,7 +90,7 @@ def ConformationID():
         bg='#5E5A5A',
         cursor='hand2',
         activebackground='#5E5A5A',
-        )
+    )
     Confirm_btn.place(x=594, y=557)
 
 
@@ -110,7 +125,7 @@ confirm_id.place(x=444, y=63)
 
 email_img = PhotoImage(file='Images/Emailboxsignup.png')
 Email_box = Label(ForgotPass, image=email_img, bg='#565050')
-Email_box.place(x=463, y=213)
+Email_box.place(x=463, y=233)
 
 Reg_Mail_txt = Label(
     ForgotPass,
@@ -118,8 +133,8 @@ Reg_Mail_txt = Label(
     font=('Arial', 18, 'bold'),
     bd=0,
     bg='#565050',
-    fg='#FFCA41',
-    )
+    fg='#05FBC1',
+)
 Reg_Mail_txt.place(x=520, y=172)
 Reg_email = StringVar()
 Reg_email.set('abc@gmail.com')
@@ -130,8 +145,8 @@ Email_entry = Entry(
     bd=0,
     font=('Arial', 20),
     width=19,
-    )
-Email_entry.place(x=520, y=223)
+)
+Email_entry.place(x=520, y=243)
 Email_entry.bind('<Button-1>', clremail)
 
 # Button to confirm mail
@@ -144,8 +159,8 @@ checkbtn = Button(
     bd=0,
     cursor='hand2',
     activebackground='#565050',
-    command=ConformationID,
-    )
+    command=check_mail(),
+)
 checkbtn.place(x=579, y=339)
 
 ForgotPass.mainloop()
