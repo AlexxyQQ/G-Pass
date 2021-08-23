@@ -4,7 +4,6 @@ import smtplib
 import random
 import sqlite3
 import requests
-#importing files
 
 # main window for login and signup pages
 logsin = Tk()
@@ -816,7 +815,7 @@ def login_page():
             bg="#21BF99",
             bd=0,
             font=("Arial", 15),
-            width=19,
+            width=25,
         )
         Email_entry.place(x=520, y=249)
         Email_entry.bind("<Button-1>", clremail)

@@ -29,6 +29,207 @@ def forgot_password():
             if ID.get() == 123456:
                 ID.set("")
 
+        def resetpass():
+            '''
+                    function to change the master key/ main password
+                    '''
+
+            global passbox, bbg, confirmp, img_eyes, sub_fr
+
+            def clearoldpass(event):
+                if old_password.get() == "Old Password":
+                    old_password.set('')
+
+            def clearnewpass(event):
+                if new_password.get() == "New Password":
+                    new_password.set('')
+
+            def clearnewcpass(event):
+                if new_passwordc.get() == "Confirm New Password":
+                    new_passwordc.set('')
+
+            def eye_close():
+                '''
+                 A function that hides the entered password
+                '''
+
+                global img_eyes, sub_frame
+
+                # entering new password
+                newpass_bg = Label(changepass_frame, image=passbox, bg='#c4c4c4'
+                                   )
+                newpass_bg.place(x=130, y=165)
+                np_entry = Entry(
+                    changepass_frame,
+                    text=new_password,
+                    show='*',
+                    font=('Arial', 20),
+                    bd=0,
+                    bg='#48E8C2',
+                    width=18,
+                )
+                np_entry.place(x=220, y=180)
+                np_entry.bind('<Button-1>', clearnewpass)
+
+                # confirming new password
+                newpassc_bg = Label(changepass_frame, image=passbox,
+                                    bg='#c4c4c4')
+                newpassc_bg.place(x=130, y=239)
+                npc_entry = Entry(
+                    changepass_frame,
+                    text=new_passwordc,
+                    show='*',
+                    font=('Arial', 20),
+                    bd=0,
+                    bg='#48E8C2',
+                    width=20,
+                    relief=FLAT,
+                )
+                npc_entry.place(x=220, y=254)
+                npc_entry.bind('<Button-1>', clearnewcpass)
+
+                img_eyes = PhotoImage(file='Images/eyec.png')
+                eyes = Button(
+                    changepass_frame,
+                    image=img_eyes,
+                    bg='#48E8C2',
+                    relief=FLAT,
+                    activebackground='#48E8C2',
+                    bd=0,
+                    command=eye_open,
+                )
+                eyes.place(x=553, y=254)
+
+            def eye_open():
+                """
+                function to make the password visible
+                """
+                global img_eyes, sub_frame
+
+                # entering new password
+                newpass_bg = Label(changepass_frame, image=passbox, bg='#c4c4c4'
+                                   )
+                newpass_bg.place(x=130, y=165)
+                np_entry = Entry(
+                    changepass_frame,
+                    text=new_password,
+                    font=('Arial', 20),
+                    bd=0,
+                    bg='#48E8C2',
+                    width=18,
+                )
+                np_entry.place(x=220, y=180)
+                np_entry.bind('<Button-1>', clearnewpass)
+
+                # confirming new password
+                newpassc_bg = Label(changepass_frame, image=passbox,
+                                    bg='#c4c4c4')
+                newpassc_bg.place(x=130, y=239)
+                npc_entry = Entry(
+                    changepass_frame,
+                    text=new_passwordc,
+                    font=('Arial', 20),
+                    bd=0,
+                    bg='#48E8C2',
+                    width=20,
+                    relief=FLAT,
+                )
+                npc_entry.place(x=220, y=254)
+                npc_entry.bind('<Button-1>', clearnewcpass)
+
+                img_eyes = PhotoImage(file='Images/eyeo.png')
+                eyes = Button(
+                    changepass_frame,
+                    image=img_eyes,
+                    bg='#48E8C2',
+                    relief=FLAT,
+                    activebackground='#48E8C2',
+                    bd=0,
+                    command=eye_close,
+                )
+                eyes.place(x=553, y=254)
+
+            # creating a frame
+            changepass_frame = LabelFrame(settings_frame, width='744',
+                                          height='552', bg='#c4c4c4')
+            changepass_frame.place(x=490, y=129)
+
+            sub_fr = PhotoImage(file='Images/Settings Small Frame.png')
+            bg = Label(changepass_frame, image=sub_fr, bg='#565050')
+            bg.place(x=-8, y=-3)
+
+            # String Variables to store new password
+            old_password = StringVar()
+            old_password.set('Old Password')
+            new_password = StringVar()
+            new_password.set('New Password')
+            new_passwordc = StringVar()
+            new_passwordc.set('Confirm New Password')
+
+            passbox = PhotoImage(file='Images/Settings Password Box.png')
+
+            # entering old password
+
+            oldpass_bg = Label(changepass_frame, image=passbox, bg='#c4c4c4')
+
+            oldpass_bg.place(x=130, y=92)
+            op_entry = Entry(
+                changepass_frame,
+                text=old_password,
+                font=('Arial', 20),
+                bg='#48E8C2',
+                bd=0,
+                width=18,
+            )
+
+            op_entry.place(x=220, y=110)
+            op_entry.bind('<Button-1>', clearoldpass)
+
+            # entering new password
+
+            newpass_bg = Label(changepass_frame, image=passbox, bg='#c4c4c4')
+            newpass_bg.place(x=130, y=165)
+            np_entry = Entry(
+                changepass_frame,
+                text=new_password,
+                show='*',
+                font=('Arial', 20),
+                bd=0,
+                bg='#48E8C2',
+                width=18,
+            )
+            np_entry.place(x=220, y=180)
+            np_entry.bind('<Button-1>', clearnewpass)
+
+            # confirming new password
+
+            newpassc_bg = Label(changepass_frame, image=passbox, bg='#c4c4c4')
+            newpassc_bg.place(x=130, y=239)
+            npc_entry = Entry(
+                changepass_frame,
+                text=new_passwordc,
+                show='*',
+                font=('Arial', 20),
+                bd=0,
+                bg='#48E8C2',
+                width=20,
+                relief=FLAT,
+            )
+            npc_entry.place(x=220, y=254)
+            npc_entry.bind('<Button-1>', clearnewcpass)
+
+            img_eyes = PhotoImage(file='Images/eyec.png')
+            eyes = Button(
+                changepass_frame,
+                image=img_eyes,
+                bg='#48E8C2',
+                relief=FLAT,
+                activebackground='#48E8C2',
+                bd=0,
+                command=eye_open,
+            )
+            eyes.place(x=553, y=254)
+
         def IDSend():
 
             """
@@ -45,6 +246,7 @@ def forgot_password():
                     fg="#FFCA41",
                 )
                 error.place(x=530, y=619)
+                resetpass()
 
             else:
                 error = Label(
@@ -236,7 +438,7 @@ def forgot_password():
         bg="#21BF99",
         bd=0,
         font=("Arial", 15),
-        width=19,
+        width=25,
     )
     Email_entry.place(x=520, y=249)
     Email_entry.bind("<Button-1>", clremail)
@@ -256,3 +458,5 @@ def forgot_password():
     checkbtn.place(x=579, y=339)
 
     ForgotPass.mainloop()
+
+forgot_password()

@@ -18,7 +18,8 @@ def dashboard():
     root.resizable(False, False)
 
     bgi = PhotoImage(file='Images/Generator Background.png')
-    Label(root, image=bgi).place(x=-3, y=-3)
+    imm=Label(root, image=bgi)
+    imm.place(x=-3, y=-3)
 
     bgf = PhotoImage(file='Images/Dashboard Frame.png')
     Label(root, image=bgf, bg='#855700').place(x=26, y=12)
