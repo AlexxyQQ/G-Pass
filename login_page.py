@@ -6,7 +6,7 @@ import sqlite3
 import requests
 
 
-# main window for login and signup page
+# main window for login and signup pages
 logsin = Tk()
 logsin.geometry("1280x720")  # resolution of the window
 logsin.title("G-Pass-LoginSignup")  # title of the window
