@@ -6,41 +6,8 @@ ForgotPass.geometry("1280x720")
 ForgotPass.resizable(False, False)
 ForgotPass.iconbitmap("Images/G-pass_ico.ico")
 ForgotPass.title("Forgot Password")
-
-
-def check_mail():
-    global no_mail
-    """
-
-    function to check if the email is registered .
-
-    """
-
-    # connecting to database and creating cursor
-    db = sqlite3.connect("Loginandsignups.db")
-    c = db.cursor()
-
-    c.execute("SELECT * from Signups")
-
-    dbAll = c.fetchall()
-
-    for i in dbAll:
-
-        if i[1] == Reg_email.get():
-            ConformationID()
-        else:
-            no_mail = Label(
-                ForgotPass,
-                text="Email is not registered",
-                font=("Arial", 15),
-                bg="#565050",
-                fg="#FFCA41",
-            )
-            no_mail.place(x=550, y=408)
-
-    db.commit()
-    db.close()
-
+no_mail = Label(ForgotPass)
+no_mail.place(x=550, y=408)
 
 def ConformationID():
     """
@@ -51,7 +18,7 @@ def ConformationID():
     import random
     import smtplib
 
-    global IdBg, cbtn
+    global IdBg, cbtn,CID, no_mail
 
     def clrid(event):
         """
@@ -100,7 +67,7 @@ def ConformationID():
             )
             error.place(x=530, y=619)
 
-    global CID
+
 
     """ Sending conformation ID"""
     CID = random.randint(100000, 999999)
@@ -192,6 +159,42 @@ def ConformationID():
         command=IDSend,
     )
     Confirm_btn.place(x=594, y=557)
+
+
+
+def check_mail():
+    global no_mail
+    """
+
+    function to check if the email is registered .
+
+    """
+
+    # connecting to database and creating cursor
+    db = sqlite3.connect("Loginandsignups.db")
+    c = db.cursor()
+
+    c.execute("SELECT * from Signups")
+
+    dbAll = c.fetchall()
+
+    for i in dbAll:
+
+        if i[1] == Reg_email.get():
+            ConformationID()
+        else:
+            no_mail = Label(
+                ForgotPass,
+                text="Email is not registered",
+                font=("Arial", 15),
+                bg="#565050",
+                fg="#FFCA41",
+            )
+            no_mail.place(x=550, y=408)
+
+    db.commit()
+    db.close()
+
 
 
 def clremail(event):
