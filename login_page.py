@@ -5,7 +5,6 @@ import random
 import sqlite3
 import requests
 
-
 # main window for login and signup pages
 logsin = Tk()
 logsin.geometry("1280x720")  # resolution of the window
@@ -753,8 +752,7 @@ def login_page():
 
     def login_c():
         """ Checks the login info from database """
-        global username, password
-
+        global username, password, logsin
 
         db = sqlite3.connect("Loginandsignups.db")
         d = db.cursor()
@@ -773,10 +771,7 @@ def login_page():
 
         if emailtry and passtry:
             """ Takes user to dashboard after login successfully """
-            username.set("Email")
-            password.set("Password")
-            logsin.quit()
-
+            logsin.withdraw()
             import Dashboard
             Dashboard.dashboard()
 
