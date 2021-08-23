@@ -1,9 +1,10 @@
 from tkinter import *
 
+
 def dashboard():
-    global bgi,bgf,folder,imgdis,topcard,goodevening
-    root = Tk()
+    root = Toplevel()
     root.geometry('1280x720')
+    root.title("G-Pass-Dashboard")
     root.resizable(False, False)
 
     bgi = PhotoImage(file='Images/Generator Background.png')
@@ -81,6 +82,7 @@ def dashboard():
     unassigned = PhotoImage(file='Images/Unassigned Folder.png')
     Button(root, image=unassigned, bg='#838080', bd=0, activebackground='#838080').place(x=753, y=504)
 
-
     root.mainloop()
 
+
+dashboard()
