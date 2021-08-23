@@ -11,7 +11,6 @@ no_mail.place(x=550, y=408)
 
 def ConformationID():
     """
-
     function to send conformation id if mail is registered
 
     """
