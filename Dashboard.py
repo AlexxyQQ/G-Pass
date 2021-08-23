@@ -2,6 +2,16 @@ from tkinter import *
 
 
 def dashboard():
+    def generatewinopen():
+        root.withdraw()
+        import Password_Generator
+        Password_Generator.pg()
+
+    def settingswinopen():
+        root.withdraw()
+        import Settings_page
+        Settings_page.setting_page()
+
     root = Toplevel()
     root.geometry('1280x720')
     root.title("G-Pass-Dashboard")
@@ -38,10 +48,11 @@ def dashboard():
     Button(root, image=vault, bg='#C4C4C4', bd=0, activebackground='#C4C4C4').place(x=62, y=86)
 
     generate = PhotoImage(file='Images/Generate Button Dashboard.png')
-    Button(root, image=generate, bg='#C4C4C4', bd=0, activebackground='#C4C4C4').place(x=62, y=276)
+    Button(root, image=generate, bg='#C4C4C4', bd=0, activebackground='#C4C4C4', command=generatewinopen).place(x=62,
+                                                                                                                y=276)
 
     settings = PhotoImage(file='Images/Settings Button Dashboard.png')
-    Button(root, image=settings, bg='#C4C4C4', bd=0, activebackground='#C4C4C4').place(x=62, y=466)
+    Button(root, image=settings, bg='#C4C4C4', bd=0, activebackground='#C4C4C4',command=settingswinopen).place(x=62, y=466)
 
     trash = PhotoImage(file='Images/Trash Button.png')
     Button(root, image=trash, bg='#C4C4C4', bd=0, activebackground='#C4C4C4').place(x=161, y=636)
