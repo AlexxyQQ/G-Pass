@@ -36,25 +36,15 @@ def ConformationID():
 
         """
         if CID == ID.get():
-            try:
-                error.destroy
-                error = Label(
-                    ForgotPass,
-                    text=" Identification Confirmed",
-                    font=("Arial", 15),
-                    bg="#565050",
-                    fg="#FFCA41",
-                )
-                error.place(x=530, y=619)
-            except:
-                error = Label(
-                    ForgotPass,
-                    text=" Identification Confirmed",
-                    font=("Arial", 15),
-                    bg="#565050",
-                    fg="#FFCA41",
-                )
-                error.place(x=530, y=619)
+
+            error = Label(
+                ForgotPass,
+                text=" Identification Confirmed",
+                font=("Arial", 15),
+                bg="#565050",
+                fg="#FFCA41",
+            )
+            error.place(x=530, y=619)
 
         else:
             error = Label(
@@ -245,10 +235,10 @@ Email_entry = Entry(
     text=Reg_email,
     bg="#21BF99",
     bd=0,
-    font=("Arial", 20),
+    font=("Arial", 15),
     width=19,
 )
-Email_entry.place(x=520, y=243)
+Email_entry.place(x=520, y=249)
 Email_entry.bind("<Button-1>", clremail)
 
 # Button to confirm mail
