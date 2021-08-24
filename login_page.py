@@ -4,6 +4,7 @@ import smtplib
 import random
 import sqlite3
 import requests
+#importing files
 
 # main window for login and signup page
 logsin = Tk()
@@ -34,7 +35,7 @@ logo_g.place(x=511, y=75)
 
 def signup_page():
     """ Signup page function """
-    global bg_image, f2, snup_logo, flname, semail, spasswordi, scpasswordi, signup_button, email, c_password, s_password, signup_frame, spasswordi, s_p, scpasswordi, c_p, img_eyes, eyes, warn, fullname, email, c_password, s_password, signup_frame, otp_frame_bg, otp_confirm, warn, otp
+    global bg_image, f2, snup_logo, flname, semail, spasswordi, scpasswordi, signup_button, email, c_password, s_password, signup_frame, spasswordi, s_p, scpasswordi, c_p, img_eyes, eyes, warn, fullname, email, c_password, s_password, signup_frame, otp_frame_bg, otp_confirm, warn, otp, sback
     # This many global for all the variable assigned inside the function.
 
     # New frame for signup window
@@ -52,6 +53,9 @@ def signup_page():
     # Signup logo (Actually is text-image)
     snup_logo = PhotoImage(file="Images/Signup Logo.png")
     Label(signup_frame, image=snup_logo, bg="#D9D0BF").place(x=561, y=62)
+
+    sback = PhotoImage(file='Images/Back Buttton.png')
+    Button(signup_frame, image=sback, bd=0, bg='white').place(x=51, y=51)
 
     # variables to store user input in Signup section
     fullname = StringVar()
@@ -254,12 +258,21 @@ def signup_page():
         """ First check's if the email is already is in the database or not  """
         db = sqlite3.connect("Loginandsignups.db")
         d = db.cursor()
-        d.execute("SELECT *, oid FROM Signups")
-        emailcheckdb = d.fetchall()
         checking = False
+        try:
+            d.execute("SELECT *, oid FROM Signups")
+            emailcheckdb = d.fetchall()
+            checking = False
+            for i in emailcheckdb:
+                if i[1] == email.get():
+                    checking = True
+        except:
+            pass
+        '''checking = False
         for i in emailcheckdb:
             if i[1] == email.get():
-                checking = True
+                checking = True'''
+
         if checking:
             # Warning to notify the use that email is already is in use
             warn = Label(
@@ -571,7 +584,7 @@ def delete_pass_ent_text(event):
 # Button,Label and Placements for Input section
 
 l_title = PhotoImage(file="Images/USER LOGIN.png")
-Label(login_frame, image=l_title, bg="#565050",).place(
+Label(login_frame, image=l_title, bg="#565050", ).place(
     x=518,
     y=286,
 )
@@ -736,14 +749,14 @@ def login_c():
     passtry = False
 
     for i in rec:
+
         if i[1] == username.get():
             emailtry = True
-
-        elif i[2] == password.get():
+        if i[2] == password.get():
             passtry = True
 
     if emailtry and passtry:
-        """ Takes user to dashboard after login """
+        """ Takes user to dashboard after login successfully """
         username.set("Email")
         password.set("Password")
         newww = Tk()
