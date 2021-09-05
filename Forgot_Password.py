@@ -1,6 +1,7 @@
 from tkinter import *
 import sqlite3
 def forgot_password():
+    global sback
     ForgotPass = Tk()
     ForgotPass.geometry("1280x720")
     ForgotPass.resizable(False, False)
@@ -8,6 +9,13 @@ def forgot_password():
     ForgotPass.title("Forgot Password")
     no_mail = Label(ForgotPass)
     no_mail.place(x=550, y=408)
+    sback = PhotoImage(file="Images/Back Buttton.png")
+    Button(ForgotPass,
+           image=sback,
+           bd=0,
+           bg="#CE9100",
+           activebackground='#CE9100',
+           ).place(x=51, y=51)
 
     def ConformationID():
         """
@@ -45,12 +53,32 @@ def forgot_password():
                 if new_passwordc.get() == "Confirm New Password":
                     new_passwordc.set('')
 
+            def pw_change():
+
+                #ensuring the password is strong
+
+
+                # connecting to database
+                db = sqlite3.connect("Loginandsignups.db")
+
+                # creating cursor
+                d = db.cursor()
+
+                d.execute("""UPDATE Signups SET 
+                password=:new_pass WHERE email=em""" , {'new_pass': new_passwordc.get(), 'em': Reg_email.get()})
+
+
+
+
+
+
             def eye_close():
                 '''
                  A function that hides the entered password
                 '''
 
                 global img_eyes, sub_frame
+
 
                 # entering new password
                 newpass_bg = Label(ForgotPass, image=passbox, bg='#c4c4c4'
@@ -146,7 +174,7 @@ def forgot_password():
                 )
                 eyes.place(x=553, y=254)
 
-
+            global img_eyes, sub_frame
 
             # String Variables to store new password
 
@@ -154,6 +182,63 @@ def forgot_password():
             new_password.set('New Password')
             new_passwordc = StringVar()
             new_passwordc.set('Confirm New Password')
+
+            # entering new password
+            passbox=PhotoImage(file='Images/Login Password Box.png')
+            newpass_bg = Label(ForgotPass, image=passbox, bg='#c4c4c4'
+                               )
+            newpass_bg.place(x=130, y=165)
+            np_entry = Entry(
+                ForgotPass,
+                text=new_password,
+                show='*',
+                font=('Arial', 20),
+                bd=0,
+                bg='#48E8C2',
+                width=18,
+            )
+            np_entry.place(x=220, y=180)
+            np_entry.bind('<Button-1>', clearnewpass)
+
+            # confirming new password
+            passbox=PhotoImage(file='Images/Login Password Box.png')
+            newpassc_bg = Label(ForgotPass, image=passbox,
+                                bg='#c4c4c4')
+            newpassc_bg.place(x=479, y=227)
+            npc_entry = Entry(
+                ForgotPass,
+                text=new_passwordc,
+                show='*',
+                font=('Arial', 20),
+                bd=0,
+                bg='#48E8C2',
+                width=20,
+                relief=FLAT,
+            )
+            npc_entry.place(x=479, y=346)
+            npc_entry.bind('<Button-1>', clearnewcpass)
+
+            img_eyes = PhotoImage(file='Images/eyec.png')
+            eyes = Button(
+                ForgotPass,
+                image=img_eyes,
+                bg='#48E8C2',
+                relief=FLAT,
+                activebackground='#48E8C2',
+                bd=0,
+                command=eye_open,
+            )
+            eyes.place(x=770, y=346)
+
+            #confirm button for the passwords
+
+            img_confi=PhotoImage(file='Images/Confirm Button.png')
+            Confirm=Button(ForgotPass, image=img_confi,   bd=0,
+                bg='#48E8C2', activeforeground='#48E8C2' ,
+                           command=pw_change)
+            Confirm.place(x=594, y=400)
+
+
 
             # Backgrounds
 
@@ -171,7 +256,7 @@ def forgot_password():
             confirm_id = Label(ForgotPass, image=Confirm_iden, bg="#D9D0BF", )
             confirm_id.place(x=444, y=63)
 
-            passbox=PhotoImage(file='Images/Login Password Box.png')
+
 
             # entering new password
             newpass_lab=Label(ForgotPass, text="New password", bg="#565050", font=("Aerial", 15) ,fg='#05FBC1')
@@ -346,13 +431,13 @@ def forgot_password():
 
 
     def check_mail():
-        global no_mail
+
         """
     
         function to check if the email is registered .
     
         """
-
+        global no_mail
         # connecting to database and creating cursor
         db = sqlite3.connect("Database.db")
         c = db.cursor()
