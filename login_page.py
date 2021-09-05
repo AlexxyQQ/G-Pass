@@ -4,9 +4,9 @@ import smtplib
 import random
 import sqlite3
 import requests
-#importing files
 
-# main window for login and signup pages
+
+# main window for login, signup and forgot password pages
 logsin = Tk()
 logsin.geometry("1280x720")  # resolution of the window
 logsin.title("G-Pass-LoginSignup")  # title of the window
@@ -146,7 +146,7 @@ def login_page():
         # when pressed left mouse click on the fullname entry runs fnclear function
 
         # Background of the Email entry
-        semail = PhotoImage(file="Images/Signup Email Box.png")
+        semail = PhotoImage(file="Images/Emailboxsignup.png")
         Label(signup_frame,
               image=semail,
               bg="#565050"

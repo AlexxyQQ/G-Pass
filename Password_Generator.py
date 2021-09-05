@@ -259,4 +259,3 @@ def pg():
     root.mainloop()
 
 
-pg()

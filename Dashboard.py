@@ -95,5 +95,3 @@ def dashboard():
 
     root.mainloop()
 
-
-dashboard()
