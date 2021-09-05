@@ -17,7 +17,7 @@
 <h2>Future Updates</h2>
 - Point no.1
 <br>
-- Point no.2
+- Point no. 2
 <br>
 <hr>
 
