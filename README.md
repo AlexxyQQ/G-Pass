@@ -9,6 +9,6 @@ Content after h1
 <h5> Heading 5</h5>
 Content after h1
 <br> 
-<img src="Images/Login.png" alt="10">
+<img src="Images/Login.png">
 
 
