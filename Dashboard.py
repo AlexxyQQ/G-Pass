@@ -30,7 +30,7 @@ def dashboard():
         main_f.place(x=-3, y=-3)
 
         def add_items():
-            global f_bg_image, add_back, add_save,add_item_logo
+            global f_bg_image, add_back, add_save, add_item_logo, b_frame, items_drop, C_frame
 
             main_f.destroy()
             add_f = LabelFrame(dashboard_win,
@@ -55,15 +55,134 @@ def dashboard():
                 y=47)
 
             add_save = PhotoImage(file='Images/Save Button.png')
-            Button(add_f, image=add_save, bg='#565050', bd=0, activebackground='#565050').place(
-                x=1157,
-                y=47)
+            Button(add_f, image=add_save, bg='#565050', bd=0, activebackground='#565050').place(x=1157, y=47)
 
             add_item_logo = PhotoImage(file='Images/Add Item.png')
-            Label(add_f, image=add_item_logo, bg='#565050').place(
-                x=505,
-                y=37)
+            Label(add_f, image=add_item_logo, bg='#565050').place(x=505, y=37)
 
+            items_drop = PhotoImage(file='Images/Drop Down Items.png')
+            Label(add_f, image=items_drop, bg='#565050').place(x=429, y=123)
+
+            b_frame = PhotoImage(file='Images/Add Item Login Frame.png')
+            C_frame = PhotoImage(file='Images/Card Frame.png')
+
+            def A_login_frame():
+                global Add_login_entries, Add_login_entries_label, folder_drop
+
+                Web_name = StringVar()
+                Web_name.set('Google')
+                add_email_u = StringVar()
+                add_email_u.set('xyz@gmail.com')
+                add_password = StringVar()
+                add_password.set('Password')
+
+                add_login = LabelFrame(add_f,
+                                       width=1043,
+                                       height=418,
+                                       bd=0,
+                                       )
+                add_login.place(x=121, y=229)
+
+                Label(add_login, image=b_frame, bg='#565050').place(x=0, y=0)
+
+                Add_login_entries = PhotoImage(file='Images/Enteries of Add Login.png')
+                Label(add_login, image=Add_login_entries, bg='#C4C4C4').place(x=20, y=59)
+
+                Label(add_login, text='Website Name', font=('Arial', 15), bg='#C4C4C4').place(x=49, y=29)
+                Label(add_login, text="Username/Email", font=('Arial', 15), bg='#C4C4C4').place(x=49, y=143)
+                Label(add_login, text='Password', font=('Arial', 15), bg='#C4C4C4').place(x=49, y=262)
+
+                W_name = Entry(add_login,
+                               text=Web_name,
+                               font=("Arial", 20),
+                               bd=0,
+                               width=25,
+                               bg="#48E8C2",
+                               )
+                W_name.place(x=109, y=81)
+
+                W_email = Entry(add_login,
+                                text=add_email_u,
+                                font=("Arial", 20),
+                                bd=0,
+                                width=25,
+                                bg="#48E8C2",
+                                )
+                W_email.place(x=109, y=197)
+
+                W_pas = Entry(add_login,
+                              text=add_password,
+                              font=("Arial", 20),
+                              bd=0,
+                              width=25,
+                              bg="#48E8C2",
+                              )
+                W_pas.place(x=109, y=312)
+
+                folder_drop = PhotoImage(file='Images/Drop Down Folders.png')
+                Label(add_login, image=folder_drop, bg='#C4C4C4').place(x=537, y=59)
+
+            def A_card_frame():
+                add_card = LabelFrame(add_f,
+                                      width=1043,
+                                      height=418,
+                                      bd=0,
+                                      )
+
+                add_card.place(x=121, y=229)
+
+                Label(add_card, image=C_frame, bg='#565050').place(x=0, y=0)
+
+                c_num = StringVar()
+                c_num.set('1234 5678 9123 4567')
+                vf = StringVar()
+                vf.set('01/20')
+                vt = StringVar()
+                vt.set('01/25')
+                c_name = StringVar()
+                c_name.set('Shyam Dai')
+                cvv = StringVar()
+                cvv.set('123')
+
+                C_num = Entry(add_card,
+                               text=c_num,
+                               font=("Arial", 20),
+                               bd=0,
+                               width=25,
+                               bg="#48E8C2",
+                               )
+                C_num.place(x=158, y=76)
+
+            def A_note_frame():
+                add_note = LabelFrame(add_f,
+                                      width=1043,
+                                      height=418,
+                                      bd=0,
+                                      )
+
+                add_note.place(x=121, y=229)
+
+                Label(add_note, image=b_frame, bg='#565050').place(x=0, y=0)
+
+            def opt(event):
+
+                if clicked.get() == 'Login':
+                    A_login_frame()
+                if clicked.get() == 'Card':
+                    A_card_frame()
+                if clicked.get() == 'Note':
+                    A_note_frame()
+
+            options = [
+                'Login',
+                'Card',
+                'Note',
+            ]
+            clicked = StringVar()
+            clicked.set('Login')
+            A_login_frame()
+            drop = OptionMenu(add_f, clicked, *options, command=opt)
+            drop.place(x=595, y=131)
 
         image_bg = PhotoImage(file='Images/Backgroundin.png')
         Label(main_f, image=image_bg).place(x=-1, y=-1)
