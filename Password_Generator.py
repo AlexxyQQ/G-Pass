@@ -254,7 +254,7 @@ def pg():
         bd=0,
         activebackground='#C4C4C4',
         command=gen_password,
-    ).place(x=51, y=163)
+    ).place(x=88, y=163)
 
     root.mainloop()
 

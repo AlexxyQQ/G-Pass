@@ -70,7 +70,7 @@ def dashboard():
                 global Add_login_entries, Add_login_entries_label, folder_drop
 
                 Web_name = StringVar()
-                Web_name.set('Google')
+                Web_name.set('xyz.com')
                 add_email_u = StringVar()
                 add_email_u.set('xyz@gmail.com')
                 add_password = StringVar()
@@ -92,6 +92,18 @@ def dashboard():
                 Label(add_login, text="Username/Email", font=('Arial', 15), bg='#C4C4C4').place(x=49, y=143)
                 Label(add_login, text='Password', font=('Arial', 15), bg='#C4C4C4').place(x=49, y=262)
 
+                def clear_entry_n(event):
+                    if Web_name.get() == "xyz.com":
+                        Web_name.set('')
+
+                def clear_entry_e(event):
+                    if add_email_u.get() == "xyz@gmail.com":
+                        add_email_u.set('')
+
+                def clear_entry_p(event):
+                    if add_password.get() == "Password":
+                        add_password.set('')
+
                 W_name = Entry(add_login,
                                text=Web_name,
                                font=("Arial", 20),
@@ -100,6 +112,7 @@ def dashboard():
                                bg="#48E8C2",
                                )
                 W_name.place(x=109, y=81)
+                W_name.bind("<Button-1>", clear_entry_n)
 
                 W_email = Entry(add_login,
                                 text=add_email_u,
@@ -109,15 +122,18 @@ def dashboard():
                                 bg="#48E8C2",
                                 )
                 W_email.place(x=109, y=197)
+                W_email.bind("<Button-1>", clear_entry_e)
 
                 W_pas = Entry(add_login,
                               text=add_password,
                               font=("Arial", 20),
+                              show='*',
                               bd=0,
                               width=25,
                               bg="#48E8C2",
                               )
                 W_pas.place(x=109, y=312)
+                W_pas.bind("<Button-1>", clear_entry_p)
 
                 folder_drop = PhotoImage(file='Images/Drop Down Folders.png')
                 Label(add_login, image=folder_drop, bg='#C4C4C4').place(x=537, y=59)
@@ -144,13 +160,25 @@ def dashboard():
                 cvv = StringVar()
                 cvv.set('123')
 
+                '''def clear_entry_n(event):
+                    if Web_name.get() == "xyz.com":
+                        Web_name.set('')
+
+                def clear_entry_e(event):
+                    if add_email_u.get() == "xyz@gmail.com":
+                        add_email_u.set('')
+
+                def clear_entry_p(event):
+                    if add_password.get() == "Password":
+                        add_password.set('')'''
+
                 C_num = Entry(add_card,
-                               text=c_num,
-                               font=("Arial", 20),
-                               bd=0,
-                               width=25,
-                               bg="#48E8C2",
-                               )
+                              text=c_num,
+                              font=("Arial", 20),
+                              bd=0,
+                              width=25,
+                              bg="#48E8C2",
+                              )
                 C_num.place(x=158, y=76)
 
             def A_note_frame():
@@ -182,7 +210,8 @@ def dashboard():
             clicked.set('Login')
             A_login_frame()
             drop = OptionMenu(add_f, clicked, *options, command=opt)
-            drop.place(x=595, y=131)
+            drop.config(font=('Arial', 20), width=10, bg='#C4C4C4', bd=0, activebackground='#C4C4C4')
+            drop.place(x=565, y=128)
 
         image_bg = PhotoImage(file='Images/Backgroundin.png')
         Label(main_f, image=image_bg).place(x=-1, y=-1)
