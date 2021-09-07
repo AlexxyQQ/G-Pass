@@ -160,7 +160,7 @@ def forgot_password():
         """
 
         # connecting to database and creating cursor
-        db = sqlite3.connect("Loginandsignups.db")
+        db = sqlite3.connect("Database.db")
         c = db.cursor()
 
         c.execute("SELECT * from Signups")
