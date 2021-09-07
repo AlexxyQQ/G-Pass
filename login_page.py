@@ -299,7 +299,7 @@ def login_page():
             global otp_frame_bg, otp_confirm, warn, otp
 
             """ First check's if the email is already is in the database or not  """
-            db = sqlite3.connect("Loginandsignups.db")
+            db = sqlite3.connect("Database.db")
             d = db.cursor()
             checking = False
             try:
@@ -481,7 +481,7 @@ def login_page():
                                     login_page()
 
                                 # connecting to database
-                                db = sqlite3.connect("Loginandsignups.db")
+                                db = sqlite3.connect("Database.db")
 
                                 # creating cursor
                                 d = db.cursor()
@@ -742,7 +742,7 @@ def login_page():
             """
 
             # connecting to database and creating cursor
-            db = sqlite3.connect("Loginandsignups.db")
+            db = sqlite3.connect("Database.db")
             c = db.cursor()
 
             c.execute("SELECT * from Signups")
@@ -1002,7 +1002,7 @@ def login_page():
         """ Checks the login info from database """
         global username, password, logsin
 
-        db = sqlite3.connect("Loginandsignups.db")
+        db = sqlite3.connect("Database.db")
         d = db.cursor()
         d.execute("SELECT *, oid FROM Signups")
         rec = d.fetchall()

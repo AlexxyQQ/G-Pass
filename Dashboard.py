@@ -1,4 +1,5 @@
 from tkinter import *
+import sqlite3
 
 
 def dashboard():
@@ -50,13 +51,83 @@ def dashboard():
 
             def database_storing():
 
+                # connecting to database
+                db = sqlite3.connect("Database.db")
+
+                # creating cursor
+                d = db.cursor()
+
                 if clicked.get() == "Login":
                     login_entries_values = A_login_frame()
-                    print(login_entries_values)
+
+                    # Inserting values in to table
+                    try:
+                        # Create table if it doesn't already exist
+                        d.execute(
+                            " CREATE TABLE AddedLogins(Website_name text,email_Username text,password text) "
+                        )
+                        db.commit()
+                        # writing in table if it doesn't already exist
+                        d.execute(
+                            "INSERT INTO AddedLogins VALUES (:w_name,:email_u,:password)",
+                            {
+                                "w_name": login_entries_values[0],
+                                "email_u": login_entries_values[1],
+                                "password": login_entries_values[2],
+                            },
+                        )
+                        db.commit()
+                        db.close()
+                    except:
+
+                        d.execute(
+                            "INSERT INTO AddedLogins VALUES (:w_name,:email_u,:password)",
+                            {
+                                "w_name": login_entries_values[0],
+                                "email_u": login_entries_values[1],
+                                "password": login_entries_values[2],
+                            },
+                        )
+                        db.commit()
+                        db.close()
 
                 if clicked.get() == "Card":
                     card_entries_values = A_card_frame()
-                    print(card_entries_values)
+
+                    # Inserting values in to table
+                    try:
+                        # Create table if it doesn't already exist
+                        d.execute(
+                            " CREATE TABLE AddedCards(card_num text,val_f text,val_t text,card_name text,cvv2 text) "
+                        )
+                        db.commit()
+                        # writing in table if it doesn't already exist
+                        d.execute(
+                            "INSERT INTO AddedCards VALUES (:cn,:vf,:vt,:cna,:cv)",
+                            {
+                                "cn": card_entries_values[0],
+                                "vf": card_entries_values[1],
+                                "vt": card_entries_values[2],
+                                "cna": card_entries_values[3],
+                                "cv": card_entries_values[4],
+                            },
+                        )
+                        db.commit()
+                        db.close()
+                    except:
+
+                        d.execute(
+                            "INSERT INTO AddedCards VALUES (:cn,:vf,:vt,:cna,:cv)",
+                            {
+                                "cn": card_entries_values[0],
+                                "vf": card_entries_values[1],
+                                "vt": card_entries_values[2],
+                                "cna": card_entries_values[3],
+                                "cv": card_entries_values[4],
+                            },
+                        )
+                        db.commit()
+                        db.close()
                 if clicked.get() == "Note":
                     A_note_frame()
 
