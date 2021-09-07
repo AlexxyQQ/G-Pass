@@ -954,6 +954,7 @@ def login_page():
                              font=("Arial", 15),
                              bd=0,
                              bg="#21BF99",
+
                              )
             pass_ent.place(
                 x=528,
@@ -968,6 +969,7 @@ def login_page():
                          activebackground="#21BF99",
                          bd=0,
                          command=eye_o,
+                         cursor="hand2",
                          # runs the eye_o function to show the password again
                          )
             eye.place(x=774, y=460)
@@ -981,6 +983,7 @@ def login_page():
                      activebackground="#21BF99",
                      bd=0,
                      command=eye_c,
+                     cursor="hand2",
                      # runs the eye_c function to hide the password again
                      )
         eye.place(x=774, y=460)
@@ -995,6 +998,7 @@ def login_page():
                  activebackground="#21BF99",
                  bd=0,
                  command=eye_o,
+                 cursor="hand2",
                  )
     eye.place(x=774, y=460)
 
@@ -1039,6 +1043,7 @@ def login_page():
                      bd=0,
                      activebackground="#565050",
                      command=login_c,
+                     cursor="hand2",
                      )
     b_login.place(x=584, y=562)
 
@@ -1051,7 +1056,8 @@ def login_page():
                      activeforeground="grey",
                      activebackground="#565050",
                      relief=FLAT,
-                     command=forgot_password
+                     command=forgot_password,
+                     cursor="hand2",
                      )
     b_fpass.place(
         x=699,
@@ -1076,6 +1082,7 @@ def login_page():
                       activebackground="#565050",
                       command=signup_page,
                       relief=FLAT,
+                      cursor="hand2",
                       )
     b_signup.place(
         x=713,

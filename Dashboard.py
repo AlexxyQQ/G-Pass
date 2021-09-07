@@ -94,6 +94,3 @@ def dashboard():
     Button(root, image=unassigned, bg='#838080', bd=0, activebackground='#838080').place(x=753, y=504)
 
     root.mainloop()
-
-
-dashboard()
