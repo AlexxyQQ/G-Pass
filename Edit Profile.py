@@ -6,7 +6,7 @@ def main():
     global bg, back, save, e_f, user_image_box
 
     edit_p = Toplevel()
-    edit_p.geometry("1280x720")
+    edit_p.geometry("1280x720+0+0")
     edit_p.title("G-Pass-Edit_Profile")
     edit_p.resizable(False, False)
 

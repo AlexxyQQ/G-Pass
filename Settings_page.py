@@ -4,43 +4,16 @@ from tkinter import *
 def setting_page():
     # creating a settings window
     settings = Toplevel()
-    settings.geometry('1280x720')
+    settings.geometry('1280x720+0+0')
     settings.resizable(False, False)
 
     confirm = PhotoImage(file='Images/Settings Confirm Button.png')
     sub_fr = PhotoImage(file='Images/Settings Small Frame.png')
+
     def backtodash():
         import Dashboard
         settings.withdraw()
         Dashboard.dashboard()
-    def addfol():
-        ''' Function to add new folders'''
-
-        global addfol_img, addbtn_img
-
-        # creating frame
-        addfol_frame = LabelFrame(settings_frame, width='744', height='552'
-                                  , bg='#C4C4C4')
-        addfol_frame.place(x=490, y=129)
-
-        # adding widgets
-        bg = Label(addfol_frame, image=sub_fr, bg='#565050')
-        bg.place(x=-8, y=-3)
-
-        addfol_img = PhotoImage(file='Images/Add folder Label.png')
-        addfold = Label(addfol_frame, image=addfol_img, bg='#C4C4C4')
-        addfold.place(x=62, y=30)
-
-        addbtn_img = PhotoImage(file='Images/Plus button.png')
-        addbtn = Button(
-            addfol_frame,
-            bg='#A3A0A0',
-            image=addbtn_img,
-            cursor='hand2',
-            bd=0,
-            activebackground='#A3A0A0',
-        )
-        addbtn.place(x=579, y=55)
 
     def changepassword():
         '''
@@ -71,7 +44,7 @@ def setting_page():
             # entering new password
             newpass_bg = Label(changepass_frame, image=passbox, bg='#c4c4c4'
                                )
-            newpass_bg.place(x=130, y=165)
+            newpass_bg.place(x=104, y=194)
             np_entry = Entry(
                 changepass_frame,
                 text=new_password,
@@ -81,13 +54,13 @@ def setting_page():
                 bg='#48E8C2',
                 width=18,
             )
-            np_entry.place(x=220, y=180)
+            np_entry.place(x=188, y=215)
             np_entry.bind('<Button-1>', clearnewpass)
 
             # confirming new password
             newpassc_bg = Label(changepass_frame, image=passbox,
                                 bg='#c4c4c4')
-            newpassc_bg.place(x=130, y=239)
+            newpassc_bg.place(x=104, y=325)
             npc_entry = Entry(
                 changepass_frame,
                 text=new_passwordc,
@@ -98,7 +71,7 @@ def setting_page():
                 width=20,
                 relief=FLAT,
             )
-            npc_entry.place(x=220, y=254)
+            npc_entry.place(x=188, y=345)
             npc_entry.bind('<Button-1>', clearnewcpass)
 
             img_eyes = PhotoImage(file='Images/eyec.png')
@@ -111,7 +84,7 @@ def setting_page():
                 bd=0,
                 command=eye_open,
             )
-            eyes.place(x=553, y=254)
+            eyes.place(x=569, y=344)
 
         def eye_open():
             """
@@ -122,7 +95,7 @@ def setting_page():
             # entering new password
             newpass_bg = Label(changepass_frame, image=passbox, bg='#c4c4c4'
                                )
-            newpass_bg.place(x=130, y=165)
+            newpass_bg.place(x=104, y=194)
             np_entry = Entry(
                 changepass_frame,
                 text=new_password,
@@ -131,13 +104,13 @@ def setting_page():
                 bg='#48E8C2',
                 width=18,
             )
-            np_entry.place(x=220, y=180)
+            np_entry.place(x=188, y=215)
             np_entry.bind('<Button-1>', clearnewpass)
 
             # confirming new password
             newpassc_bg = Label(changepass_frame, image=passbox,
                                 bg='#c4c4c4')
-            newpassc_bg.place(x=130, y=239)
+            newpassc_bg.place(x=104, y=325)
             npc_entry = Entry(
                 changepass_frame,
                 text=new_passwordc,
@@ -147,7 +120,7 @@ def setting_page():
                 width=20,
                 relief=FLAT,
             )
-            npc_entry.place(x=220, y=254)
+            npc_entry.place(x=188, y=345)
             npc_entry.bind('<Button-1>', clearnewcpass)
 
             img_eyes = PhotoImage(file='Images/eyeo.png')
@@ -160,7 +133,7 @@ def setting_page():
                 bd=0,
                 command=eye_close,
             )
-            eyes.place(x=553, y=254)
+            eyes.place(x=569, y=344)
 
         # creating a frame
         changepass_frame = LabelFrame(settings_frame, width='744',
@@ -185,7 +158,7 @@ def setting_page():
 
         oldpass_bg = Label(changepass_frame, image=passbox, bg='#c4c4c4')
 
-        oldpass_bg.place(x=130, y=92)
+        oldpass_bg.place(x=104, y=62)
         op_entry = Entry(
             changepass_frame,
             text=old_password,
@@ -195,13 +168,13 @@ def setting_page():
             width=18,
         )
 
-        op_entry.place(x=220, y=110)
+        op_entry.place(x=188, y=84)
         op_entry.bind('<Button-1>', clearoldpass)
 
         # entering new password
 
         newpass_bg = Label(changepass_frame, image=passbox, bg='#c4c4c4')
-        newpass_bg.place(x=130, y=165)
+        newpass_bg.place(x=104, y=194)
         np_entry = Entry(
             changepass_frame,
             text=new_password,
@@ -211,13 +184,13 @@ def setting_page():
             bg='#48E8C2',
             width=18,
         )
-        np_entry.place(x=220, y=180)
+        np_entry.place(x=188, y=215)
         np_entry.bind('<Button-1>', clearnewpass)
 
         # confirming new password
 
         newpassc_bg = Label(changepass_frame, image=passbox, bg='#c4c4c4')
-        newpassc_bg.place(x=130, y=239)
+        newpassc_bg.place(x=104, y=325)
         npc_entry = Entry(
             changepass_frame,
             text=new_passwordc,
@@ -228,7 +201,7 @@ def setting_page():
             width=20,
             relief=FLAT,
         )
-        npc_entry.place(x=220, y=254)
+        npc_entry.place(x=188, y=345)
         npc_entry.bind('<Button-1>', clearnewcpass)
 
         img_eyes = PhotoImage(file='Images/eyec.png')
@@ -241,7 +214,7 @@ def setting_page():
             bd=0,
             command=eye_open,
         )
-        eyes.place(x=553, y=254)
+        eyes.place(x=569, y=344)
 
         def password_warn():
             """
@@ -256,7 +229,7 @@ def setting_page():
                 warn_text.set('Passwords do not match')
                 warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
                                                                            20), bg='#c4c4c4')
-                warn.place(x=201, y=314)
+                warn.place(x=220, y=415)
 
             elif len(npc_entry.get()) < 6:
                 try:
@@ -264,13 +237,13 @@ def setting_page():
                     warn_text.set('Password too weak')
                     warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
                                                                                20), bg='#c4c4c4')
-                    warn.place(x=201, y=314)
+                    warn.place(x=255, y=415)
 
                 except:
                     warn_text.set('Password too weak')
                     warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
                                                                                20), bg='#c4c4c4')
-                    warn.place(x=201, y=314)
+                    warn.place(x=255, y=415)
 
             elif not any(char.isdigit() for char in np_entry.get()):
 
@@ -279,13 +252,13 @@ def setting_page():
                     warn_text.set('Input number')
                     warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
                                                                                20), bg='#c4c4c4')
-                    warn.place(x=201, y=314)
+                    warn.place(x=289, y=415)
 
                 except:
                     warn_text.set('Input number')
                     warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
                                                                                20), bg='#c4c4c4')
-                    warn.place(x=201, y=314)
+                    warn.place(x=289, y=415)
 
             elif not any(char.isalpha() for char in np_entry.get()):
                 try:
@@ -293,13 +266,13 @@ def setting_page():
                     warn_text.set('Input alphabets')
                     warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
                                                                                20), bg='#c4c4c4')
-                    warn.place(x=201, y=314)
+                    warn.place(x=275, y=415)
 
                 except:
                     warn_text.set('Input alphabets')
                     warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
                                                                                20), bg='#c4c4c4')
-                    warn.place(x=201, y=314)
+                    warn.place(x=275, y=415)
 
             elif any(char.isspace() for char in np_entry.get()):
                 try:
@@ -307,13 +280,13 @@ def setting_page():
                     warn_text.set('Do not enter space')
                     warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
                                                                                20), bg='#c4c4c4')
-                    warn.place(x=201, y=314)
+                    warn.place(x=255, y=415)
 
                 except:
                     warn_text.set('Do not enter space')
                     warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
                                                                                20), bg='#c4c4c4')
-                    warn.place(x=201, y=314)
+                    warn.place(x=255, y=415)
 
 
             elif np_entry.get() == npc_entry.get():
@@ -331,26 +304,26 @@ def setting_page():
                         warn_text.set('Input special characters')
                         warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
                                                                                    20), bg='#c4c4c4')
-                        warn.place(x=201, y=314)
+                        warn.place(x=225, y=415)
 
                     except:
                         warn_text.set('Input special characters')
                         warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
                                                                                    20), bg='#c4c4c4')
-                        warn.place(x=201, y=314)
+                        warn.place(x=225, y=415)
                 else:
                     try:
                         warn.destroy()
-                        warn_text.set('done')
+                        warn_text.set('Done')
                         warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
                                                                                    20), bg='#c4c4c4')
-                        warn.place(x=201, y=314)
+                        warn.place(x=340, y=415)
 
                     except:
-                        warn_text.set('done')
+                        warn_text.set('Done')
                         warn = Label(changepass_frame, text=warn_text.get(), font=('Arial',
                                                                                    20), bg='#c4c4c4')
-                        warn.place(x=201, y=314)
+                        warn.place(x=340, y=415)
 
         # confirm button
 
@@ -363,7 +336,7 @@ def setting_page():
             activebackground='#c4c4c4',
             command=password_warn,
         )
-        confm.place(x=282, y=380)
+        confm.place(x=282, y=457)
 
     def export():
         """
@@ -402,7 +375,7 @@ def setting_page():
         function to logout of the password manager
         """
 
-        global sure, confirm, sub_fr
+        global sure, confirm, sub_fr, confirm
 
         # frame
         logout_frame = LabelFrame(settings_frame, width='744', height=552,
@@ -416,9 +389,9 @@ def setting_page():
         bg.place(x=-8, y=-3)
 
         sure = PhotoImage(file='Images/Logout Sure.png')
-        lo_text = Label(logout_frame, image=sure, bg='#C4C4C4')
+        lo_text = Label(logout_frame, image=sure, bd=0, bg='#C4C4C4')
         lo_text.place(x=161, y=99)
-
+        confirm = PhotoImage(file='Images/Confirm Button2.png')
         lo_confirm = Button(
             logout_frame,
             image=confirm,
@@ -429,7 +402,7 @@ def setting_page():
         )
         lo_confirm.place(x=282, y=380)
 
-    global sett, bg_image, back, ebtn, cpbtn, afbtn, lobtn
+    global sett, bg_image, back, ebtn, cpbtn, lobtn
 
     # creating the settings frame
 
@@ -449,18 +422,6 @@ def setting_page():
 
     # defining and placing the major buttons
 
-    ebtn = PhotoImage(file='Images/Settings Export.png')
-    exp_btn = Button(
-        settings_frame,
-        image=ebtn,
-        bg='#c4c4c4',
-        bd='0',
-        activebackground='#c4c4c4',
-        cursor='hand2',
-        command=export,
-    )
-    exp_btn.place(x=71, y=392)
-
     cpbtn = PhotoImage(file='Images/Settings Change Password.png')
     cp_btn = Button(
         settings_frame,
@@ -471,19 +432,19 @@ def setting_page():
         cursor='hand2',
         command=changepassword,
     )
-    cp_btn.place(x=71, y=256)
+    cp_btn.place(x=71, y=194)
 
-    afbtn = PhotoImage(file='Images/Settings Folder.png')
-    fol_btn = Button(
+    ebtn = PhotoImage(file='Images/Settings Export.png')
+    exp_btn = Button(
         settings_frame,
-        image=afbtn,
+        image=ebtn,
         bg='#c4c4c4',
         bd='0',
         activebackground='#c4c4c4',
         cursor='hand2',
-        command=addfol,
+        command=export,
     )
-    fol_btn.place(x=71, y=120)
+    exp_btn.place(x=71, y=325)
 
     lobtn = PhotoImage(file='Images/Settings Logout.png')
     lo_btn = Button(
@@ -495,10 +456,12 @@ def setting_page():
         command=logout,
         cursor='hand2',
     )
-    lo_btn.place(x=71, y=529)
+    lo_btn.place(x=71, y=456)
 
     homeb = PhotoImage(file='Images/Home Buttton.png')
-    Button(settings, image=homeb, bg='#C4C4C4', activebackground='#C4C4C4', bd=0,command=backtodash ).place(x=43, y=37)
+    Button(settings, image=homeb, bg='#C4C4C4', activebackground='#C4C4C4', bd=0, command=backtodash).place(x=43, y=37)
 
     settings.mainloop()
 
+
+setting_page()

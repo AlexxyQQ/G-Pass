@@ -7,7 +7,7 @@ import requests
 
 # main window for login and signup pages
 logsin = Tk()
-logsin.geometry("1280x720")  # resolution of the window
+logsin.geometry("1280x720+0+0")  # resolution of the window
 logsin.title("G-Pass-LoginSignup")  # title of the window
 logsin.iconbitmap("Images/G-pass_ico.ico")  # icon of the window
 logsin.resizable(False, False)  # stop the window from resizing
@@ -1083,7 +1083,6 @@ def login_page():
         x=713,
         y=639,
     )
-
 
 
 print(login_page())

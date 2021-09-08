@@ -11,7 +11,7 @@ def pg():
         Dashboard.dashboard()
 
     root = Toplevel()
-    root.geometry('1280x720')
+    root.geometry('1280x720+0+0')
     root.resizable(False, False)
 
     bgi = PhotoImage(file='Images/Backgroundin.png')

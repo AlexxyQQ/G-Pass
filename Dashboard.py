@@ -16,7 +16,7 @@ def dashboard():
         Settings_page.setting_page()
 
     dashboard_win = Toplevel()
-    dashboard_win.geometry("1280x720")
+    dashboard_win.geometry("1280x720+0+0")
     dashboard_win.title("G-Pass-Dashboard")
     dashboard_win.resizable(False, False)
 
