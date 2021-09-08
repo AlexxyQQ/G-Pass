@@ -1,14 +1,13 @@
-def y():
-    p = 'cow'
-    p = input()
+from tkinter import *
 
-    def z():
-        global p
-        if p == 'rat':
-            p = 'ball'
-            return p
+root = Tk()
+root.geometry("400x400")
+root.config(bg='grey')
 
-    return z()
+l = Listbox(root)
+l.pack()
+irm = ['nig', 'mofo', 'fofo']
+for i in irm:
+    l.insert(END, i)
 
-
-print(y())
+root.mainloop()
