@@ -14,7 +14,7 @@ logsin.resizable(False, False)  # stop the window from resizing
 
 
 def login_page():
-    global bg_image, f, g_logo, l_title, userbox, passbox, img_eye, login_img, username, password
+    global bg_image, f, g_logo, l_title, userbox, passbox, img_eye, login_img, username, password, login_check
 
     # Frame for login page
     login_frame = LabelFrame(logsin,
@@ -998,9 +998,9 @@ def login_page():
                  )
     eye.place(x=774, y=460)
 
-    def login_c():
+    def login_check():
         """ Checks the login info from database """
-        global username, password, logsin
+        global username, password, logsin, a
 
         db = sqlite3.connect("Database.db")
         d = db.cursor()
@@ -1014,11 +1014,13 @@ def login_page():
 
             if i[1] == username.get():
                 emailtry = True
+
             if i[2] == password.get():
                 passtry = True
 
         if emailtry and passtry:
             """ Takes user to dashboard after login successfully """
+
             logsin.withdraw()
             import Dashboard
             Dashboard.dashboard()
@@ -1038,7 +1040,7 @@ def login_page():
                      bg="#565050",
                      bd=0,
                      activebackground="#565050",
-                     command=login_c,
+                     command=login_check,
                      )
     b_login.place(x=584, y=562)
 
@@ -1083,5 +1085,6 @@ def login_page():
     )
 
 
-login_page()
+
+print(login_page())
 logsin.mainloop()
