@@ -384,6 +384,13 @@ def setting_page():
 
         # widgets
 
+        def l():
+            settings.withdraw()
+            import login_page
+            login_page.logsin = Toplevel()
+            login_page.login_page()
+
+
         sub_fr = PhotoImage(file='Images/Settings Small Frame.png')
         bg = Label(logout_frame, image=sub_fr, bg='#565050')
         bg.place(x=-8, y=-3)
@@ -399,6 +406,7 @@ def setting_page():
             bd=0,
             bg='#C4C4C4',
             activebackground='#C4C4C4',
+            command=l
         )
         lo_confirm.place(x=282, y=380)
 

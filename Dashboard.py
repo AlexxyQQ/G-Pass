@@ -696,11 +696,14 @@ def dashboard():
             f_d.place(x=274, y=350)
 
             def show_con():
-                global sc_back
+                global sc_back, sc_copy_u, sc_copy_p, sc_edit
 
                 f_d.destroy()
 
                 sc_back = PhotoImage(file="Images/Show con Back Buttton.png")
+                sc_copy_u = PhotoImage(file="Images/Copy Username.png")
+                sc_copy_p = PhotoImage(file="Images/Copy Password.png")
+                sc_edit = PhotoImage(file="Images/Edit Image and Profile.png")
 
                 Button(
                     s_c,
@@ -720,7 +723,7 @@ def dashboard():
                 all = d.fetchall()
                 l = Listbox(
                     s_c,
-                    width=77,
+                    width=70,
                     height=8,
                     font=("Arial", 15),
                     bg="#838080",
@@ -734,6 +737,54 @@ def dashboard():
                         l.insert(1, "\n")
                         l.insert(1, i[1])
 
+                def copy_emali_u():
+                    dashboard_win.clipboard_clear()
+                    dashboard_win.clipboard_append(l.get(ANCHOR))
+
+                def copy_p():
+                    d.execute("SELECT *, oid FROM AddedLogins")
+                    all = d.fetchall()
+                    for i in all:
+                        if i[-2] == "Emails":
+                            if l.get(ANCHOR) == i[1]:
+                                password = i[2]
+                    dashboard_win.clipboard_clear()
+                    dashboard_win.clipboard_append(password)
+
+                def edit_l():
+                    d.execute("SELECT *, oid FROM AddedLogins")
+                    all = d.fetchall()
+                    for i in all:
+                        if i[-2] == "Emails":
+                            if l.get(ANCHOR) == i[1]:
+                                pass
+
+                Button(
+                    s_c,
+                    image=sc_copy_u,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=copy_emali_u
+                ).place(x=855, y=53)
+                Button(
+                    s_c,
+                    image=sc_copy_p,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=copy_p
+                ).place(x=855, y=113)
+                Button(
+                    s_c,
+                    image=sc_edit,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=edit_l
+
+                ).place(x=855, y=173)
+
             def social_folder():
                 show_con()
 
@@ -743,7 +794,7 @@ def dashboard():
                 all = d.fetchall()
                 l = Listbox(
                     s_c,
-                    width=77,
+                    width=70,
                     height=8,
                     font=("Arial", 15),
                     bg="#838080",
@@ -757,6 +808,54 @@ def dashboard():
                         l.insert(1, "\n")
                         l.insert(1, i[1])
 
+                def copy_emali_u():
+                    dashboard_win.clipboard_clear()
+                    dashboard_win.clipboard_append(l.get(ANCHOR))
+
+                def copy_p():
+                    d.execute("SELECT *, oid FROM AddedLogins")
+                    all = d.fetchall()
+                    for i in all:
+                        if i[-2] == "Socials":
+                            if l.get(ANCHOR) == i[1]:
+                                password = i[2]
+                    dashboard_win.clipboard_clear()
+                    dashboard_win.clipboard_append(password)
+
+                def edit_l():
+                    d.execute("SELECT *, oid FROM AddedLogins")
+                    all = d.fetchall()
+                    for i in all:
+                        if i[-2] == "Socials":
+                            if l.get(ANCHOR) == i[1]:
+                                pass
+
+                Button(
+                    s_c,
+                    image=sc_copy_u,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=copy_emali_u
+                ).place(x=855, y=53)
+                Button(
+                    s_c,
+                    image=sc_copy_p,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=copy_p
+                ).place(x=855, y=113)
+                Button(
+                    s_c,
+                    image=sc_edit,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=edit_l
+
+                ).place(x=855, y=173)
+
             def finacne_folder():
                 show_con()
 
@@ -766,7 +865,7 @@ def dashboard():
                 all = d.fetchall()
                 l = Listbox(
                     s_c,
-                    width=77,
+                    width=70,
                     height=8,
                     font=("Arial", 15),
                     bg="#838080",
@@ -780,6 +879,54 @@ def dashboard():
                         l.insert(1, "\n")
                         l.insert(1, i[1])
 
+                def copy_emali_u():
+                    dashboard_win.clipboard_clear()
+                    dashboard_win.clipboard_append(l.get(ANCHOR))
+
+                def copy_p():
+                    d.execute("SELECT *, oid FROM AddedLogins")
+                    all = d.fetchall()
+                    for i in all:
+                        if i[-2] == "Finances":
+                            if l.get(ANCHOR) == i[1]:
+                                password = i[2]
+                    dashboard_win.clipboard_clear()
+                    dashboard_win.clipboard_append(password)
+
+                def edit_l():
+                    d.execute("SELECT *, oid FROM AddedLogins")
+                    all = d.fetchall()
+                    for i in all:
+                        if i[-2] == "Finances":
+                            if l.get(ANCHOR) == i[1]:
+                                pass
+
+                Button(
+                    s_c,
+                    image=sc_copy_u,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=copy_emali_u
+                ).place(x=855, y=53)
+                Button(
+                    s_c,
+                    image=sc_copy_p,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=copy_p
+                ).place(x=855, y=113)
+                Button(
+                    s_c,
+                    image=sc_edit,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=edit_l
+
+                ).place(x=855, y=173)
+
             def game_folder():
                 show_con()
 
@@ -789,7 +936,7 @@ def dashboard():
                 all = d.fetchall()
                 l = Listbox(
                     s_c,
-                    width=77,
+                    width=70,
                     height=8,
                     font=("Arial", 15),
                     bg="#838080",
@@ -803,6 +950,54 @@ def dashboard():
                         l.insert(1, "\n")
                         l.insert(1, i[1])
 
+                def copy_emali_u():
+                    dashboard_win.clipboard_clear()
+                    dashboard_win.clipboard_append(l.get(ANCHOR))
+
+                def copy_p():
+                    d.execute("SELECT *, oid FROM AddedLogins")
+                    all = d.fetchall()
+                    for i in all:
+                        if i[-2] == "Games":
+                            if l.get(ANCHOR) == i[1]:
+                                password = i[2]
+                    dashboard_win.clipboard_clear()
+                    dashboard_win.clipboard_append(password)
+
+                def edit_l():
+                    d.execute("SELECT *, oid FROM AddedLogins")
+                    all = d.fetchall()
+                    for i in all:
+                        if i[-2] == "Games":
+                            if l.get(ANCHOR) == i[1]:
+                                pass
+
+                Button(
+                    s_c,
+                    image=sc_copy_u,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=copy_emali_u
+                ).place(x=855, y=53)
+                Button(
+                    s_c,
+                    image=sc_copy_p,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=copy_p
+                ).place(x=855, y=113)
+                Button(
+                    s_c,
+                    image=sc_edit,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=edit_l
+
+                ).place(x=855, y=173)
+
             def shopping_folder():
                 show_con()
 
@@ -812,7 +1007,7 @@ def dashboard():
                 all = d.fetchall()
                 l = Listbox(
                     s_c,
-                    width=77,
+                    width=70,
                     height=8,
                     font=("Arial", 15),
                     bg="#838080",
@@ -825,6 +1020,54 @@ def dashboard():
                         l.insert(0, i[0])
                         l.insert(1, "\n")
                         l.insert(1, i[1])
+
+                def copy_emali_u():
+                    dashboard_win.clipboard_clear()
+                    dashboard_win.clipboard_append(l.get(ANCHOR))
+
+                def copy_p():
+                    d.execute("SELECT *, oid FROM AddedLogins")
+                    all = d.fetchall()
+                    for i in all:
+                        if i[-2] == "Shopping":
+                            if l.get(ANCHOR) == i[1]:
+                                password = i[2]
+                    dashboard_win.clipboard_clear()
+                    dashboard_win.clipboard_append(password)
+
+                def edit_l():
+                    d.execute("SELECT *, oid FROM AddedLogins")
+                    all = d.fetchall()
+                    for i in all:
+                        if i[-2] == "Shopping":
+                            if l.get(ANCHOR) == i[1]:
+                                pass
+
+                Button(
+                    s_c,
+                    image=sc_copy_u,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=copy_emali_u
+                ).place(x=855, y=53)
+                Button(
+                    s_c,
+                    image=sc_copy_p,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=copy_p
+                ).place(x=855, y=113)
+                Button(
+                    s_c,
+                    image=sc_edit,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=edit_l
+
+                ).place(x=855, y=173)
 
             def entertainment_folder():
                 show_con()
@@ -839,7 +1082,7 @@ def dashboard():
                 all = d.fetchall()
                 l = Listbox(
                     s_c,
-                    width=77,
+                    width=70,
                     height=8,
                     font=("Arial", 15),
                     bg="#838080",
@@ -853,6 +1096,54 @@ def dashboard():
                         l.insert(1, "\n")
                         l.insert(1, i[1])
 
+                def copy_emali_u():
+                    dashboard_win.clipboard_clear()
+                    dashboard_win.clipboard_append(l.get(ANCHOR))
+
+                def copy_p():
+                    d.execute("SELECT *, oid FROM AddedLogins")
+                    all = d.fetchall()
+                    for i in all:
+                        if i[-2] == "Entertainment":
+                            if l.get(ANCHOR) == i[1]:
+                                password = i[2]
+                    dashboard_win.clipboard_clear()
+                    dashboard_win.clipboard_append(password)
+
+                def edit_l():
+                    d.execute("SELECT *, oid FROM AddedLogins")
+                    all = d.fetchall()
+                    for i in all:
+                        if i[-2] == "Entertainment":
+                            if l.get(ANCHOR) == i[1]:
+                                pass
+
+                Button(
+                    s_c,
+                    image=sc_copy_u,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=copy_emali_u
+                ).place(x=855, y=53)
+                Button(
+                    s_c,
+                    image=sc_copy_p,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=copy_p
+                ).place(x=855, y=113)
+                Button(
+                    s_c,
+                    image=sc_edit,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=edit_l
+
+                ).place(x=855, y=173)
+
             def work_folder():
                 show_con()
 
@@ -862,7 +1153,7 @@ def dashboard():
                 all = d.fetchall()
                 l = Listbox(
                     s_c,
-                    width=77,
+                    width=70,
                     height=8,
                     font=("Arial", 15),
                     bg="#838080",
@@ -876,6 +1167,54 @@ def dashboard():
                         l.insert(1, "\n")
                         l.insert(1, i[1])
 
+                def copy_emali_u():
+                    dashboard_win.clipboard_clear()
+                    dashboard_win.clipboard_append(l.get(ANCHOR))
+
+                def copy_p():
+                    d.execute("SELECT *, oid FROM AddedLogins")
+                    all = d.fetchall()
+                    for i in all:
+                        if i[-2] == "Work":
+                            if l.get(ANCHOR) == i[1]:
+                                password = i[2]
+                    dashboard_win.clipboard_clear()
+                    dashboard_win.clipboard_append(password)
+
+                def edit_l():
+                    d.execute("SELECT *, oid FROM AddedLogins")
+                    all = d.fetchall()
+                    for i in all:
+                        if i[-2] == "Work":
+                            if l.get(ANCHOR) == i[1]:
+                                pass
+
+                Button(
+                    s_c,
+                    image=sc_copy_u,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=copy_emali_u
+                ).place(x=855, y=53)
+                Button(
+                    s_c,
+                    image=sc_copy_p,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=copy_p
+                ).place(x=855, y=113)
+                Button(
+                    s_c,
+                    image=sc_edit,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=edit_l
+
+                ).place(x=855, y=173)
+
             def academic_folder():
                 show_con()
 
@@ -885,7 +1224,7 @@ def dashboard():
                 all = d.fetchall()
                 l = Listbox(
                     s_c,
-                    width=77,
+                    width=70,
                     height=8,
                     font=("Arial", 15),
                     bg="#838080",
@@ -899,6 +1238,54 @@ def dashboard():
                         l.insert(1, "\n")
                         l.insert(1, i[1])
 
+                def copy_emali_u():
+                    dashboard_win.clipboard_clear()
+                    dashboard_win.clipboard_append(l.get(ANCHOR))
+
+                def copy_p():
+                    d.execute("SELECT *, oid FROM AddedLogins")
+                    all = d.fetchall()
+                    for i in all:
+                        if i[-2] == "Academics":
+                            if l.get(ANCHOR) == i[1]:
+                                password = i[2]
+                    dashboard_win.clipboard_clear()
+                    dashboard_win.clipboard_append(password)
+
+                def edit_l():
+                    d.execute("SELECT *, oid FROM AddedLogins")
+                    all = d.fetchall()
+                    for i in all:
+                        if i[-2] == "Academics":
+                            if l.get(ANCHOR) == i[1]:
+                                pass
+
+                Button(
+                    s_c,
+                    image=sc_copy_u,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=copy_emali_u
+                ).place(x=855, y=53)
+                Button(
+                    s_c,
+                    image=sc_copy_p,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=copy_p
+                ).place(x=855, y=113)
+                Button(
+                    s_c,
+                    image=sc_edit,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=edit_l
+
+                ).place(x=855, y=173)
+
             def miscellaneous_folder():
                 show_con()
 
@@ -908,7 +1295,7 @@ def dashboard():
                 all = d.fetchall()
                 l = Listbox(
                     s_c,
-                    width=77,
+                    width=70,
                     height=8,
                     font=("Arial", 15),
                     bg="#838080",
@@ -921,6 +1308,54 @@ def dashboard():
                         l.insert(0, i[0])
                         l.insert(1, "\n")
                         l.insert(1, i[1])
+
+                def copy_emali_u():
+                    dashboard_win.clipboard_clear()
+                    dashboard_win.clipboard_append(l.get(ANCHOR))
+
+                def copy_p():
+                    d.execute("SELECT *, oid FROM AddedLogins")
+                    all = d.fetchall()
+                    for i in all:
+                        if i[-2] == "Miscellaneous":
+                            if l.get(ANCHOR) == i[1]:
+                                password = i[2]
+                    dashboard_win.clipboard_clear()
+                    dashboard_win.clipboard_append(password)
+
+                def edit_l():
+                    d.execute("SELECT *, oid FROM AddedLogins")
+                    all = d.fetchall()
+                    for i in all:
+                        if i[-2] == "Miscellaneous":
+                            if l.get(ANCHOR) == i[1]:
+                                pass
+
+                Button(
+                    s_c,
+                    image=sc_copy_u,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=copy_emali_u
+                ).place(x=855, y=53)
+                Button(
+                    s_c,
+                    image=sc_copy_p,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=copy_p
+                ).place(x=855, y=113)
+                Button(
+                    s_c,
+                    image=sc_edit,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=edit_l
+
+                ).place(x=855, y=173)
 
             def unassign_folder():
                 show_con()
@@ -945,6 +1380,54 @@ def dashboard():
                         l.insert(1, "\n")
                         l.insert(1, i[1])
 
+                def copy_emali_u():
+                    dashboard_win.clipboard_clear()
+                    dashboard_win.clipboard_append(l.get(ANCHOR))
+
+                def copy_p():
+                    d.execute("SELECT *, oid FROM AddedLogins")
+                    all = d.fetchall()
+                    for i in all:
+                        if i[-2] == "Unassigned":
+                            if l.get(ANCHOR) == i[1]:
+                                password = i[2]
+                    dashboard_win.clipboard_clear()
+                    dashboard_win.clipboard_append(password)
+
+                def edit_l():
+                    d.execute("SELECT *, oid FROM AddedLogins")
+                    all = d.fetchall()
+                    for i in all:
+                        if i[-2] == "Unassigned":
+                            if l.get(ANCHOR) == i[1]:
+                                pass
+
+                Button(
+                    s_c,
+                    image=sc_copy_u,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=copy_emali_u
+                ).place(x=855, y=53)
+                Button(
+                    s_c,
+                    image=sc_copy_p,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=copy_p
+                ).place(x=855, y=113)
+                Button(
+                    s_c,
+                    image=sc_edit,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=edit_l
+
+                ).place(x=855, y=173)
+
             def login_all():
 
                 show_con()
@@ -955,7 +1438,7 @@ def dashboard():
                 all = d.fetchall()
                 l = Listbox(
                     s_c,
-                    width=77,
+                    width=70,
                     height=8,
                     font=("Arial", 15),
                     bg="#838080",
@@ -968,6 +1451,52 @@ def dashboard():
                     l.insert(1, "\n")
                     l.insert(1, i[1])
 
+                def copy_emali_u():
+                    dashboard_win.clipboard_clear()
+                    dashboard_win.clipboard_append(l.get(ANCHOR))
+
+                def copy_p():
+                    d.execute("SELECT *, oid FROM AddedLogins")
+                    all = d.fetchall()
+                    for i in all:
+                        if l.get(ANCHOR) == i[1]:
+                            password = i[2]
+                    dashboard_win.clipboard_clear()
+                    dashboard_win.clipboard_append(password)
+
+                def edit_l():
+                    d.execute("SELECT *, oid FROM AddedLogins")
+                    all = d.fetchall()
+                    for i in all:
+                        if l.get(ANCHOR) == i[1]:
+                            pass
+
+                Button(
+                    s_c,
+                    image=sc_copy_u,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=copy_emali_u
+                ).place(x=855, y=53)
+                Button(
+                    s_c,
+                    image=sc_copy_p,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=copy_p
+                ).place(x=855, y=113)
+                Button(
+                    s_c,
+                    image=sc_edit,
+                    bg="#838080",
+                    bd=0,
+                    activebackground="#838080",
+                    command=edit_l
+
+                ).place(x=855, y=173)
+
             def card_all():
 
                 show_con()
@@ -978,7 +1507,7 @@ def dashboard():
                 all = d.fetchall()
                 l = Listbox(
                     s_c,
-                    width=77,
+                    width=70,
                     height=8,
                     font=("Arial", 15),
                     bg="#838080",
@@ -1001,7 +1530,7 @@ def dashboard():
                 all = d.fetchall()
                 l = Listbox(
                     s_c,
-                    width=77,
+                    width=70,
                     height=8,
                     font=("Arial", 15),
                     bg="#838080",
