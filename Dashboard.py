@@ -1,5 +1,3 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 from tkinter import *
 import sqlite3
 
@@ -63,7 +61,7 @@ def dashboard():
 
                         d.execute(
                             ' CREATE TABLE AddedLogins(Website_name text,email_Username text,password text,folder text) '
-                            )
+                        )
                         db.commit()
 
                         # writing in table if it doesn't already exist
@@ -107,7 +105,7 @@ def dashboard():
 
                         d.execute(
                             ' CREATE TABLE AddedCards(card_num text,val_f text,val_t text,card_name text,cvv2 text) '
-                            )
+                        )
                         db.commit()
 
                         # writing in table if it doesn't already exist
@@ -595,10 +593,6 @@ def dashboard():
         Label(main_f, image=folder_frame, bg='#565050').place(x=256,
                                                               y=268)
 
-        user_image = PhotoImage(file='Images/Image Display.png')
-        Label(main_f, image=user_image, bg='#565050').place(x=1065,
-                                                            y=51)
-
         topcard = PhotoImage(file='Images/Top Card Frame.png')
         Label(main_f, image=topcard, bg='#565050').place(x=256, y=51)
 
@@ -650,13 +644,11 @@ def dashboard():
 
         trash = PhotoImage(file='Images/Trash Button.png')
 
+        def show_trash():
+            pass
+
         Button(main_f, image=trash, bg='#C4C4C4', bd=0,
-               activebackground='#C4C4C4').place(x=161, y=636)
-
-        edit_user = PhotoImage(file='Images/Edit Image and Profile.png')
-
-        Button(main_f, image=edit_user, bg='#565050', bd=0,
-               activebackground='#565050').place(x=1186, y=207)
+               activebackground='#C4C4C4', command=show_trash).place(x=161, y=636)
 
         db = sqlite3.connect('Database.db')
         d = db.cursor()
@@ -818,23 +810,110 @@ def dashboard():
                     global edit_f, st, ss
                     for i in all_l:
                         if l.get(ANCHOR) == i[1]:
-                            edit_f = \
-                                PhotoImage(file='Images/Edit Login Whole.png'
-                                           )
-                            Label(s_c, image=edit_f, bg='#838080'
-                                  ).place(x=4, y=4)
-                            st = \
-                                PhotoImage(file='Images/STrash Button.png'
-                                           )
+                            edit_f = PhotoImage(file='Images/Edit Login Whole.png')
+                            Label(s_c, image=edit_f, bg='#838080').place(x=4, y=4)
+
+                            def del_edited():
+                                try:
+                                    d.execute(
+                                        ' CREATE TABLE DeletedLogins(Website_name text,email_Username text,password text,folder text) '
+                                    )
+                                    db.commit()
+
+                                    # writing in table if it doesn't already exist
+
+                                    d.execute('INSERT INTO DeletedLogins VALUES (:w_name,:email_u,:password,:folder)'
+                                              , {
+                                                  'w_name': d_w_name.get(),
+                                                  'email_u': d_email_u.get(),
+                                                  'password': d_pass.get(),
+                                                  'folder': d_folder.get(),
+                                              })
+
+                                    db.commit()
+
+
+                                except:
+                                    d.execute('INSERT INTO DeletedLogins VALUES (:w_name,:email_u,:password,:folder)'
+                                              , {
+                                                  'w_name': d_w_name.get(),
+                                                  'email_u': d_email_u.get(),
+                                                  'password': d_pass.get(),
+                                                  'folder': d_folder.get(),
+                                              })
+
+                                    db.commit()
+
+                                d.execute('DELETE from AddedLogins WHERE oid=' + oid_e.get())
+                                db.commit()
+                                main()
+
+                            def save_edited():
+                                d.execute("""UPDATE AddedLogins SET
+                                            Website_name = :name_e,
+                                            email_Username = :email,
+                                            password = :pas,
+                                            folder = :fold
+                                            WHERE OID = :oide""", {'name_e': d_w_name.get(),
+                                                                   'email': d_email_u.get(),
+                                                                   'pas': d_pass.get(),
+                                                                   'fold': d_folder.get(),
+                                                                   'oide': int(oid_e.get())
+
+                                                                   }
+                                          )
+                                db.commit()
+                                main()
+
+                            st = PhotoImage(file='Images/STrash Button.png')
                             Button(s_c, image=st, bg='#838080',
-                                   activebackground='#838080',
+                                   activebackground='#838080', command=del_edited,
                                    bd=0).place(x=831, y=3)
-                            ss = \
-                                PhotoImage(file='Images/SSave Button.png'
-                                           )
+
+                            ss = PhotoImage(file='Images/SSave Button.png')
                             Button(s_c, image=ss, bg='#838080',
-                                   activebackground='#838080',
+                                   activebackground='#838080', command=save_edited,
                                    bd=0).place(x=876, y=3)
+
+                            d_w_name = StringVar()
+                            d_w_name.set(i[0])
+                            d_email_u = StringVar()
+                            d_email_u.set(i[1])
+                            d_pass = StringVar()
+                            d_pass.set(i[2])
+                            d_folder = StringVar()
+                            d_folder.set(i[3])
+                            oid_e = StringVar()
+                            oid_e.set(i[-1])
+
+                            e_w_name = Entry(s_c, text=d_w_name, bg='#31D0AA', bd=0, font=("Arial", 15))
+                            e_w_name.place(x=86, y=62)
+                            e_email_u = Entry(s_c, text=d_email_u, bg='#31D0AA', bd=0, font=("Arial", 15))
+                            e_email_u.place(x=86, y=159)
+                            e_pass = Entry(s_c, text=d_pass, bg='#31D0AA', bd=0, font=("Arial", 15))
+                            e_pass.place(x=86, y=247)
+
+                            folders_drop = [
+                                'Academics',
+                                'Emails',
+                                'Entertainment',
+                                'Finances',
+                                'Games',
+                                'Miscellaneous',
+                                'Shopping',
+                                'Socials',
+                                'Work',
+                                'Unassigned',
+                            ]
+
+                            drop_f = OptionMenu(s_c, d_folder,
+                                                *folders_drop)
+                            drop_f.config(font=('Arial', 15, 'bold'), width=15,
+                                          bg='#48E8C2', bd=0,
+                                          activebackground='#48E8C2')
+                            drop_f['menu'].configure(font=('Arial', 10),
+                                                     bg='#48E8C2', bd=0, activebackground='#48E8C2')
+                            drop_f.place(x=639, y=57)
 
                 Button(
                     s_c,
