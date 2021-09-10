@@ -4,8 +4,7 @@ import smtplib
 import random
 import sqlite3
 import requests
-
-who_signed_in = ''
+import account_global
 
 
 def logsin_page():
@@ -1005,7 +1004,7 @@ def logsin_page():
 
         def login_check():
             """ Checks the login info from database """
-            global username, password, logsin, a, who_signed_in
+            global username, password, logsin, a
 
             db = sqlite3.connect("Database.db")
             d = db.cursor()
@@ -1020,13 +1019,13 @@ def logsin_page():
                 if i[1] == username.get():
                     emailtry = True
 
+
                 if i[2] == password.get():
                     passtry = True
 
             if emailtry and passtry:
                 """ Takes user to dashboard after login successfully """
-
-                who_signed_in = username.get()
+                account_global.who_is_logged_in = username.get()
                 logsin.withdraw()
                 import Dashboard
                 Dashboard.dashboard()
@@ -1096,4 +1095,5 @@ def logsin_page():
     logsin.mainloop()
 
 
-logsin_page()
+if __name__ == '__main__':
+    logsin_page()

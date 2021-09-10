@@ -1,5 +1,9 @@
 from tkinter import *
 import sqlite3
+import login_page
+import account_global
+from tkinter import filedialog
+from PIL import Image, ImageTk
 
 
 def edit_profile():
@@ -13,20 +17,29 @@ def edit_profile():
     bg = PhotoImage(file="Images/Edit Profile Background.png")
     Label(edit_p, image=bg).place(x=-1, y=-1)
 
+    def back_dash():
+        edit_p.withdraw()
+        import Dashboard
+        Dashboard.dashboard()
+
     back = PhotoImage(file="Images/Back Buttton.png")
     Button(edit_p,
            image=back,
            bg="#565050",
            bd=0,
-           activebackground="#565050"
+           activebackground="#565050",
+           command=back_dash
            ).place(x=53, y=47)
+
+    def save_all():
+        account_global.selection = account_global.selection2
 
     save = PhotoImage(file="Images/Save Button.png")
     Button(edit_p,
            image=save,
            bg="#565050",
            bd=0,
-           activebackground="#565050",
+           activebackground="#565050", command=save_all
            ).place(x=1151, y=47)
 
     edit_frame = LabelFrame(edit_p, width=1039, height=520, bd=0)
@@ -44,7 +57,7 @@ def edit_profile():
     email = StringVar()
 
     for i in all:
-        if who_signed_in == i[1]:
+        if account_global.who_is_logged_in == i[1]:
             f_name.set(i[0])
             email.set(i[1])
 
@@ -62,19 +75,32 @@ def edit_profile():
           width=25,
           bg="#48E8C2", ).place(x=592, y=222)
 
-    user_image_box = PhotoImage(file='Images/User Image Box.png')
+    def ed_img():
+        global pp_img, new_image
 
-    Label(edit_frame, image=user_image_box, bg='#C4C4C4').place(x=50, y=39)
+        account_global.selection2 = filedialog.askopenfilename(
+            initialdir='C:\\Users\\aayus\\OneDrive\\School\\Python\\TkinterLab\\BasicStart\\pic',
+            title='Select a image',
+            filetypes=(('PNG', '*.png'), ('JPG', '*.jpg'), ('All Files', '*.*')))
+        pp_img = Image.open(account_global.selection2)
+        fixed_size = pp_img.resize((380, 316), Image.ANTIALIAS)
+        new_image = ImageTk.PhotoImage(fixed_size)
+        Label(edit_frame, image=new_image, bg='#C4C4C4').place(x=65, y=53)
+
+    pp_img = Image.open(account_global.selection)
+    fixed_size = pp_img.resize((380, 316), Image.ANTIALIAS)
+    new_image = ImageTk.PhotoImage(fixed_size)
+    Label(edit_frame, image=new_image, bg='#C4C4C4').place(x=65, y=53)
 
     edit_image = PhotoImage(file="Images/Edit Image.png")
     Button(edit_frame,
            image=edit_image,
            bg="#C4C4C4",
            bd=0,
-           activebackground="#C4C4C4",
+           activebackground="#C4C4C4", command=ed_img
            ).place(x=212, y=403)
 
     mainloop()
 
 
-main()
+edit_profile()

@@ -1,5 +1,10 @@
 from tkinter import *
 import sqlite3
+import login_page
+import account_global
+from PIL import Image, ImageTk
+
+print(account_global.who_is_logged_in)
 
 
 def dashboard():
@@ -21,11 +26,16 @@ def dashboard():
     dashboard_win.resizable(False, False)
 
     def main():
-        global bg_image, image_bg, folder_frame, user_image, topcard, \
-            addbutton, vault, generate, settings, trash, edit_user
+        global bg_image, image_bg, folder_frame, new_image, topcard, \
+            addbutton, vault, generate, settings, trash, edit_user, image_dis, ed_b
 
         main_f = LabelFrame(dashboard_win, width=1280, height=720, bd=0)
         main_f.place(x=-3, y=-3)
+
+        def call_edit():
+            dashboard_win.withdraw()
+            import Edit_Profile
+            Edit_Profile.edit_profile()
 
         def add_items():
             global f_bg_image, add_back, add_save, add_item_logo, \
@@ -592,9 +602,26 @@ def dashboard():
                                   )
         Label(main_f, image=folder_frame, bg='#565050').place(x=256,
                                                               y=268)
+        image_dis = PhotoImage(file='Images/Image Display.png')
+        Label(main_f, image=image_dis, bg='#565050').place(x=1065, y=51)\
+
+        user_image = Image.open(account_global.selection)
+        fixed_size = user_image.resize((122, 120), Image.ANTIALIAS)
+        new_image = ImageTk.PhotoImage(fixed_size)
+        Label(main_f, image=new_image, bg='#C4C4C4').place(x=1085, y=68)
 
         topcard = PhotoImage(file='Images/Top Card Frame.png')
         Label(main_f, image=topcard, bg='#565050').place(x=256, y=51)
+
+        ed_b = PhotoImage(file='Images/Edit Image and Profile.png')
+        Button(
+            main_f,
+            image=ed_b,
+            bg='#565050',
+            bd=0,
+            activebackground='#565050',
+            command=call_edit
+        ).place(x=1186, y=207)
 
         addbutton = PhotoImage(file='Images/Plus Button.png')
 
