@@ -2,7 +2,7 @@ from tkinter import *
 import sqlite3
 
 
-def main():
+def edit_profile():
     global bg, back, save, e_f, user_image_box
 
     edit_p = Toplevel()
@@ -35,12 +35,18 @@ def main():
     e_f = PhotoImage(file="Images/Edit Profile Frame.png")
     Label(edit_frame, image=e_f, bg='#565050').place(x=-1, y=-1)
 
-
+    db = sqlite3.connect('Loginandsignups.db')
+    d = db.cursor()
+    d.execute('SELECT *, oid FROM Signups')
+    all = d.fetchall()
 
     f_name = StringVar()
-    f_name.set('a')
     email = StringVar()
-    email.set('b')
+
+    for i in all:
+        if who_signed_in == i[1]:
+            f_name.set(i[0])
+            email.set(i[1])
 
     Entry(edit_frame,
           text=f_name,
