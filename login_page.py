@@ -1008,37 +1008,47 @@ def logsin_page():
 
             db = sqlite3.connect("Database.db")
             d = db.cursor()
-            d.execute("SELECT *, oid FROM Signups")
-            rec = d.fetchall()
+            try:
+                d.execute("SELECT *, oid FROM Signups")
+                rec = d.fetchall()
 
-            emailtry = False
-            passtry = False
+                emailtry = False
+                passtry = False
 
-            for i in rec:
+                for i in rec:
 
-                if i[1] == username.get():
-                    emailtry = True
+                    if i[1] == username.get():
+                        emailtry = True
+
+                    if i[2] == password.get():
+                        passtry = True
+
+                if emailtry and passtry:
+                    """ Takes user to dashboard after login successfully """
+                    account_global.who_is_logged_in = username.get()
+                    logsin.withdraw()
+                    import Dashboard
+                    Dashboard.dashboard()
 
 
-                if i[2] == password.get():
-                    passtry = True
+                elif not emailtry:
+                    print("Email not registered")
 
-            if emailtry and passtry:
-                """ Takes user to dashboard after login successfully """
-                account_global.who_is_logged_in = username.get()
-                logsin.withdraw()
-                import Dashboard
-                Dashboard.dashboard()
+                elif not passtry:
+                    print("Wrong password")
 
-
-            elif not emailtry:
-                print("Email not registered")
-
-            elif not passtry:
-                print("Wrong password")
-
-            db.commit()
-            db.close()
+                db.commit()
+                db.close()
+            except:
+                b_login = Button(login_frame,
+                                 image=login_img,
+                                 bg="#565050",
+                                 bd=0,
+                                 activebackground="#565050",
+                                 state=DISABLED,
+                                 command=login_check,
+                                 )
+                b_login.place(x=584, y=562)
 
         login_img = PhotoImage(file="Images/Login Button.png")
         b_login = Button(login_frame,
