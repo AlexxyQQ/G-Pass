@@ -5,7 +5,7 @@ Secure NOTES PAGE
 from tkinter import *
 root = Tk()
 root.geometry("1280x720")  # sizing the base window
-root.resizable(False, False)
+root.resizable(False, False)  #making the window not resizeable
 # root.iconbitmap("")
 
 notes_f = LabelFrame(root,
