@@ -15,17 +15,17 @@ def tester():
 
 #Function with the parameter tester
 def test1(tester):
-   email = "eggplant@yahoo.com"
+   email = "eggplant@yahoo.com"      #testing for email
     assert tester[0] == email
 
 
 def test_2(tester):
-    newpass = "Qwerty1234"
+    newpass = "Qwerty1234"             #testing for newPassword
     assert tester[2] == newpass
 
 
 def test_3(tester):
-    oldpass = "Qwerty1234"
+    oldpass = "Qwerty1234"            # testing for old Password
     assert tester[1] == oldpass
 
 
