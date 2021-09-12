@@ -8,6 +8,7 @@ root.geometry("1280x720")  # sizing the base window
 root.resizable(False, False)  #making the window not resizeable
 # root.iconbitmap("")
 
+#Designing Notes
 notes_f = LabelFrame(root,
                      width=1280,
                      height=720,
