@@ -13,7 +13,7 @@ def tester():
     new_passcheck = "Qwerty12345"
     return (email, old_pass, new_pass, new_passcheck)
 
-
+#Function with the parameter tester
 def test1(tester):
    email = "eggplant@yahoo.com"
     assert tester[0] == email
