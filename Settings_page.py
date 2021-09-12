@@ -546,5 +546,3 @@ def setting_page():
 
     settings.mainloop()
 
-
-setting_page()
