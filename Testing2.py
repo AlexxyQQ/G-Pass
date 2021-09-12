@@ -26,5 +26,5 @@ def test_2(tester):
 
 
 def test_3(tester):
-    password_check2 = "Qwerty1234"
+    password_check2 = "Qwerty1234"     #Testing for reConfirmation
     assert tester[2] == password_check2
