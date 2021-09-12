@@ -193,7 +193,7 @@ def login_page():
         c_p.place(x=523, y=383)
         c_p.bind("<Button-1>", c_pclear)
 
-        # when pressed left mouse click on the confirm password entry runs c_pclear function
+        #When pressed left mouse click on the confirm password entry runs c_pclear function
 
         def seye_o():
             """ Function to show the text entered in the password entries """
@@ -226,7 +226,7 @@ def login_page():
             c_p.bind("<Button-1>", c_pclear)
 
             def seye_c():
-                """ Function to hide the text entered in the password entries """
+                '''Function to hide the text entered in the password entries'''
                 global spasswordi, s_p, scpasswordi, c_p, img_eyes, eyes
                 spasswordi = PhotoImage(file="Images/Signup Password Box.png")
                 Label(signup_frame,
@@ -260,7 +260,7 @@ def login_page():
                 c_p.place(x=523, y=383)
                 c_p.bind("<Button-1>", c_pclear)
 
-                # image for the button
+                # image eye for the button
                 img_eyes = PhotoImage(file="Images/eyec.png")
                 eyes = Button(signup_frame,
                               image=img_eyes,
