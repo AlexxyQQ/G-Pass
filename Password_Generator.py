@@ -14,6 +14,7 @@ def pg():
     root.geometry('1280x720+0+0')
     root.resizable(False, False)
 
+     #Images
     bgi = PhotoImage(file='Images/Backgroundin.png')
     Label(root, image=bgi).place(x=-2, y=-2)
 
@@ -34,6 +35,7 @@ def pg():
     hor = IntVar()
     hor.set(12)
 
+    #Insertion of Label,entry,checkbuttons and other designs
     Label(
         root,
         text='Length',
@@ -149,6 +151,9 @@ def pg():
     checkButton4.place(x=1113, y=561)
 
     def gen_password():
+        """
+         Generates a randomized password with Lowercase,UpperCase,Numbers and Special Characters
+        """
         global Labe, cop
         try:
             Labe.destroy()

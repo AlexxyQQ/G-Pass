@@ -33,7 +33,7 @@ def edit_profile():
         bd=0,
         activebackground='#565050',
         command=back_dash,
-        ).place(x=53, y=47)
+    ).place(x=53, y=47)
 
     edit_frame = LabelFrame(edit_p, width=1039, height=520, bd=0)
     edit_frame.place(x=121, y=137)
@@ -65,24 +65,23 @@ def edit_profile():
         bd=0,
         width=25,
         bg='#48E8C2',
-        ).place(x=592, y=83)
-
-
+    ).place(x=592, y=83)
 
     def ed_img():
         global pp_img, new_image
 
         comp_sel = \
-            filedialog.askopenfilename(initialdir='C:\\Users\\aayus\\OneDrive\\School\\Python\\TkinterLab\\BasicStart\\pic'
+            filedialog.askopenfilename(
+                initialdir='C:\\Users\\aayus\\OneDrive\\School\\Python\\TkinterLab\\BasicStart\\pic'
                 , title='Select a image', filetypes=(('PNG', '*.png'),
-                ('JPG', '*.jpg'), ('All Files', '*.*')))
+                                                     ('JPG', '*.jpg'), ('All Files', '*.*')))
 
         account_global.selected = comp_sel
         pp_img = Image.open(comp_sel)
         fixed_size = pp_img.resize((380, 316), Image.ANTIALIAS)
         new_image = ImageTk.PhotoImage(fixed_size)
         Label(edit_frame, image=new_image, bg='#C4C4C4').place(x=65,
-                y=53)
+                                                               y=53)
 
     def save_all():
         for i in all:
@@ -92,10 +91,10 @@ def edit_profile():
                             image=:im
                             WHERE OID = :oide""",
                           {
-                    'fn': f_name.get(),
-                    'im': account_global.selected,
-                    'oide': i[-1],
-                    })
+                              'fn': f_name.get(),
+                              'im': account_global.selected,
+                              'oide': i[-1],
+                          })
                 db.commit()
                 edit_p.destroy()
                 import Dashboard
@@ -115,7 +114,7 @@ def edit_profile():
         bd=0,
         activebackground='#C4C4C4',
         command=ed_img,
-        ).place(x=212, y=403)
+    ).place(x=212, y=403)
 
     save = PhotoImage(file='Images/Save Button.png')
 
@@ -126,7 +125,7 @@ def edit_profile():
         bd=0,
         activebackground='#565050',
         command=save_all,
-        ).place(x=1151, y=47)
+    ).place(x=1151, y=47)
 
     mainloop()
 

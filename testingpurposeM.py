@@ -1,100 +1,28 @@
-"""
-Secure NOTES PAGE
-"""
-from tkinter import *
-
-root = Tk()
-root.geometry("1280x720")
-root.resizable(False, False)
-# root.iconbitmap("")
-
-notes_f = LabelFrame(root,
-                     width=1280,
-                     height=720,
-                     bd=0
-                     )
-notes_f.grid(row=0, column=0)
-
-# Background image of the login page
-
-bg_image = PhotoImage(file="Images/Background.png")
-bg_img = Label(notes_f,
-               image=bg_image,
-               bg="#2B958E"
-               )
-bg_img.place(x=-3, y=-3)
-
-# BlackBoxx
-
-blackbox = PhotoImage(file="Images/Black frame box.png")
-img_frame = Label(notes_f,
-                  image=blackbox,
-                  bg="#CE9100"
-                  )
-img_frame.place(x=30, y=26)
-
-# BackButton
-
-back_B = PhotoImage(file="Images/Back Buttton.png")
-back_button = Button(notes_f,
-                     image=back_B,
-                     bg="#565050",
-                     relief=FLAT,
-                     activebackground="#565050",
-                     bd=0,
-                     cursor="hand2",
-                     )
-back_button.place(x=53, y=47)
-
-# save Button
-save_B = PhotoImage(file="Images/Save Button.png")
-save_button = Button(notes_f,
-                     image=save_B,
-                     bg="#565050",
-                     relief=FLAT,
-                     activebackground="#565050",
-                     bd=0,
-                     cursor="hand2",
-                     )
-save_button.place(x=1151, y=47)
-
-Label(notes_f, text="Add Item",
-      bg="#565050",
-      relief=FLAT,
-      bd=0,
-      font=("Arial", 57),
-      fg="#06EBB4").place(x=505, y=37)
-"""
-# Just TEMPORARY
-Label_of_Dropdown = PhotoImage(file="Images/Temporary.png")
-Drop_label = Label(notes_f, Image=Label_of_Dropdown,bg="#565050", )
-"""
 
 
-def note():
-    global noteframe,noteLabelFrame
+import pytest
+@pytest.fixture()
+def insert_test():
+    first_name = 'shreeti'
+    last_name = 'ranjit'
+    age = 19
+    gender = 'female'
+    contact_number = 9840000000
+    return [first_name,last_name,age,gender,contact_number]
+def insert_test1(insert_test):
+    first_name1 = 'shreeti'
+    assert insert_test[0] == first_name1
+def insert_test2(insert_test):
+    last_name1 = 'ranjit'
+    assert insert_test[1] == last_name1
+def insert_test3(insert_test):
+    age1 = 19
+    assert insert_test[2] == age1
+def insert_test4(insert_test):
+    gender1 = 'Female'
+    assert insert_test[3] == gender1
+def insert_test5(insert_test):
+    contact_number1 = 9840000000
+    assert insert_test[4] == contact_number1
 
-    noteframe = PhotoImage(file="Images/Note Frame.png")
-    noteUserFrame=PhotoImage(file="Images/Fullname Box.png")
-    noteFolderFrame=PhotoImage(file="Images/FolderLabel.png")
 
-
-    write_f = LabelFrame(notes_f, width=1039,
-                         height=415,
-                         bd=0).place(x=150, y=250)
-
-    whitebox = Label(write_f, image=noteframe, bg="#565050").place(x=150, y=250)
-
-
-    userlabel=Label(write_f,image=noteUserFrame,bg="#C4C4C4").place(x=250,y=290)
-
-
-    folderlabel= Label(write_f, image=noteFolderFrame, bg="#C4C4C4").place(x=690, y=290)
-
-
-
-
-#commit1
-
-note()
-mainloop()
