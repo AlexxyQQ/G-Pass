@@ -1,12 +1,16 @@
-from tkinter import *
-import smtplib
-import random
-import requests
+import datetime as dt
 
-ForgotPass = Tk()
+time=dt.datetime.now()
 
-img_confi = PhotoImage(file='Images/Confirm Button')
-Confirm = Button(ForgotPass, image=img_confi, bd=0,
-                 bg='#48E8C2', activeforeground='#48E8C2',
-                 )
-Confirm.place(x=594, y=400)
+hour= (time.hour)
+
+if hour<12:
+    greeting="Good Morning"
+
+elif hour>=12 and hour<17:
+    greeting="Good Afternoon"
+
+elif hour>=17 and hour<=24
+    greeting="Good Evening"
+
+greet=Label(main_f, text=greeting, font=(Arial,20), bg="#565050", fg="#06EBB4")
