@@ -1,10 +1,10 @@
 """
 Secure NOTES PAGE
 """
-from tkinter import *
 
+from tkinter import *
 root = Tk()
-root.geometry("1280x720")
+root.geometry("1280x720")  # sizing the base window
 root.resizable(False, False)
 # root.iconbitmap("")
 
