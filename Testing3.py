@@ -4,7 +4,7 @@ Importing random and pytest
 import pytest
 import random
 
-#Testing 
+#Testing
 @pytest.fixture
 def tester():
     email = "eggplant@yahoo.com"

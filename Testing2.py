@@ -14,7 +14,7 @@ def tester():
     n_passcheck = "Qwerty1234"
     return (email, n_pass, n_passcheck)
 
-#Functioning with the parameter tester
+#Function with the parameter tester
 def test1(tester):
     first_name = "eggos@yahoo.com"     #Testing for FirstName
     assert tester[0] == first_name
