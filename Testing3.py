@@ -1,3 +1,6 @@
+"""
+Importing random and pytest
+"""
 import pytest
 import random
 
