@@ -459,12 +459,12 @@ def setting_page():
 
         global sure, confirm, sub_fr, confirm
 
-        # frame
+        #Frame
         logout_frame = LabelFrame(settings_frame, width='744', height=552,
                                   bg='#C4C4C4')
         logout_frame.place(x=490, y=129)
 
-        # widgets
+        #Widgets
 
         sub_fr = PhotoImage(file='Images/Settings Small Frame.png')
         bg = Label(logout_frame, image=sub_fr, bg='#565050')
