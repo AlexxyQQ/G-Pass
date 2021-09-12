@@ -234,6 +234,7 @@ def setting_page():
 
             warn_text = StringVar()
 
+
             if np_entry.get() != npc_entry.get():
 
                 warn_text.set('Passwords do not match')

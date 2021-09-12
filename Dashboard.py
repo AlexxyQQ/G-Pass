@@ -29,7 +29,7 @@ def dashboard():
 
     def main():
         global bg_image, image_bg, folder_frame, new_image, topcard, \
-            addbutton, vault, generate, settings, trash, edit_user, image_dis, ed_b
+            addbutton, vault, generate, settings, trash, edit_user, image_dis, ed_b,img_u
 
         main_f = LabelFrame(dashboard_win, width=1280, height=720, bd=0)
         main_f.place(x=-3, y=-3)
@@ -606,7 +606,8 @@ def dashboard():
                                                               y=268)
         image_dis = PhotoImage(file='Images/Image Display.png')
         Label(main_f, image=image_dis, bg='#565050').place(x=1065, y=51)
-        db = sqlite3.connect('Database.db')
+
+        '''db = sqlite3.connect('Database.db')
         d = db.cursor()
         d.execute('SELECT *, oid FROM Signups')
         all_snups = d.fetchall()
@@ -614,10 +615,10 @@ def dashboard():
             if account_global.who_is_logged_in == i[1]:
                 img_u = i[3]
 
-        user_image = Image.open(img_u)
+        user_image = Image.open(account_global.selection2)
         fixed_size = user_image.resize((122, 120), Image.ANTIALIAS)
         new_image = ImageTk.PhotoImage(fixed_size)
-        Label(main_f, image=new_image, bg='#C4C4C4').place(x=1085, y=68)
+        Label(main_f, image=new_image, bg='#C4C4C4').place(x=1085, y=68)'''
 
         topcard = PhotoImage(file='Images/Top Card Frame.png')
         Label(main_f, image=topcard, bg='#565050').place(x=256, y=51)

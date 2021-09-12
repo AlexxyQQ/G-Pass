@@ -592,8 +592,597 @@ def logsin_page():
                    ).place(x=579, y=465)
 
         def forgot_password():
+            global sback
+            fog_frame = LabelFrame(logsin,
+                                   width=1280,
+                                   height=720,
+                                   bg="#2B958E",
+                                   bd=0
+                                   )
+            fog_frame.grid(row=0, column=0)
 
-            pass
+            def ConformationID():
+                """
+                function to send conformation id if mail is registered
+                """
+
+                global IdBg, cbtn, CID, no_mail
+
+                def clrid(event):
+                    """
+                    function to clear the ID when clicked
+                    """
+
+                    if ID.get() == 123456:
+                        ID.set("")
+
+                def resetpass():
+                    '''
+                            function to change the master key/ main password
+                            '''
+
+                    global passbox, bbg, confirmp, img_eyes, sub_fr, backg, inbg, cbtn
+
+                    def clearnewpass(event):
+                        if new_password.get() == "New Password":
+                            new_password.set('')
+
+                    def clearnewcpass(event):
+                        if new_passwordc.get() == "Confirm New Password":
+                            new_passwordc.set('')
+
+                    def pw_change():
+
+
+
+                        def password_warn():
+                            """
+                            function to check the strength of passwords
+                            """
+                            global warn_text, warn
+
+                            warn_text = StringVar()
+
+                            if new_password.get() != new_passwordc.get():
+
+                                warn_text.set('Passwords do not match')
+                                warn = Label(fog_frame, text=warn_text.get(), font=('Arial',
+                                                                                    12), bg='#565050', fg='#C09D47')
+                                warn.place(x=560, y=386)
+
+                            elif len(npc_entry.get()) < 6:
+                                try:
+                                    warn.destroy()
+                                    warn_text.set('Password too weak')
+                                    warn = Label(fog_frame, text=warn_text.get(), font=('Arial',
+                                                                                        12), bg='#565050', fg='#C09D47')
+                                    warn.place(x=570, y=386)
+
+                                except:
+                                    warn_text.set('Password too weak')
+                                    warn = Label(fog_frame, text=warn_text.get(), font=('Arial',
+                                                                                        12), bg='#565050', fg='#C09D47')
+                                    warn.place(x=570, y=386)
+
+                            elif not any(char.isdigit() for char in np_entry.get()):
+
+                                try:
+                                    warn.destroy()
+                                    warn_text.set('Input number')
+                                    warn = Label(fog_frame, text=warn_text.get(), font=('Arial',
+                                                                                        12), bg='#565050', fg='#C09D47')
+                                    warn.place(x=600, y=386)
+
+                                except:
+                                    warn_text.set('Input number')
+                                    warn = Label(fog_frame, text=warn_text.get(), font=('Arial',
+                                                                                        12), bg='#565050', fg='#C09D47')
+                                    warn.place(x=600, y=386)
+
+                            elif not any(char.isalpha() for char in np_entry.get()):
+                                try:
+                                    warn.destroy()
+                                    warn_text.set('Input alphabets')
+                                    warn = Label(fog_frame, text=warn_text.get(), font=('Arial',
+                                                                                        12), bg='#565050', fg='#C09D47')
+                                    warn.place(x=560, y=386)
+
+                                except:
+                                    warn_text.set('Input alphabets')
+                                    warn = Label(fog_frame, text=warn_text.get(), font=('Arial',
+                                                                                        12), bg='#565050', fg='#C09D47')
+                                    warn.place(x=560, y=386)
+
+                            elif any(char.isspace() for char in np_entry.get()):
+                                try:
+                                    warn.destroy()
+                                    warn_text.set('Do not enter space')
+                                    warn = Label(fog_frame, text=warn_text.get(), font=('Arial',
+                                                                                        12), bg='#565050', fg='#C09D47')
+                                    warn.place(x=560, y=386)
+
+                                except:
+                                    warn_text.set('Do not enter space')
+                                    warn = Label(fog_frame, text=warn_text.get(), font=('Arial',
+                                                                                        12), bg='#565050', fg='#C09D47')
+                                    warn.place(x=560, y=386)
+
+
+                            elif np_entry.get() == npc_entry.get():
+                                spe = ['!', '@', "#", '$', '%', '&', '*']
+                                specialcharcheck = False
+                                for i in np_entry.get():
+                                    if i in spe:
+                                        specialcharcheck = True
+                                    else:
+                                        specialcharcheck = False
+
+                                if not specialcharcheck:
+                                    try:
+                                        warn.destroy()
+                                        warn_text.set('Input special characters')
+                                        warn = Label(fog_frame, text=warn_text.get(), font=('Arial',
+                                                                                            12), bg='#565050',
+                                                     fg='#C09D47')
+                                        warn.place(x=560, y=386)
+
+                                    except:
+                                        warn_text.set('Input special characters')
+                                        warn = Label(fog_frame, text=warn_text.get(), font=('Arial',
+                                                                                            12), bg='#565050',
+                                                     fg='#C09D47')
+                                        warn.place(x=560, y=386)
+                                else:
+                                    try:
+                                        warn.destroy()
+                                        warn_text.set('Done')
+                                        warn = Label(fog_frame, text=warn_text.get(), font=('Arial',
+                                                                                            12), bg='#565050',
+                                                     fg='#C09D47')
+                                        warn.place(x=620, y=386)
+
+                                    except:
+                                        warn_text.set('Done')
+                                        warn = Label(fog_frame, text=warn_text.get(), font=('Arial',
+                                                                                            12), bg='#565050',
+                                                     fg='#C09D47')
+                                        warn.place(x=620, y=386)
+
+                                    # connecting to database
+                                    db = sqlite3.connect("Database.db")
+
+                                    # creating cursor
+                                    d = db.cursor()
+
+                                    d.execute("""UPDATE Signups SET 
+                                                                    password=:new_pass 
+                                                                    WHERE email=:em""",
+                                                  {'new_pass': new_passwordc.get(), 'em': Reg_email.get()}
+                                                  )
+                                    db.commit()
+                                    db.close()
+                                    login_page()
+
+                        password_warn()
+
+                    def eye_close():
+                        '''
+                         A function that hides the entered password
+                        '''
+
+                        global img_eyes, sub_frame
+
+                        # entering new password
+
+                        np_entry = Entry(
+                            fog_frame,
+                            text=new_password,
+                            show='*',
+                            font=('Arial', 20),
+                            bd=0,
+                            bg='#21BF99',
+                            width=15,
+                        )
+                        np_entry.place(x=524, y=236)
+                        np_entry.bind('<Button-1>', clearnewpass)
+
+                        # confirming new password
+
+                        npc_entry = Entry(
+                            fog_frame,
+                            text=new_passwordc,
+                            show='*',
+                            font=('Arial', 20),
+                            bd=0,
+                            bg='#21BF99',
+                            width=15,
+                            relief=FLAT,
+                        )
+                        npc_entry.place(x=524, y=331)
+                        npc_entry.bind('<Button-1>', clearnewcpass)
+
+                        img_eyes = PhotoImage(file='Images/eyec.png')
+                        eyes = Button(
+                            fog_frame,
+                            image=img_eyes,
+                            bg='#21BF99',
+                            relief=FLAT,
+                            activebackground='#21BF99',
+                            bd=0,
+                            command=eye_open,
+                        )
+                        eyes.place(x=769, y=324)
+
+                    def eye_open():
+                        """
+                        function to make the password visible
+                        """
+                        global img_eyes, sub_frame
+
+                        # entering new password
+
+                        np_entry = Entry(
+                            fog_frame,
+                            text=new_password,
+                            font=('Arial', 20),
+                            bd=0,
+                            bg='#21BF99',
+                            width=15,
+                        )
+                        np_entry.place(x=524, y=236)
+                        np_entry.bind('<Button-1>', clearnewpass)
+
+                        # confirming new password
+
+                        npc_entry = Entry(
+                            fog_frame,
+                            text=new_passwordc,
+                            font=('Arial', 20),
+                            bd=0,
+                            bg='#21BF99',
+                            width=15,
+                            relief=FLAT,
+                        )
+                        npc_entry.place(x=524, y=331)
+                        npc_entry.bind('<Button-1>', clearnewcpass)
+
+                        img_eyes = PhotoImage(file='Images/eyeo.png')
+                        eyes = Button(
+                            fog_frame,
+                            image=img_eyes,
+                            bg='#21BF99',
+                            relief=FLAT,
+                            activebackground='#21BF99',
+                            bd=0,
+                            command=eye_close,
+                        )
+                        eyes.place(x=769, y=324)
+
+                    global img_eyes, sub_frame, cbtn
+
+                    # String Variables to store new password
+
+                    new_password = StringVar()
+                    new_password.set('New Password')
+                    new_passwordc = StringVar()
+                    new_passwordc.set('Confirm New Password')
+
+                    # entering new password
+                    passbox = PhotoImage(file='Images/Login Password Box.png')
+                    newpass_bg = Label(fog_frame, image=passbox, bg='#c4c4c4'
+                                       )
+
+                    # Backgrounds
+
+                    backg = PhotoImage(file="Images/Background.png")
+                    bg = Label(fog_frame, image=backg)
+                    bg.place(x=0, y=0)
+
+                    inbg = PhotoImage(file="Images/FP Frame.png")
+                    insideBG = Label(fog_frame, image=inbg, bg="#CE9100")
+                    insideBG.place(x=412, y=34)
+
+                    # Title
+
+                    Confirm_iden = PhotoImage(file="Images/FP Confirm Identity Logo.png")
+                    confirm_id = Label(fog_frame, image=Confirm_iden, bg="#D9D0BF", )
+                    confirm_id.place(x=444, y=63)
+
+                    # entering new password
+                    newpass_lab = Label(fog_frame, text="New password", bg="#565050", font=("Aerial", 15), fg='#05FBC1')
+                    newpass_lab.place(x=483, y=191)
+
+                    newpass_bg = Label(fog_frame, image=passbox, bg='#565050')
+                    newpass_bg.place(x=463, y=220)
+                    np_entry = Entry(
+                        fog_frame,
+                        text=new_password,
+                        show='*',
+                        font=('Arial', 20),
+                        bd=0,
+                        bg='#21BF99',
+                        width=15,
+                    )
+                    np_entry.place(x=524, y=236)
+                    np_entry.bind('<Button-1>', clearnewpass)
+
+                    # confirming new password
+
+                    newpass_lab = Label(fog_frame, text="Confirm New password", bg="#565050", font=("Aerial", 15),
+                                        fg='#05FBC1')
+                    newpass_lab.place(x=483, y=285)
+                    newpassc_bg = Label(fog_frame, image=passbox, bg='#565050')
+                    newpassc_bg.place(x=463, y=314)
+                    npc_entry = Entry(
+                        fog_frame,
+                        text=new_passwordc,
+                        show='*',
+                        font=('Arial', 20),
+                        bd=0,
+                        bg='#21BF99',
+                        width=15,
+                        relief=FLAT,
+                    )
+                    npc_entry.place(x=524, y=331)
+                    npc_entry.bind('<Button-1>', clearnewcpass)
+
+                    img_eyes = PhotoImage(file='Images/eyec.png')
+                    eyes = Button(
+                        fog_frame,
+                        image=img_eyes,
+                        bg='#21BF99',
+                        relief=FLAT,
+                        activebackground='#21BF99',
+                        bd=0,
+                        command=eye_open,
+                    )
+                    eyes.place(x=769, y=324)
+
+                    Confirm_btn = Button(
+                        fog_frame,
+                        image=cbtn,
+                        bd=0,
+                        bg="#565050",
+                        cursor="hand2",
+                        activebackground="#565050",
+                        command=pw_change
+                    )
+                    Confirm_btn.place(x=595, y=462)
+
+                def IDSend():
+
+                    """
+                    function to confirm ID
+                    """
+                    if CID == ID.get():
+
+                        error = Label(
+                            fog_frame,
+                            text=" Identification Confirmed",
+                            font=("Arial", 15),
+                            bg="#565050",
+                            fg="#FFCA41",
+                        )
+                        error.place(x=530, y=619)
+                        # ID_Confirm_frame.destroy()
+                        resetpass()
+
+                    else:
+                        error = Label(
+                            fog_frame,
+                            text=" Invalid Conformation ID",
+                            font=("Arial", 15),
+                            bg="#565050",
+                            fg="#FFCA41",
+                        )
+                        error.place(x=530, y=619)
+
+                """ Sending conformation ID"""
+                CID = random.randint(100000, 999999)
+                print(CID)
+                """
+                s = smtplib.SMTP("smtp.gmail.com", 587)  # (host domain , port)
+
+                # start Transfer Layer Security(TLS) for security
+                s.starttls()
+
+                # Email that sends conformation ID , App password for python
+                s.login("theggserver@gmail.com", "@ppleWas01")
+
+                # message ent to the user
+                msg = "Your conformation id is "   str(CID)
+
+                #sending the mail
+                s.sendmail('theggserver@gmail.com','Reg_email.get',msg)
+
+                """
+                # message to check email
+                try:
+                    no_mail.destroy()
+                    confirm_text = Label(
+                        fog_frame,
+                        text="Check your email for Confirmation ID",
+                        font=("Arial", 15),
+                        bg="#565050",
+                        fg="#FFCA41",
+                    )
+                    confirm_text.place(x=485, y=408)
+
+                except:
+                    confirm_text = Label(
+                        fog_frame,
+                        text="Check your email for Confirmation ID",
+                        font=("Arial", 15),
+                        bg="#565050",
+                        fg="#FFCA41",
+                    )
+                    confirm_text.place(x=485, y=408)
+
+                # ID confirmation frame
+
+                checkbtn["state"] = DISABLED
+
+                ID_Confirm_frame = LabelFrame(fog_frame, width=270, height=148, bd=0)
+                ID_Confirm_frame.place(
+                    x=509, y=459
+                )
+
+                # ID entry
+
+                IdBg = PhotoImage(file="Images/FP Confirmation Section BG.png")
+                Id_ConfirmBox = Label(ID_Confirm_frame, image=IdBg, bg="#565050")
+                Id_ConfirmBox.place(x=0, y=0)
+
+                EntId_txt = Label(
+                    ID_Confirm_frame,
+                    text="Enter ID here",
+                    font=("Arial", 15, "bold"),
+                    bd=0,
+                    bg="#5E5A5A",
+                    fg="#FFCA41",
+                )
+                EntId_txt.place(x=80, y=5)
+                ID = IntVar()
+                ID.set(123456)
+
+                EnterID = Entry(
+                    ID_Confirm_frame,
+                    text=ID,
+                    bd=0,
+                    font=("Arial", 15),
+                    bg="#5E9487",
+                    fg="black",
+                    width=16,
+                )
+                EnterID.place(x=53, y=53)
+                EnterID.bind("<Button-1>", clrid)
+
+                cbtn = PhotoImage(file="Images/FP Confirm Button .png")
+                Confirm_btn = Button(
+                    ID_Confirm_frame,
+                    image=cbtn,
+                    bd=0,
+                    bg="#5E5A5A",
+                    cursor="hand2",
+                    activebackground="#5E5A5A",
+                    command=IDSend,
+                )
+                Confirm_btn.place(x=85, y=95)
+
+            def check_mail():
+
+                """
+
+                function to check if the email is registered .
+
+                """
+                global no_mail, val
+                # connecting to database and creating cursor
+                db = sqlite3.connect("Database.db")
+                c = db.cursor()
+
+                c.execute("SELECT * from Signups")
+
+                dbAll = c.fetchall()
+                val = True
+                for i in dbAll:
+
+                    if i[1] == Reg_email.get():
+                        ConformationID()
+                        val = False
+
+                    if val:
+                        no_mail = Label(
+                            fog_frame,
+                            text="Email is not registered",
+                            font=("Arial", 15),
+                            bg="#565050",
+                            fg="#FFCA41",
+                        )
+                        no_mail.place(x=550, y=408)
+
+                db.commit()
+                db.close()
+
+            def clremail(event):
+                """
+                function to clear the email box when clicked
+                """
+
+                if Reg_email.get() == "abc@gmail.com":
+                    Reg_email.set("")
+
+            # Backgrounds
+
+            backg = PhotoImage(file="Images/Background.png")
+            bg = Label(fog_frame, image=backg)
+            bg.place(x=0, y=0)
+
+            inbg = PhotoImage(file="Images/FP Frame.png")
+            insideBG = Label(fog_frame, image=inbg, bg="#CE9100")
+            insideBG.place(x=412, y=34)
+
+            # Title
+
+            Confirm_iden = PhotoImage(file="Images/FP Confirm Identity Logo.png")
+            confirm_id = Label(fog_frame, image=Confirm_iden, bg="#D9D0BF")
+            confirm_id.place(x=444, y=63)
+
+            # Email entry
+
+            email_img = PhotoImage(file="Images/Emailboxsignup.png")
+            Email_box = Label(fog_frame, image=email_img, bg="#565050")
+            Email_box.place(x=463, y=233)
+
+            def back_to_gulag():
+                login_page()
+
+            sback = PhotoImage(file="Images/Back Buttton.png")
+            Button(fog_frame,
+                   image=sback,
+                   bd=0,
+                   bg="#CE9100",
+                   activebackground='#CE9100',
+                   command=back_to_gulag
+                   ).place(x=51, y=51)
+
+            Reg_Mail_txt = Label(
+                fog_frame,
+                text="Enter registered email",
+                font=("Arial", 18, "bold"),
+                bd=0,
+                bg="#565050",
+                fg="#05FBC1",
+            )
+            Reg_Mail_txt.place(x=520, y=172)
+            Reg_email = StringVar()
+            Reg_email.set("abc@gmail.com")
+            Email_entry = Entry(
+                fog_frame,
+                text=Reg_email,
+                bg="#21BF99",
+                bd=0,
+                font=("Arial", 15),
+                width=25,
+            )
+            Email_entry.place(x=520, y=249)
+            Email_entry.bind("<Button-1>", clremail)
+
+            # Button to confirm mail
+
+            check = PhotoImage(file="Images/FP Check Button.png")
+            checkbtn = Button(
+                fog_frame,
+                image=check,
+                bg="#565050",
+                bd=0,
+                cursor="hand2",
+                activebackground="#565050",
+                command=check_mail,
+            )
+            checkbtn.place(x=579, y=339)
+
+            fog_frame.mainloop()
 
         # String Variables to store user inputs for login section
         username = StringVar()
@@ -769,7 +1358,6 @@ def logsin_page():
             try:
                 d.execute("SELECT *, oid FROM Signups")
                 rec = d.fetchall()
-
 
                 emailtry = False
                 passtry = False
