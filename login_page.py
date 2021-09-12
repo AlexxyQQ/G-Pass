@@ -126,7 +126,7 @@ def login_page():
             if c_password.get() == "Confirm Password":
                 c_password.set("")
 
-        # Background of the Fullname entry
+        # Background of the Fullname Entry
         flname = PhotoImage(file="Images/Fullname Box.png")
         Label(signup_frame, image=flname, bg="#565050").place(x=462, y=158)
 
@@ -142,9 +142,9 @@ def login_page():
             y=177,
         )
         fn.bind("<Button-1>", fnclear)
-        # when pressed left mouse click on the fullname entry runs fnclear function
+        #When pressed left mouse click on the fullname entry runs fnclear function
 
-        # Background of the Email entry
+        #Background of the Email entry
         semail = PhotoImage(file="Images/Signup Email Box.png")
         Label(signup_frame,
               image=semail,
@@ -159,7 +159,7 @@ def login_page():
                    )
         em.place(x=523, y=243)
         em.bind("<Button-1>", emclear)
-        # when pressed left mouse click on the email entry runs emclear function
+        #When pressed left mouse click on the email entry runs emclear function
 
         # Background of the Password entry
         spasswordi = PhotoImage(file="Images/Signup Password Box.png")
