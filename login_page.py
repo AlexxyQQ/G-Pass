@@ -480,10 +480,10 @@ def login_page():
                                           ).place(x=560, y=430)
                                     login_page()
 
-                                # connecting to database
+                                #Connecting to database
                                 db = sqlite3.connect("Database.db")
 
-                                # creating cursor
+                                # Creating cursor
                                 d = db.cursor()
 
                                 # Inserting valvues in to table
@@ -597,8 +597,7 @@ def login_page():
 
         def ConformationID():
             """
-            function to send conformation id if mail is registered
-
+            Function to send conformation id if mail is registered
             """
             import random
             import smtplib
@@ -609,7 +608,6 @@ def login_page():
                 """
 
                 function to clear the ID when clicked
-
                 """
 
                 if ID.get() == 123456:
