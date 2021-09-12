@@ -79,7 +79,7 @@ def pg():
         orient=HORIZONTAL,
         variable=hor,
         showvalue=0,
-        cursor='dot',
+        cursor='hand2',
         troughcolor='cyan',
         highlightbackground='#565050',
         length=200,
@@ -110,6 +110,7 @@ def pg():
         onvalue=1,
         offvalue=0,
         bd=0,
+        cursor="hand2"
 
     )
     checkButton1.select()
@@ -122,6 +123,7 @@ def pg():
         variable=var2,
         onvalue=1,
         offvalue=0,
+        cursor="hand2"
     )
     checkButton2.select()
     checkButton2.place(x=1113, y=361)
@@ -133,6 +135,7 @@ def pg():
         variable=var3,
         onvalue=1,
         offvalue=0,
+        cursor="hand2"
     )
     checkButton3.select()
     checkButton3.place(x=1113, y=461)
@@ -144,6 +147,7 @@ def pg():
         variable=var4,
         onvalue=1,
         offvalue=0,
+        cursor="hand2"
     )
     checkButton4.deselect()
     checkButton4.place(x=1113, y=561)
@@ -158,10 +162,10 @@ def pg():
             allc = ''
 
             if var1.get() == 1:
-                allc = allc + string.ascii_lowercase
+                allc = allc + string.ascii_uppercase
 
             if var2.get() == 1:
-                allc = allc + string.ascii_uppercase
+                allc = allc + string.ascii_lowercase
 
             if var3.get() == 1:
                 allc = allc + string.digits

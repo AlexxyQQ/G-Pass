@@ -4,6 +4,7 @@ import login_page
 import account_global
 from PIL import Image, ImageTk
 import re
+import datetime as dt
 
 line = account_global.who_is_logged_in
 line = re.sub('[@.]', '', line)
@@ -613,14 +614,31 @@ def dashboard():
         for i in all_snups:
             if account_global.who_is_logged_in == i[1]:
                 img_u = i[3]
-
-        user_image = Image.open(img_u)
-        fixed_size = user_image.resize((122, 120), Image.ANTIALIAS)
-        new_image = ImageTk.PhotoImage(fixed_size)
-        Label(main_f, image=new_image, bg='#C4C4C4').place(x=1085, y=68)
-
+            '''
+                    user_image = Image.open(img_u)
+                    fixed_size = user_image.resize((122, 120), Image.ANTIALIAS)
+                    new_image = ImageTk.PhotoImage(fixed_size)
+                    Label(main_f, image=new_image, bg='#C4C4C4').place(x=1085, y=68)
+            '''
         topcard = PhotoImage(file='Images/Top Card Frame.png')
         Label(main_f, image=topcard, bg='#565050').place(x=256, y=51)
+
+        # To display greeting message according to the local time
+
+        time = dt.datetime.now()
+
+        hour = (time.hour)
+
+        if hour < 12:
+            greeting = "Good Morning"
+
+        elif hour >= 12 and hour < 17:
+            greeting = "Good Afternoon"
+
+        elif hour >= 17 and hour <= 24:
+            greeting = "Good Evening"
+
+        greet = Label(main_f, text=greeting, font=("Arial", 25, "bold"), bg="#565050", fg="#06EBB4").place(x=801, y=88)
 
         ed_b = PhotoImage(file='Images/Edit Image and Profile.png')
         Button(
