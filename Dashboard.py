@@ -608,18 +608,20 @@ def dashboard():
         image_dis = PhotoImage(file='Images/Image Display.png')
         Label(main_f, image=image_dis, bg='#565050').place(x=1065, y=51)
 
-        '''db = sqlite3.connect('Database.db')
+        db = sqlite3.connect('Database.db')
         d = db.cursor()
         d.execute('SELECT *, oid FROM Signups')
         all_snups = d.fetchall()
         for i in all_snups:
             if account_global.who_is_logged_in == i[1]:
                 img_u = i[3]
+            else:
+                img_u = account_global.def_selection
 
-        user_image = Image.open(account_global.selection2)
+        user_image = Image.open(img_u)
         fixed_size = user_image.resize((122, 120), Image.ANTIALIAS)
         new_image = ImageTk.PhotoImage(fixed_size)
-        Label(main_f, image=new_image, bg='#C4C4C4').place(x=1085, y=68)'''
+        Label(main_f, image=new_image, bg='#C4C4C4').place(x=1085, y=68)
 
         topcard = PhotoImage(file='Images/Top Card Frame.png')
         Label(main_f, image=topcard, bg='#565050').place(x=256, y=51)

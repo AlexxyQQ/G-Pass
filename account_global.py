@@ -1,3 +1,3 @@
 who_is_logged_in = ''
-selection = 'Images/Deafult_user_img.png'
-selection2 = ''
+def_selection = 'Images/Deafult_user_img.png'
+selected= ''

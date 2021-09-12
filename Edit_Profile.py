@@ -31,32 +31,6 @@ def edit_profile():
            command=back_dash
            ).place(x=53, y=47)
 
-    def save_all():
-        account_global.selection = account_global.selection2
-        for i in all:
-            if account_global.who_is_logged_in == i[1]:
-                d.execute(""" UPDATE Signups SET 
-                            fullname = :fn,
-                            email = :em,
-                            image=:im
-                            WHERE OID = :oide""", {'fn': f_name.get(),
-                                                   'em': email.get(),
-                                                   'im': account_global.selection,
-                                                   'oide': i[-1]}
-                          )
-                db.commit()
-                edit_p.destroy()
-                import Dashboard
-                Dashboard.dashboard()
-
-    save = PhotoImage(file="Images/Save Button.png")
-    Button(edit_p,
-           image=save,
-           bg="#565050",
-           bd=0,
-           activebackground="#565050", command=save_all
-           ).place(x=1151, y=47)
-
     edit_frame = LabelFrame(edit_p, width=1039, height=520, bd=0)
     edit_frame.place(x=121, y=137)
 
@@ -70,11 +44,17 @@ def edit_profile():
 
     f_name = StringVar()
     email = StringVar()
+    user_img = ''
 
     for i in all:
         if account_global.who_is_logged_in == i[1]:
             f_name.set(i[0])
             email.set(i[1])
+
+            if i[3] != '':
+                user_img = i[3]
+            else:
+                user_img = account_global.def_selection
 
     Entry(edit_frame,
           text=f_name,
@@ -90,30 +70,38 @@ def edit_profile():
           width=25,
           bg="#48E8C2", ).place(x=592, y=222)
 
-    user_im = ''
-    for i in all:
-        if account_global.who_is_logged_in == i[1]:
-            if i[3] != '':
-                user_im = i[3]
-        else:
-            user_im = account_global.selection
-
     def ed_img():
-        global pp_img, new_image, user_im
+        global pp_img, new_image
 
-        account_global.selection2 = filedialog.askopenfilename(
+        comp_sel = filedialog.askopenfilename(
             initialdir='C:\\Users\\aayus\\OneDrive\\School\\Python\\TkinterLab\\BasicStart\\pic',
             title='Select a image',
             filetypes=(('PNG', '*.png'), ('JPG', '*.jpg'), ('All Files', '*.*')))
 
-        user_im = account_global.selection2
-
-        pp_img = Image.open(user_im)
+        account_global.selected = comp_sel
+        pp_img = Image.open(comp_sel)
         fixed_size = pp_img.resize((380, 316), Image.ANTIALIAS)
         new_image = ImageTk.PhotoImage(fixed_size)
         Label(edit_frame, image=new_image, bg='#C4C4C4').place(x=65, y=53)
 
-    pp_img = Image.open(user_im)
+    def save_all():
+        for i in all:
+            if account_global.who_is_logged_in == i[1]:
+                d.execute(""" UPDATE Signups SET 
+                            fullname = :fn,
+                            email = :em,
+                            image=:im
+                            WHERE OID = :oide""", {'fn': f_name.get(),
+                                                   'em': email.get(),
+                                                   'im': account_global.selected,
+                                                   'oide': i[-1]}
+                          )
+                db.commit()
+                edit_p.destroy()
+                import Dashboard
+                Dashboard.dashboard()
+
+    pp_img = Image.open(user_img)
     fixed_size = pp_img.resize((380, 316), Image.ANTIALIAS)
     new_image = ImageTk.PhotoImage(fixed_size)
     Label(edit_frame, image=new_image, bg='#C4C4C4').place(x=65, y=53)
@@ -125,6 +113,14 @@ def edit_profile():
            bd=0,
            activebackground="#C4C4C4", command=ed_img
            ).place(x=212, y=403)
+
+    save = PhotoImage(file="Images/Save Button.png")
+    Button(edit_p,
+           image=save,
+           bg="#565050",
+           bd=0,
+           activebackground="#565050", command=save_all
+           ).place(x=1151, y=47)
 
     mainloop()
 
