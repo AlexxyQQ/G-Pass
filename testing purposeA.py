@@ -11,7 +11,7 @@ app.geometry('200x100')
 def ap(event):
     print(comboExample.get())
 
-
+#Styling from ttk library
 style = ttk.Style()
 style.configure('W.TCombobox', arrowsize=60, background='red',
                 highlightcolor='green', bd=0, foreground='cyan',
