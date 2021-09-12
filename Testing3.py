@@ -30,5 +30,5 @@ def test_3(tester):
 
 
 def test_4(tester):
-    newpasscheck = "Qwerty1234"
+    newpasscheck = "Qwerty1234"      # testing for Renew password check
     assert tester[1] == newpasscheck
