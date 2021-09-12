@@ -1,4 +1,5 @@
 from tkinter import *
+import sqlite3
 
 
 def setting_page():
@@ -146,11 +147,20 @@ def setting_page():
 
         # String Variables to store new password
         old_password = StringVar()
-        old_password.set('Old Password')
+
         new_password = StringVar()
         new_password.set('New Password')
         new_passwordc = StringVar()
         new_passwordc.set('Confirm New Password')
+
+        import account_global
+        db = sqlite3.connect("Database.db")
+        d = db.cursor()
+        d.execute("SELECT *, oid FROM Signups")
+        rec = d.fetchall()
+        for i in rec:
+            if i[1] == account_global.who_is_logged_in:
+                old_password.set(i[2])
 
         passbox = PhotoImage(file='Images/Settings Password Box.png')
 
@@ -325,6 +335,22 @@ def setting_page():
                                                                                    20), bg='#c4c4c4')
                         warn.place(x=340, y=415)
 
+                    d.execute("SELECT *, oid FROM Signups")
+                    rec = d.fetchall()
+                    for j in rec:
+                        if j[1] == account_global.who_is_logged_in:
+                            d.execute(""" UPDATE Signups SET 
+                                                            fullname = :fn,
+                                                            email = :em,
+                                                            password = :ps 
+                                                            WHERE OID = :oide """,
+                                      {'fn': j[1],
+                                       'em': j[1],
+                                       'ps': new_passwordc.get(),
+                                       'oide': j[-1]}
+                                      )
+                            db.commit()
+
         # confirm button
 
         confm = Button(
@@ -389,7 +415,6 @@ def setting_page():
             import login_page
             login_page.logsin = Toplevel()
             login_page.login_page()
-
 
         sub_fr = PhotoImage(file='Images/Settings Small Frame.png')
         bg = Label(logout_frame, image=sub_fr, bg='#565050')

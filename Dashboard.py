@@ -606,7 +606,15 @@ def dashboard():
                                                               y=268)
         image_dis = PhotoImage(file='Images/Image Display.png')
         Label(main_f, image=image_dis, bg='#565050').place(x=1065, y=51)
-        user_image = Image.open(account_global.selection)
+        db = sqlite3.connect('Database.db')
+        d = db.cursor()
+        d.execute('SELECT *, oid FROM Signups')
+        all_snups = d.fetchall()
+        for i in all_snups:
+            if account_global.who_is_logged_in == i[1]:
+                img_u = i[3]
+
+        user_image = Image.open(img_u)
         fixed_size = user_image.resize((122, 120), Image.ANTIALIAS)
         new_image = ImageTk.PhotoImage(fixed_size)
         Label(main_f, image=new_image, bg='#C4C4C4').place(x=1085, y=68)

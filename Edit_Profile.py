@@ -33,6 +33,21 @@ def edit_profile():
 
     def save_all():
         account_global.selection = account_global.selection2
+        for i in all:
+            if account_global.who_is_logged_in == i[1]:
+                d.execute(""" UPDATE Signups SET 
+                            fullname = :fn,
+                            email = :em,
+                            image=:im
+                            WHERE OID = :oide""", {'fn': f_name.get(),
+                                                   'em': email.get(),
+                                                   'im': account_global.selection,
+                                                   'oide': i[-1]}
+                          )
+                db.commit()
+                edit_p.destroy()
+                import Dashboard
+                Dashboard.dashboard()
 
     save = PhotoImage(file="Images/Save Button.png")
     Button(edit_p,
@@ -48,7 +63,7 @@ def edit_profile():
     e_f = PhotoImage(file="Images/Edit Profile Frame.png")
     Label(edit_frame, image=e_f, bg='#565050').place(x=-1, y=-1)
 
-    db = sqlite3.connect('Loginandsignups.db')
+    db = sqlite3.connect('Database.db')
     d = db.cursor()
     d.execute('SELECT *, oid FROM Signups')
     all = d.fetchall()
@@ -75,19 +90,30 @@ def edit_profile():
           width=25,
           bg="#48E8C2", ).place(x=592, y=222)
 
+    user_im = ''
+    for i in all:
+        if account_global.who_is_logged_in == i[1]:
+            if i[3] != '':
+                user_im = i[3]
+        else:
+            user_im = account_global.selection
+
     def ed_img():
-        global pp_img, new_image
+        global pp_img, new_image, user_im
 
         account_global.selection2 = filedialog.askopenfilename(
             initialdir='C:\\Users\\aayus\\OneDrive\\School\\Python\\TkinterLab\\BasicStart\\pic',
             title='Select a image',
             filetypes=(('PNG', '*.png'), ('JPG', '*.jpg'), ('All Files', '*.*')))
-        pp_img = Image.open(account_global.selection2)
+
+        user_im = account_global.selection2
+
+        pp_img = Image.open(user_im)
         fixed_size = pp_img.resize((380, 316), Image.ANTIALIAS)
         new_image = ImageTk.PhotoImage(fixed_size)
         Label(edit_frame, image=new_image, bg='#C4C4C4').place(x=65, y=53)
 
-    pp_img = Image.open(account_global.selection)
+    pp_img = Image.open(user_im)
     fixed_size = pp_img.resize((380, 316), Image.ANTIALIAS)
     new_image = ImageTk.PhotoImage(fixed_size)
     Label(edit_frame, image=new_image, bg='#C4C4C4').place(x=65, y=53)
