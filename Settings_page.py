@@ -10,7 +10,7 @@ line = re.sub('[@.]', '', line)
 
 
 def setting_page():
-    # creating a settings window
+    # creating a settings windows
     settings = Toplevel()
     settings.geometry('1280x720+0+0')
     settings.resizable(False, False)
