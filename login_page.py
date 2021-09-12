@@ -226,7 +226,7 @@ def login_page():
             c_p.bind("<Button-1>", c_pclear)
 
             def seye_c():
-                '''Function to hide the text entered in the password entries'''
+                '''Function to hide the text entered in the password entries '''
                 global spasswordi, s_p, scpasswordi, c_p, img_eyes, eyes
                 spasswordi = PhotoImage(file="Images/Signup Password Box.png")
                 Label(signup_frame,
