@@ -25,7 +25,7 @@ bg_img = Label(notes_f,
                )
 bg_img.place(x=-3, y=-3)
 
-# BlackBoxx
+# BlackBox frame
 
 blackbox = PhotoImage(file="Images/Black frame box.png")
 img_frame = Label(notes_f,
