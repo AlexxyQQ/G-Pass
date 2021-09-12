@@ -4,6 +4,7 @@ import login_page
 import account_global
 from PIL import Image, ImageTk
 import re
+from tkinter import messagebox
 
 line = account_global.who_is_logged_in
 line = re.sub('[@.]', '', line)
@@ -29,7 +30,7 @@ def dashboard():
 
     def main():
         global bg_image, image_bg, folder_frame, new_image, topcard, \
-            addbutton, vault, generate, settings, trash, edit_user, image_dis, ed_b,img_u
+            addbutton, vault, generate, settings, trash, edit_user, image_dis, ed_b, img_u
 
         main_f = LabelFrame(dashboard_win, width=1280, height=720, bd=0)
         main_f.place(x=-3, y=-3)
@@ -682,7 +683,230 @@ def dashboard():
         trash = PhotoImage(file='Images/Trash Button.png')
 
         def show_trash():
-            pass
+            global tf_bg, res
+
+            res = PhotoImage(file='Images/Restore_deleted.png')
+
+            tf = LabelFrame(main_f, height=630, width=970, bd=0)
+            tf.place(x=256, y=44)
+
+            tf_bg = PhotoImage(file='Images/Trash_frame.png')
+            Label(tf, image=tf_bg, bg='#565050').place(x=-1, y=-1)
+
+            try:
+                try:
+                    d.execute(f'SELECT *, oid FROM DeletedLogins{line}')
+                    all_l_d = d.fetchall()
+                except:
+                    pass
+                try:
+                    d.execute(f'SELECT *, oid FROM DeletedCards{line}')
+                    all_c_d = d.fetchall()
+                except:
+                    pass
+                try:
+                    d.execute(f'SELECT *, oid FROM DeleteddNotes{line}')
+                    all_n_d = d.fetchall()
+                except:
+                    pass
+                l = Listbox(
+                    tf,
+                    width=78,
+                    height=15,
+                    font=('Arial', 15),
+                    bg='#838080',
+                    bd=0,
+                    relief=FLAT,
+                )
+                l.place(x=60, y=205)
+
+                try:
+                    for i in all_l_d:
+                        l.insert(0, i[0])
+                        l.insert(1, '\n')
+                        l.insert(1, i[1])
+                except:
+                    pass
+                try:
+                    for i in all_c_d:
+                        l.insert(0, i[3])
+                        l.insert(1, '\n')
+                        l.insert(1, i[0])
+                except:
+                    pass
+                try:
+                    for i in all_n_d:
+                        l.insert(0, (i[0], i[1]))
+                        l.insert(1, '\n')
+                        l.insert(1, i[2])
+                except:
+                    pass
+
+
+            except:
+                print('didnt work')
+
+            def restore():
+                if l.get(ANCHOR) == '':
+                    a = messagebox.askyesno('Restore All?', 'Yes or No')
+
+                    if a:
+                        try:
+                            for a in all_l_d:
+                                d.execute(f'INSERT INTO AddedLogins{line} VALUES (:w_name,:email_u,:password,:folder)'
+                                          , {
+                                              'w_name': a[0],
+                                              'email_u': a[1],
+                                              'password': a[2],
+                                              'folder': a[3],
+                                          })
+                                d.execute(f'DELETE from DeletedLogins{line} WHERE oid={a[-1]}')
+
+                                db.commit()
+                        except:
+                            pass
+                        try:
+                            for b in all_c_d:
+                                d.execute(f'INSERT INTO AddedCards{line} VALUES (:cn,:vf,:vt,:cna,:cv)'
+                                          , {
+                                              'cn': b[0],
+                                              'vf': b[1],
+                                              'vt': b[2],
+                                              'cna': b[3],
+                                              'cv': b[4],
+                                          })
+                                d.execute(f'DELETE from DeletedCards{line} WHERE oid={b[-1]}')
+
+                                db.commit()
+                        except:
+                            pass
+                        try:
+                            for c in all_n_d:
+                                d.execute(f'INSERT INTO AddedNotes{line} VALUES (:n_name,:folder,:note)'
+                                          , {'n_name': c[0],
+                                             'folder': c[1],
+                                             'note': c[2]}
+                                          )
+
+                                d.execute(f'DELETE from DeleteddNotes{line} WHERE oid={c[-1]}')
+
+                                db.commit()
+                        except:
+                            pass
+
+                if l.get(ANCHOR) != '\n':
+
+                    try:
+                        for a in all_l_d:
+                            if l.get(ANCHOR) == a[1]:
+                                d.execute(f'INSERT INTO AddedLogins{line} VALUES (:w_name,:email_u,:password,:folder)'
+                                          , {
+                                              'w_name': a[0],
+                                              'email_u': a[1],
+                                              'password': a[2],
+                                              'folder': a[3],
+                                          })
+                                d.execute(f'DELETE from DeletedLogins{line} WHERE oid={a[-1]}')
+
+                                db.commit()
+                                show_trash()
+
+                    except:
+                        pass
+                    try:
+                        for b in all_c_d:
+                            if l.get(ANCHOR) == b[0]:
+                                d.execute(f'INSERT INTO AddedCards{line} VALUES (:cn,:vf,:vt,:cna,:cv)'
+                                          , {
+                                              'cn': b[0],
+                                              'vf': b[1],
+                                              'vt': b[2],
+                                              'cna': b[3],
+                                              'cv': b[4],
+                                          })
+                                d.execute(f'DELETE from DeletedCards{line} WHERE oid={b[-1]}')
+
+                                db.commit()
+                                show_trash()
+                    except:
+                        pass
+                    try:
+                        for c in all_n_d:
+                            if l.get(ANCHOR) == c[2]:
+                                d.execute(f'INSERT INTO AddedNotes{line} VALUES (:n_name,:folder,:note)'
+                                          , {'n_name': c[0],
+                                             'folder': c[1],
+                                             'note': c[2]}
+                                          )
+
+                                d.execute(f'DELETE from DeleteddNotes{line} WHERE oid={c[-1]}')
+
+                                db.commit()
+                                show_trash()
+                    except:
+                        pass
+
+            def delete_trash():
+                if l.get(ANCHOR) == '':
+                    a = messagebox.askyesno('Delete All?', 'Yes or No')
+
+                    try:
+                        for a in all_l_d:
+                            d.execute(f'DELETE from DeletedLogins{line} WHERE oid={a[-1]}')
+
+                            db.commit()
+                    except:
+                        pass
+                    try:
+                        for b in all_c_d:
+                            d.execute(f'DELETE from DeletedCards{line} WHERE oid={b[-1]}')
+
+                            db.commit()
+                    except:
+                        pass
+                    try:
+                        for c in all_n_d:
+                            d.execute(f'DELETE from DeleteddNotes{line} WHERE oid={c[-1]}')
+
+                            db.commit()
+                    except:
+                        pass
+
+                if l.get(ANCHOR) != '\n':
+
+                    try:
+                        for a in all_l_d:
+                            if l.get(ANCHOR) == a[1]:
+                                d.execute(f'DELETE from DeletedLogins{line} WHERE oid={a[-1]}')
+
+                                db.commit()
+                                show_trash()
+
+                    except:
+                        pass
+                    try:
+                        for b in all_c_d:
+                            if l.get(ANCHOR) == b[0]:
+                                d.execute(f'DELETE from DeletedCards{line} WHERE oid={b[-1]}')
+
+                                db.commit()
+                                show_trash()
+                    except:
+                        pass
+                    try:
+                        for c in all_n_d:
+                            if l.get(ANCHOR) == c[2]:
+                                d.execute(f'DELETE from DeleteddNotes{line} WHERE oid={c[-1]}')
+
+                                db.commit()
+                                show_trash()
+                    except:
+                        pass
+
+            Button(tf, image=trash, bg='#909090', bd=0,
+                   activebackground='#909090',command=delete_trash).place(x=850, y=120)
+            Button(tf, image=res, bg='#909090', bd=0,
+                   activebackground='#909090', command=restore).place(x=750, y=111)
 
         Button(main_f, image=trash, bg='#C4C4C4', bd=0,
                activebackground='#C4C4C4', command=show_trash).place(x=161, y=636)
