@@ -487,7 +487,7 @@ def setting_page():
 
     global sett, bg_image, back, ebtn, cpbtn, lobtn
 
-    # creating the settings frame
+    #Creating the settings frame
 
     settings_frame = LabelFrame(settings, width='1280', height='720', bd=0)
     settings_frame.place(x=0, y=0)
