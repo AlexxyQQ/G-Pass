@@ -1,5 +1,12 @@
 from tkinter import *
 import sqlite3
+from tkinter import filedialog
+import account_global
+import re
+from tkinter import messagebox
+
+line = account_global.who_is_logged_in
+line = re.sub('[@.]', '', line)
 
 
 def setting_page():
@@ -234,7 +241,6 @@ def setting_page():
 
             warn_text = StringVar()
 
-
             if np_entry.get() != npc_entry.get():
 
                 warn_text.set('Passwords do not match')
@@ -372,6 +378,12 @@ def setting_page():
 
         global sub_fr, expor
 
+        import account_global
+        import re
+
+        line = account_global.who_is_logged_in
+        line = re.sub('[@.]', '', line)
+
         # frame
         exp_frame = LabelFrame(settings_frame, width='744', height='552',
                                bg='#C4C4C4')
@@ -387,6 +399,48 @@ def setting_page():
         export_text = Label(exp_frame, image=expor, bd=0, bg='#C4C4C4')
         export_text.place(x=161, y=99)
 
+        def exporting_everything():
+            db = sqlite3.connect("Database.db")
+            d = db.cursor()
+
+            all_l_d = ''
+            all_c_d = ''
+            all_n_d = ''
+
+            try:
+                d.execute(f'SELECT *, oid FROM AddedLogins{line}')
+                all_l_d = d.fetchall()
+            except:
+                pass
+            try:
+                d.execute(f'SELECT *, oid FROM AddedCards{line}')
+                all_c_d = d.fetchall()
+            except:
+                pass
+            try:
+                d.execute(f'SELECT *, oid FROM AddedNotes{line}')
+                all_n_d = d.fetchall()
+            except:
+                pass
+
+            comp_sel = filedialog.askdirectory(
+                initialdir='C:\\Users\\aayus\\OneDrive\\School\\Python\\TkinterLab\\BasicStart\\pic',
+                title='Select a image',
+            )
+
+            with open(f"{comp_sel}/{line}_Export.txt", 'a') as f:
+                for i in all_l_d:
+                    f.write(str(i))
+                    f.write('\n')
+                for j in all_c_d:
+                    f.write(str(j))
+                    f.write('\n')
+                for k in all_n_d:
+                    f.write(str(k))
+                    f.write('\n')
+
+            messagebox.showinfo('Export', 'Exported All your Files Successfully.')
+
         lo_confirm = Button(
             exp_frame,
             image=confirm,
@@ -394,6 +448,7 @@ def setting_page():
             bd=0,
             bg='#C4C4C4',
             activebackground='#C4C4C4',
+            command=exporting_everything
         )
         lo_confirm.place(x=282, y=380)
 
@@ -410,7 +465,6 @@ def setting_page():
         logout_frame.place(x=490, y=129)
 
         # widgets
-
 
         sub_fr = PhotoImage(file='Images/Settings Small Frame.png')
         bg = Label(logout_frame, image=sub_fr, bg='#565050')
