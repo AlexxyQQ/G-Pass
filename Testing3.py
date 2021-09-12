@@ -25,7 +25,7 @@ def test_2(tester):
 
 
 def test_3(tester):
-    oldpass = "Qwerty1234"            # testing for old Password
+    oldpass = "Qwerty1234"            # testing for old-Password
     assert tester[1] == oldpass
 
 
