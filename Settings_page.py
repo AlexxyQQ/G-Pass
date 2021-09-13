@@ -503,7 +503,7 @@ def setting_page():
     sett = PhotoImage(file='Images/Settings.png')
     Label(settings_frame, image=sett, bg='#5d5a5a').place(x=748, y=47)
 
-    # defining and placing the major buttons
+    # Defining and placing the major buttons
 
     cpbtn = PhotoImage(file='Images/Settings Change Password.png')
     cp_btn = Button(
@@ -517,6 +517,8 @@ def setting_page():
     )
     cp_btn.place(x=71, y=194)
 
+     # Setting export
+    
     ebtn = PhotoImage(file='Images/Settings Export.png')
     exp_btn = Button(
         settings_frame,
