@@ -616,7 +616,7 @@ def login_page():
             def IDSend():
 
                 """
-                function to confirm ID
+                function to confirm ID with if else
 
                 """
                 if CID == ID.get():
