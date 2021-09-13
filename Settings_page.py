@@ -139,7 +139,7 @@ def setting_page():
                 relief=FLAT,
                 activebackground='#48E8C2',
                 bd=0,
-                command=eye_close,
+                command=eye_close,                   #Eye close command called
             )
             eyes.place(x=569, y=344)
 
@@ -518,7 +518,7 @@ def setting_page():
     cp_btn.place(x=71, y=194)
 
      # Setting export
-    
+
     ebtn = PhotoImage(file='Images/Settings Export.png')
     exp_btn = Button(
         settings_frame,
