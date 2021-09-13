@@ -903,7 +903,7 @@ def login_page():
         x=528,
         y=470,
     )
-    pass_ent.bind("<Button-1>", delete_pass_ent_text)
+    pass_ent.bind("<Button-1>", delete_pass_ent_text)                        #  Button Bind
 
     # when pressed left mouse click on the password entry runs delete_pass_ent_text function
 
