@@ -891,7 +891,7 @@ def login_page():
         x=467,
         y=451,
     )
-
+    # pass entry
     pass_ent = Entry(login_frame,
                      show="*",
                      text=password,
