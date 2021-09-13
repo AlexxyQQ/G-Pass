@@ -251,7 +251,7 @@ def pg():
     '''
     name this generate and change the image from 'Regenerate' to 'Generate' as well
     '''
-
+     #Generate
     regen = PhotoImage(file='Images/Regenerate Button.png')
     Button(
         root,
