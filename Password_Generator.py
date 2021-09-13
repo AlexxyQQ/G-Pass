@@ -4,7 +4,6 @@ import string
 
 
 def pg():
-
     def backtodash():
         import Dashboard
         root.withdraw()
@@ -14,7 +13,7 @@ def pg():
     root.geometry('1280x720+0+0')
     root.resizable(False, False)
 
-     #Images
+    # Images
     bgi = PhotoImage(file='Images/Backgroundin.png')
     Label(root, image=bgi).place(x=-2, y=-2)
 
@@ -35,7 +34,7 @@ def pg():
     hor = IntVar()
     hor.set(12)
 
-    #Insertion of Label,entry,checkbuttons and other designs
+    # Insertion of Label,entry,checkbuttons and other designs
     Label(
         root,
         text='Length',
@@ -102,6 +101,8 @@ def pg():
     var2 = IntVar()
     var3 = IntVar()
     var4 = IntVar()
+
+    # Check buttons
 
     checkButton1 = Checkbutton(
         root,
