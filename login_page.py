@@ -968,7 +968,7 @@ def login_page():
                          activebackground="#21BF99",
                          bd=0,
                          command=eye_o,
-                         cursor="hand2",
+                         cursor="hand2",      # active cursor when hovering
                          # runs the eye_o function to show the password again
                          )
             eye.place(x=774, y=460)
