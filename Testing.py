@@ -1,9 +1,6 @@
 import pytest
 
-"""
-Testing Login page
-"""
-
+"""Testing Login page"""
 @pytest.fixture
 def tester():
     """

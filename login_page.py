@@ -707,6 +707,7 @@ def login_page():
             ID = IntVar()
             ID.set(123456)
 
+            # ID Entry
             EnterID = Entry(
                 ID_Confirm_frame,
                 text=ID,
