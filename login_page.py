@@ -408,7 +408,71 @@ def logsin_page():
                                              )
                                 warn.place(x=567, y=430)
 
+                        elif not any(char.isalpha() for char in c_password.get()):
+                            try:
+                                warn.destroy()
+                                warn = Label(signup_frame,
+                                             text="Input some alphabets",
+                                             fg="#C09D47",
+                                             bg="#565050",
+                                             font=("Arial", 15),
+                                             )
+                                warn.place(x=567, y=430)
+                            except:
+                                warn = Label(signup_frame,
+                                             text="Input some alphabets",
+                                             fg="#C09D47",
+                                             bg="#565050",
+                                             font=("Arial", 15),
+                                             )
+                                warn.place(x=567, y=430)
+
+                        elif any(char.isspace() for char in c_password.get()):
+                            try:
+                                warn.destroy()
+                                warn = Label(signup_frame,
+                                             text="Do not enter space",
+                                             fg="#C09D47",
+                                             bg="#565050",
+                                             font=("Arial", 15),
+                                             )
+                                warn.place(x=567, y=430)
+                            except:
+                                warn = Label(signup_frame,
+                                             text="Do not enter space",
+                                             fg="#C09D47",
+                                             bg="#565050",
+                                             font=("Arial", 15),
+                                             )
+                                warn.place(x=567, y=430)
+
                         elif c_password.get() == s_password.get():
+                            spe = ['!', '@', "#", '$', '%', '&', '*']
+                            specialcharcheck = False
+                            for i in s_password.get():
+                                if i in spe:
+                                    specialcharcheck = True
+                                else:
+                                    specialcharcheck = False
+                            if not specialcharcheck:
+                                try:
+                                    warn.destroy()
+                                    warn = Label(signup_frame,
+                                                 text="Input special characters",
+                                                 fg="#C09D47",
+                                                 bg="#565050",
+                                                 font=("Arial", 15),
+                                                 )
+                                    warn.place(x=567, y=430)
+                                except:
+                                    warn = Label(signup_frame,
+                                                 text="Input special characters",
+                                                 fg="#C09D47",
+                                                 bg="#565050",
+                                                 font=("Arial", 15),
+                                                 )
+                                    warn.place(x=567, y=430)
+                        else:
 
                             warn = Label(signup_frame,
                                          text="OTP has been sent to your email.",
@@ -769,7 +833,6 @@ def logsin_page():
             try:
                 d.execute("SELECT *, oid FROM Signups")
                 rec = d.fetchall()
-
 
                 emailtry = False
                 passtry = False
