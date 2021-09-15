@@ -1013,6 +1013,9 @@ def login_page():
         emailtry = False
         passtry = False
 
+        warn_login = Label(login_frame, )
+        warn_login.place(x=585, y=530)
+
         for i in rec:
 
             if i[1] == username.get():
@@ -1026,29 +1029,56 @@ def login_page():
             import Dashboard
             Dashboard.dashboard()
 
+
         elif not emailtry:
-            Label(login_frame, text="Email not registered",
+
+            try:
+                warn_login.destroy()
+                warn_login=Label(login_frame, text="Email not registered",
                   bg="#565050",
-                  font=("Arial", 10, UNDERLINE),
+                  font=("Arial", 10, "bold"),
                   fg="#C09D47",
                   bd=0,
                   activeforeground="grey",
                   activebackground="#565050",
-                  relief=FLAT, ).place(x=585, y=530)
-            
+                  relief=FLAT, )
+                warn_login.place(x=585, y=530)
+            except:
+                warn_login = Label(login_frame, text="Email not registered",
+                                   bg="#565050",
+                                   font=("Arial", 10, "bold"),
+                                   fg="#C09D47",
+                                   bd=0,
+                                   activeforeground="grey",
+                                   activebackground="#565050",
+                                   relief=FLAT, )
+                warn_login.place(x=585, y=530)
 
 
         elif not passtry:
-            Label(login_frame, text="Wrong Password",
+            try:
+                warn_login.destroy()
+                warn_login=Label(login_frame, text="Wrong Password",
                   bg="#565050",
-                  font=("Arial", 10, UNDERLINE),
+                  font=("Arial", 10, "bold"),
                   fg="#C09D47",
                   bd=0,
                   activeforeground="grey",
                   activebackground="#565050",
                   relief=FLAT,
-                  ).place(x=585, y=530)
-
+                  )
+                warn_login.place(x=585, y=530)
+            except:
+                warn_login = Label(login_frame, text="Wrong Password",
+                                   bg="#565050",
+                                   font=("Arial", 10, "bold"),
+                                   fg="#C09D47",
+                                   bd=0,
+                                   activeforeground="grey",
+                                   activebackground="#565050",
+                                   relief=FLAT,
+                                   )
+                warn_login.place(x=585, y=530)
 
         db.commit()
         db.close()
