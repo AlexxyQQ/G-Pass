@@ -1003,7 +1003,7 @@ def login_page():
 
     def login_c():
         """ Checks the login info from database """
-        global username, password, logsin
+        global username, password, logsin, warn_text
 
         db = sqlite3.connect("Database.db")
         d = db.cursor()
@@ -1013,8 +1013,7 @@ def login_page():
         emailtry = False
         passtry = False
 
-        warn_login = Label(login_frame, )
-        warn_login.place(x=585, y=530)
+        warn_text = StringVar()
 
         for i in rec:
 
@@ -1031,54 +1030,28 @@ def login_page():
 
 
         elif not emailtry:
-
-            try:
-                warn_login.destroy()
-                warn_login=Label(login_frame, text="Email not registered",
-                  bg="#565050",
-                  font=("Arial", 10, "bold"),
-                  fg="#C09D47",
-                  bd=0,
-                  activeforeground="grey",
-                  activebackground="#565050",
-                  relief=FLAT, )
-                warn_login.place(x=585, y=530)
-            except:
-                warn_login = Label(login_frame, text="Email not registered",
-                                   bg="#565050",
-                                   font=("Arial", 10, "bold"),
-                                   fg="#C09D47",
-                                   bd=0,
-                                   activeforeground="grey",
-                                   activebackground="#565050",
-                                   relief=FLAT, )
-                warn_login.place(x=585, y=530)
+            warn_text.set("Email not registered")
+            Label(login_frame, text=warn_text.get(),
+                               bg="#565050",
+                               font=("Arial", 10, "bold"),
+                               fg="#C09D47",
+                               bd=0,
+                               activeforeground="grey",
+                               activebackground="#565050",
+                               relief=FLAT, ).place(x=585, y=530)
 
 
         elif not passtry:
-            try:
-                warn_login.destroy()
-                warn_login=Label(login_frame, text="Wrong Password",
-                  bg="#565050",
-                  font=("Arial", 10, "bold"),
-                  fg="#C09D47",
-                  bd=0,
-                  activeforeground="grey",
-                  activebackground="#565050",
-                  relief=FLAT,
-                  )
-                warn_login.place(x=585, y=530)
-            except:
-                warn_login = Label(login_frame, text="Wrong Password",
-                                   bg="#565050",
-                                   font=("Arial", 10, "bold"),
-                                   fg="#C09D47",
-                                   bd=0,
-                                   activeforeground="grey",
-                                   activebackground="#565050",
-                                   relief=FLAT,
-                                   )
-                warn_login.place(x=585, y=530)
+            warn_text.set("Wrong Password")
+            Label(login_frame, text=warn_text.get(),
+                               bg="#565050",
+                               font=("Arial", 10, "bold"),
+                               fg="#C09D47",
+                               bd=0,
+                               activeforeground="grey",
+                               activebackground="#565050",
+                               relief=FLAT,
+                               ).place(x=585, y=530)
 
         db.commit()
         db.close()
