@@ -197,7 +197,6 @@ def pg():
         except:
 
             spec = '!@#$%&'
-
             allc = ''
 
             if var1.get() == 1:
