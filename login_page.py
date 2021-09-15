@@ -1035,7 +1035,7 @@ def login_page():
                   activeforeground="grey",
                   activebackground="#565050",
                   relief=FLAT, ).place(x=585, y=530)
-            # print("Email not registered")
+            
 
 
         elif not passtry:
@@ -1048,7 +1048,7 @@ def login_page():
                   activebackground="#565050",
                   relief=FLAT,
                   ).place(x=585, y=530)
-            # print("Wrong password")
+
 
         db.commit()
         db.close()
