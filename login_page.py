@@ -142,9 +142,9 @@ def login_page():
             y=177,
         )
         fn.bind("<Button-1>", fnclear)
-        #When pressed left mouse click on the fullname entry runs fnclear function
+        # When pressed left mouse click on the fullname entry runs fnclear function
 
-        #Background of the Email entry
+        # Background of the Email entry
         semail = PhotoImage(file="Images/Signup Email Box.png")
         Label(signup_frame,
               image=semail,
@@ -159,7 +159,7 @@ def login_page():
                    )
         em.place(x=523, y=243)
         em.bind("<Button-1>", emclear)
-        #When pressed left mouse click on the email entry runs emclear function
+        # When pressed left mouse click on the email entry runs emclear function
 
         # Background of the Password entry
         spasswordi = PhotoImage(file="Images/Signup Password Box.png")
@@ -193,7 +193,7 @@ def login_page():
         c_p.place(x=523, y=383)
         c_p.bind("<Button-1>", c_pclear)
 
-        #When pressed left mouse click on the confirm password entry runs c_pclear function
+        # When pressed left mouse click on the confirm password entry runs c_pclear function
 
         def seye_o():
             """ Function to show the text entered in the password entries """
@@ -480,7 +480,7 @@ def login_page():
                                           ).place(x=560, y=430)
                                     login_page()
 
-                                #Connecting to database
+                                # Connecting to database
                                 db = sqlite3.connect("Database.db")
 
                                 # Creating cursor
@@ -903,7 +903,7 @@ def login_page():
         x=528,
         y=470,
     )
-    pass_ent.bind("<Button-1>", delete_pass_ent_text)                        #  Button Bind
+    pass_ent.bind("<Button-1>", delete_pass_ent_text)  # Button Bind
 
     # when pressed left mouse click on the password entry runs delete_pass_ent_text function
 
@@ -968,7 +968,7 @@ def login_page():
                          activebackground="#21BF99",
                          bd=0,
                          command=eye_o,
-                         cursor="hand2",      # active cursor when hovering
+                         cursor="hand2",  # active cursor when hovering
                          # runs the eye_o function to show the password again
                          )
             eye.place(x=774, y=460)
@@ -1027,10 +1027,28 @@ def login_page():
             Dashboard.dashboard()
 
         elif not emailtry:
-            print("Email not registered")
+            Label(login_frame, text="Email not registered",
+                  bg="#565050",
+                  font=("Arial", 10, UNDERLINE),
+                  fg="#C09D47",
+                  bd=0,
+                  activeforeground="grey",
+                  activebackground="#565050",
+                  relief=FLAT, ).place(x=585, y=530)
+            # print("Email not registered")
+
 
         elif not passtry:
-            print("Wrong password")
+            Label(login_frame, text="Wrong Password",
+                  bg="#565050",
+                  font=("Arial", 10, UNDERLINE),
+                  fg="#C09D47",
+                  bd=0,
+                  activeforeground="grey",
+                  activebackground="#565050",
+                  relief=FLAT,
+                  ).place(x=585, y=530)
+            # print("Wrong password")
 
         db.commit()
         db.close()
