@@ -1,10 +1,11 @@
-from tkinter import *
-import sqlite3
-import login_page
-import account_global
-from PIL import Image, ImageTk
 import re
+import sqlite3
+from tkinter import *
 from tkinter import messagebox
+
+from PIL import Image, ImageTk
+
+import account_global
 
 line = account_global.who_is_logged_in
 line = re.sub('[@.]', '', line)
