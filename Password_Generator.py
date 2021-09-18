@@ -157,10 +157,10 @@ def pg():
 
             allc = ''
 
-            if var1.get() == 1:
+            if var2.get() == 1:
                 allc = allc + string.ascii_lowercase
 
-            if var2.get() == 1:
+            if var1.get() == 1:
                 allc = allc + string.ascii_uppercase
 
             if var3.get() == 1:
