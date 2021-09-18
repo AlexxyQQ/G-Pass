@@ -907,7 +907,7 @@ def dashboard():
                         pass
 
             Button(tf, image=trash, bg='#909090', bd=0,
-                   activebackground='#909090',command=delete_trash).place(x=850, y=120)
+                   activebackground='#909090', command=delete_trash).place(x=850, y=120)
             Button(tf, image=res, bg='#909090', bd=0,
                    activebackground='#909090', command=restore).place(x=750, y=111)
 
@@ -932,16 +932,16 @@ def dashboard():
             f_d.place(x=274, y=350)
 
             def show_con():
-                global sc_back, sc_copy_u, sc_copy_p, sc_edit
+                global sc_back, sc_copy_u, sc_copy_p, sc_edit, bgg
 
+                bgg = PhotoImage(file='Images/Bgg.png')
+                Label(s_c, image=bgg).place(x=-5, y=-5)
                 f_d.destroy()
 
-                sc_back = \
-                    PhotoImage(file='Images/Show con Back Buttton.png')
+                sc_back = PhotoImage(file='Images/Show con Back Buttton.png')
                 sc_copy_u = PhotoImage(file='Images/Copy Username.png')
                 sc_copy_p = PhotoImage(file='Images/Copy Password.png')
-                sc_edit = \
-                    PhotoImage(file='Images/Edit Image and Profile.png')
+                sc_edit = PhotoImage(file='Images/Edit Image and Profile.png')
 
                 Button(
                     s_c,
