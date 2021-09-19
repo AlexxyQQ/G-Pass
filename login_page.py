@@ -1362,6 +1362,7 @@ def logsin_page():
 
                 if i[1] == username.get() and i[2] == password.get():
                     """ Takes user to dashboard after login successfully """
+                    account_global.who_is_logged_in = username.get()
                     logsin.withdraw()
                     import Dashboard
                     Dashboard.dashboard()

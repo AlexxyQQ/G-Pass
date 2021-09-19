@@ -614,6 +614,7 @@ def dashboard():
         d.execute('SELECT *, oid FROM Signups')
         all_snups = d.fetchall()
         for i in all_snups:
+
             if account_global.who_is_logged_in == i[1]:
                 img_u = i[3]
             else:
