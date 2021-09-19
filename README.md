@@ -7,9 +7,16 @@
 <h1 align="center" style="color:darkcyan;" >G-PASS </h1>
 <p align="center">An offline password manager with all your needs.</p>
 
-<p align="center"><img src="https://img.shields.io/github/issues/AlexxyQQ/G-Pass?style=plastic" /> 
-<img src="https://img.shields.io/github/stars/AlexxyQQ/G-Pass?style=plastic" />
-<img src="https://img.shields.io/github/contributors/AlexxyQQ/G-Pass?style=plastic" />
+<p align="center">
+<a href=""> 
+<img src="https://img.shields.io/github/issues/AlexxyQQ/G-Pass?style=plastic" /> </a>
+
+<a href="https://github.com/AlexxyQQ/G-Pass/stargazers"> 
+<img src="https://img.shields.io/github/stars/AlexxyQQ/G-Pass?style=plastic" /> </a>
+
+<a href=""> 
+<img src="https://img.shields.io/github/contributors/AlexxyQQ/G-Pass?style=plastic" /> </a>
+
 <br>
 <a href="https://github.com/AlexxyQQ"> <img src="https://img.shields.io/badge/-AlexxyQQ-yellow" /> </a>
 <a href="https://github.com/astikagrg"> <img src="https://img.shields.io/badge/-%20astikagrg-blue" /> </a>
