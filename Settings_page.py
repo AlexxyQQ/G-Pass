@@ -237,7 +237,7 @@ def setting_page():
             """
             function to check the strength of passwords
             """
-            global warn_text, warn
+            global warn_text, warn, keep_checking
 
             warn_text = StringVar()
 
@@ -309,11 +309,14 @@ def setting_page():
             elif np_entry.get() == npc_entry.get():
                 spe = ['!', '@', "#", '$', '%', '&', '*']
                 specialcharcheck = False
+                keep_checking = True
                 for i in np_entry.get():
-                    if i in spe:
-                        specialcharcheck = True
-                    else:
-                        specialcharcheck = False
+                    if keep_checking:
+                        if i in spe:
+                            specialcharcheck = True
+                            keep_checking = False
+                        else:
+                            specialcharcheck = False
 
                 if not specialcharcheck:
                     try:

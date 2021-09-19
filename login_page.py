@@ -299,7 +299,7 @@ def logsin_page():
 
             def checkmail():
                 """ Function that checks the email entered is correct or not and checks the password is safe or not """
-                global otp_frame_bg, otp_confirm, warn, otp, specialcharcheck
+                global otp_frame_bg, otp_confirm, warn, otp, specialcharcheck, keep_checking
 
                 """ First check's if the email is already is in the database or not  """
                 db = sqlite3.connect("Database.db")
@@ -412,11 +412,15 @@ def logsin_page():
 
                             spe = ['!', '@', "#", '$', '%', '&', '*']
                             specialcharcheck = False
+                            keep_checking = True
                             for i in c_password.get():
-                                if i in spe:
-                                    specialcharcheck = True
-                                else:
-                                    specialcharcheck = False
+                                if keep_checking:
+                                    if i in spe:
+                                        specialcharcheck = True
+                                        keep_checking = False
+
+                                    else:
+                                        specialcharcheck = False
                             if not specialcharcheck:
                                 try:
                                     warn.destroy()
