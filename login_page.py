@@ -5,6 +5,7 @@ import random
 import sqlite3
 import requests
 import account_global
+from tkinter import messagebox
 
 
 def logsin_page():
@@ -299,12 +300,13 @@ def logsin_page():
 
             def checkmail():
                 """ Function that checks the email entered is correct or not and checks the password is safe or not """
-                global otp_frame_bg, otp_confirm, warn, otp, specialcharcheck, keep_checking
+                global otp_frame_bg, otp_confirm, warn, otp, specialcharcheck, keep_checking, status
 
                 """ First check's if the email is already is in the database or not  """
                 db = sqlite3.connect("Database.db")
                 d = db.cursor()
                 checking = False
+                status = ''
                 try:
                     d.execute("SELECT *, oid FROM Signups")
                     emailcheckdb = d.fetchall()
@@ -312,12 +314,10 @@ def logsin_page():
                     for i in emailcheckdb:
                         if i[1] == email.get():
                             checking = True
+                        else:
+                            status = "valid"
                 except:
-                    pass
-                """checking = False
-                for i in emailcheckdb:
-                    if i[1] == email.get():
-                        checking = True"""
+                    status = "valid"
 
                 if checking:
                     # Warning to notify the use that email is already is in use
@@ -332,22 +332,21 @@ def logsin_page():
                     """ If email doesn't exist in database checks if email is real or not  """
                     # Fetch the user inputted email address
                     email_address = email.get()
+                    try:
+                        # Check the email
+                        response = requests.get(
+                            "https://isitarealemail.com/api/email/validate",
+                            # Checks email is valid or invalid using isitrealemail api
+                            params={"email": email_address},
+                        )
 
-                    # Check the email
-                    response = requests.get(
-                        "https://isitarealemail.com/api/email/validate",
-                        # Checks email is valid or invalid using isitrealemail api
-                        params={"email": email_address},
-                    )
-
-                    # returns the status of email, either valid or invalid
-                    status = response.json()["status"]
+                        # returns the status of email, either valid or invalid
+                        status = response.json()["status"]
+                    except:
+                        pass
 
                     # if the email is valid then sends the OTP email to the user email
                     if status == "valid":
-                        # sending the message to user email
-                        """s.sendmail("theggserver@gmail.com", email.get(), message)"""
-                        # s.quit()  # stops the protocol
 
                         """ Password validation for security of user """
 
@@ -448,22 +447,28 @@ def logsin_page():
                                              )
                                 warn.place(x=500, y=430)
 
-                                """ Setup the OTP message sending process """
-
-                                s = smtplib.SMTP("smtp.gmail.com", 587)  # (host domain , port)
-
-                                # start TLS for security
-                                s.starttls()
-
-                                # Authentication for the email that send OTP (not user email)
-                                s.login("theggserver@gmail.com", "@ppleWas01")
-
                                 # OTP Generator of 6 digit number
                                 a = random.randint(250000, 999999)
-                                print(a)
 
-                                # Message sent to user
-                                message = f" Your OTP code is {a}."
+                                try:
+                                    """ Setup the OTP message sending process """
+
+                                    s = smtplib.SMTP("smtp.gmail.com", 587)  # (host domain , port)
+
+                                    # start TLS for security
+                                    s.starttls()
+
+                                    # Authentication for the email that send OTP (not user email)
+                                    s.login("theggserver@gmail.com", "@ppleWas01")
+
+                                    # Message sent to user
+                                    message = "Your OTP code is " + str(a)
+
+                                    # sending the message to user email
+                                    s.sendmail('theggserver@gmail.com', f'{email.get()}', message)
+                                    s.quit()  # stops the protocol
+                                except:
+                                    messagebox.showinfo('OTP', f'Your OTP code is {a}')
 
                                 """ New frame after OTP is sent to user successfully """
                                 otp_frame = LabelFrame(signup_frame,
@@ -493,6 +498,7 @@ def logsin_page():
                                     global warn, fullname, email, c_password, s_password, signup_frame
 
                                     if otp.get() == str(a):
+                                        messagebox.showinfo('Signup', "Your sign up successful.")
                                         try:
                                             warn.destroy()
                                             Label(signup_frame,
@@ -511,8 +517,8 @@ def logsin_page():
                                                   bg="#565050",
                                                   font=("Arial", 15),
                                                   ).place(x=560, y=430)
+
                                             login_page()
-                                            # inser message box
 
                                         # connecting to database
                                         db = sqlite3.connect("Database.db")
@@ -668,7 +674,7 @@ def logsin_page():
                             """
                             function to check the strength of passwords
                             """
-                            global warn_text, warn
+                            global warn_text, warn, keep_checking
 
                             warn_text = StringVar()
 
@@ -740,11 +746,14 @@ def logsin_page():
                             elif np_entry.get() == npc_entry.get():
                                 spe = ['!', '@', "#", '$', '%', '&', '*']
                                 specialcharcheck = False
+                                keep_checking = True
                                 for i in np_entry.get():
-                                    if i in spe:
-                                        specialcharcheck = True
-                                    else:
-                                        specialcharcheck = False
+                                    if keep_checking:
+                                        if i in spe:
+                                            specialcharcheck = True
+                                            keep_checking = False
+                                        else:
+                                            specialcharcheck = False
 
                                 if not specialcharcheck:
                                     try:
@@ -790,6 +799,7 @@ def logsin_page():
                                               )
                                     db.commit()
                                     db.close()
+                                    messagebox.showinfo('Forgot Password', "Your password has been changed.")
                                     login_page()
 
                         password_warn()
@@ -1008,8 +1018,7 @@ def logsin_page():
 
                 """ Sending conformation ID"""
                 CID = random.randint(100000, 999999)
-                print(CID)
-                """
+
                 s = smtplib.SMTP("smtp.gmail.com", 587)  # (host domain , port)
 
                 # start Transfer Layer Security(TLS) for security
@@ -1019,12 +1028,13 @@ def logsin_page():
                 s.login("theggserver@gmail.com", "@ppleWas01")
 
                 # message ent to the user
-                msg = "Your conformation id is "   str(CID)
+                msg = "Your conformation id is " + str(CID)
 
-                #sending the mail
-                s.sendmail('theggserver@gmail.com','Reg_email.get',msg)
+                # sending the mail
+                s.sendmail('theggserver@gmail.com', f'{Reg_email.get()}', msg)
 
-                """
+                s.quit()  # stops the protocol
+
                 # message to check email
                 try:
                     no_mail.destroy()

@@ -425,6 +425,7 @@ def setting_page():
                 all_n_d = d.fetchall()
             except:
                 pass
+
             if all_l_d or all_c_d or all_n_d != '':
                 comp_sel = filedialog.askdirectory(
                     initialdir='C:\\Users\\aayus\\OneDrive\\School\\Python\\TkinterLab\\BasicStart\\pic',
@@ -443,6 +444,7 @@ def setting_page():
                         f.write('\n')
 
                 messagebox.showinfo('Export', 'Exported All your Files Successfully.')
+
             else:
                 messagebox.showinfo('Export Failed', 'No Data to export')
 
