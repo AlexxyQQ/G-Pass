@@ -4,7 +4,7 @@
 </a>
 </p>
 
-<h1 align="center" style="color:darkcyan;" >G-PASS </h1>
+<h1 align="center" style="color:cyan;" >G-PASS </h1>
 <p align="center">An offline password manager with all your needs.</p>
 
 <p align="center">
