@@ -425,24 +425,26 @@ def setting_page():
                 all_n_d = d.fetchall()
             except:
                 pass
+            if all_l_d or all_c_d or all_n_d != '':
+                comp_sel = filedialog.askdirectory(
+                    initialdir='C:\\Users\\aayus\\OneDrive\\School\\Python\\TkinterLab\\BasicStart\\pic',
+                    title='Select a image',
+                )
 
-            comp_sel = filedialog.askdirectory(
-                initialdir='C:\\Users\\aayus\\OneDrive\\School\\Python\\TkinterLab\\BasicStart\\pic',
-                title='Select a image',
-            )
+                with open(f"{comp_sel}/{line}_Export.txt", 'a') as f:
+                    for i in all_l_d:
+                        f.write(str(i))
+                        f.write('\n')
+                    for j in all_c_d:
+                        f.write(str(j))
+                        f.write('\n')
+                    for k in all_n_d:
+                        f.write(str(k))
+                        f.write('\n')
 
-            with open(f"{comp_sel}/{line}_Export.txt", 'a') as f:
-                for i in all_l_d:
-                    f.write(str(i))
-                    f.write('\n')
-                for j in all_c_d:
-                    f.write(str(j))
-                    f.write('\n')
-                for k in all_n_d:
-                    f.write(str(k))
-                    f.write('\n')
-
-            messagebox.showinfo('Export', 'Exported All your Files Successfully.')
+                messagebox.showinfo('Export', 'Exported All your Files Successfully.')
+            else:
+                messagebox.showinfo('Export Failed', 'No Data to export')
 
         lo_confirm = Button(
             exp_frame,
