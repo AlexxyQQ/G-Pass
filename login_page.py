@@ -314,10 +314,8 @@ def logsin_page():
                     for i in emailcheckdb:
                         if i[1] == email.get():
                             checking = True
-                        else:
-                            status = "valid"
                 except:
-                    status = "valid"
+                    pass
 
                 if checking:
                     # Warning to notify the use that email is already is in use
@@ -343,7 +341,10 @@ def logsin_page():
                         # returns the status of email, either valid or invalid
                         status = response.json()["status"]
                     except:
-                        pass
+                        if '@' in email_address:
+                            status = 'valid'
+                        else:
+                            status = ''
 
                     # if the email is valid then sends the OTP email to the user email
                     if status == "valid":
@@ -471,6 +472,16 @@ def logsin_page():
                                     messagebox.showinfo('OTP', f'Your OTP code is {a}')
 
                                 """ New frame after OTP is sent to user successfully """
+                                Button(signup_frame,
+                                       image=signup_button,
+                                       bg="#565050",
+                                       relief=FLAT,
+                                       bd=0,
+                                       activebackground="#565050",
+                                       command=checkmail,
+                                       state=DISABLED
+                                       ).place(x=579, y=465)
+
                                 otp_frame = LabelFrame(signup_frame,
                                                        width=261,
                                                        height=138,
@@ -1016,24 +1027,28 @@ def logsin_page():
                         )
                         error.place(x=530, y=619)
 
-                """ Sending conformation ID"""
                 CID = random.randint(100000, 999999)
 
-                s = smtplib.SMTP("smtp.gmail.com", 587)  # (host domain , port)
+                try:
+                    """ Sending conformation ID"""
 
-                # start Transfer Layer Security(TLS) for security
-                s.starttls()
+                    s = smtplib.SMTP("smtp.gmail.com", 587)  # (host domain , port)
 
-                # Email that sends conformation ID , App password for python
-                s.login("theggserver@gmail.com", "@ppleWas01")
+                    # start Transfer Layer Security(TLS) for security
+                    s.starttls()
 
-                # message ent to the user
-                msg = "Your conformation id is " + str(CID)
+                    # Email that sends conformation ID , App password for python
+                    s.login("theggserver@gmail.com", "@ppleWas01")
 
-                # sending the mail
-                s.sendmail('theggserver@gmail.com', f'{Reg_email.get()}', msg)
+                    # message ent to the user
+                    msg = "Your conformation id for forgot password is " + str(CID)
 
-                s.quit()  # stops the protocol
+                    # sending the mail
+                    s.sendmail('theggserver@gmail.com', f'{Reg_email.get()}', msg)
+
+                    s.quit()  # stops the protocol
+                except:
+                    messagebox.showinfo('Forgot Password', f"Your OTP is {CID}")
 
                 # message to check email
                 try:
