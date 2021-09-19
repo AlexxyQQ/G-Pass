@@ -1,10 +1,11 @@
-from tkinter import *
-import sqlite3
-import login_page
-import account_global
-from PIL import Image, ImageTk
 import re
+import sqlite3
+from tkinter import *
 from tkinter import messagebox
+
+from PIL import Image, ImageTk
+
+import account_global
 
 line = account_global.who_is_logged_in
 line = re.sub('[@.]', '', line)
@@ -30,7 +31,7 @@ def dashboard():
 
     def main():
         global bg_image, image_bg, folder_frame, new_image, topcard, \
-            addbutton, vault, generate, settings, trash, edit_user, image_dis, ed_b, img_u
+            addbutton, vault, generate, settings, trash, edit_user, image_dis, ed_b, img_u,user_image
 
         main_f = LabelFrame(dashboard_win, width=1280, height=720, bd=0)
         main_f.place(x=-3, y=-3)
@@ -256,7 +257,7 @@ def dashboard():
 
             def A_login_frame():
                 global Add_login_entries, Add_login_entries_label, \
-                    folder_drop, img_eyes
+                    folder_drop, img_eyes,user_image
 
                 add_login = LabelFrame(add_f, width=1043, height=418,
                                        bd=0)
@@ -612,12 +613,14 @@ def dashboard():
         d = db.cursor()
         d.execute('SELECT *, oid FROM Signups')
         all_snups = d.fetchall()
+        img_u = account_global.def_selection
         for i in all_snups:
+
             if account_global.who_is_logged_in == i[1]:
-                img_u = i[3]
+                if i[3] != '':
+                    img_u = i[3]
             else:
                 img_u = account_global.def_selection
-
         user_image = Image.open(img_u)
         fixed_size = user_image.resize((122, 120), Image.ANTIALIAS)
         new_image = ImageTk.PhotoImage(fixed_size)
@@ -906,7 +909,7 @@ def dashboard():
                         pass
 
             Button(tf, image=trash, bg='#909090', bd=0,
-                   activebackground='#909090',command=delete_trash).place(x=850, y=120)
+                   activebackground='#909090', command=delete_trash).place(x=850, y=120)
             Button(tf, image=res, bg='#909090', bd=0,
                    activebackground='#909090', command=restore).place(x=750, y=111)
 
@@ -931,16 +934,16 @@ def dashboard():
             f_d.place(x=274, y=350)
 
             def show_con():
-                global sc_back, sc_copy_u, sc_copy_p, sc_edit
+                global sc_back, sc_copy_u, sc_copy_p, sc_edit, bgg
 
+                bgg = PhotoImage(file='Images/Bgg.png')
+                Label(s_c, image=bgg).place(x=-5, y=-5)
                 f_d.destroy()
 
-                sc_back = \
-                    PhotoImage(file='Images/Show con Back Buttton.png')
+                sc_back = PhotoImage(file='Images/Show con Back Buttton.png')
                 sc_copy_u = PhotoImage(file='Images/Copy Username.png')
                 sc_copy_p = PhotoImage(file='Images/Copy Password.png')
-                sc_edit = \
-                    PhotoImage(file='Images/Edit Image and Profile.png')
+                sc_edit = PhotoImage(file='Images/Edit Image and Profile.png')
 
                 Button(
                     s_c,
@@ -1687,5 +1690,3 @@ def dashboard():
 
     dashboard_win.mainloop()
 
-
-dashboard()

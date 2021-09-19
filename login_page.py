@@ -5,6 +5,7 @@ import random
 import sqlite3
 import requests
 import account_global
+from tkinter import messagebox
 
 
 def logsin_page():
@@ -299,12 +300,13 @@ def logsin_page():
 
             def checkmail():
                 """ Function that checks the email entered is correct or not and checks the password is safe or not """
-                global otp_frame_bg, otp_confirm, warn, otp
+                global otp_frame_bg, otp_confirm, warn, otp, specialcharcheck, keep_checking, status
 
                 """ First check's if the email is already is in the database or not  """
                 db = sqlite3.connect("Database.db")
                 d = db.cursor()
                 checking = False
+                status = ''
                 try:
                     d.execute("SELECT *, oid FROM Signups")
                     emailcheckdb = d.fetchall()
@@ -314,10 +316,6 @@ def logsin_page():
                             checking = True
                 except:
                     pass
-                """checking = False
-                for i in emailcheckdb:
-                    if i[1] == email.get():
-                        checking = True"""
 
                 if checking:
                     # Warning to notify the use that email is already is in use
@@ -332,22 +330,24 @@ def logsin_page():
                     """ If email doesn't exist in database checks if email is real or not  """
                     # Fetch the user inputted email address
                     email_address = email.get()
+                    try:
+                        # Check the email
+                        response = requests.get(
+                            "https://isitarealemail.com/api/email/validate",
+                            # Checks email is valid or invalid using isitrealemail api
+                            params={"email": email_address},
+                        )
 
-                    # Check the email
-                    response = requests.get(
-                        "https://isitarealemail.com/api/email/validate",
-                        # Checks email is valid or invalid using isitrealemail api
-                        params={"email": email_address},
-                    )
-
-                    # returns the status of email, either valid or invalid
-                    status = response.json()["status"]
+                        # returns the status of email, either valid or invalid
+                        status = response.json()["status"]
+                    except:
+                        if '@' in email_address:
+                            status = 'valid'
+                        else:
+                            status = ''
 
                     # if the email is valid then sends the OTP email to the user email
                     if status == "valid":
-                        # sending the message to user email
-                        """s.sendmail("theggserver@gmail.com", email.get(), message)"""
-                        # s.quit()  # stops the protocol
 
                         """ Password validation for security of user """
 
@@ -410,154 +410,202 @@ def logsin_page():
 
                         elif c_password.get() == s_password.get():
 
-                            warn = Label(signup_frame,
-                                         text="OTP has been sent to your email.",
-                                         fg="#C09D47",
-                                         bg="#565050",
-                                         font=("Arial", 15),
-                                         )
-                            warn.place(x=500, y=430)
+                            spe = ['!', '@', "#", '$', '%', '&', '*']
+                            specialcharcheck = False
+                            keep_checking = True
+                            for i in c_password.get():
+                                if keep_checking:
+                                    if i in spe:
+                                        specialcharcheck = True
+                                        keep_checking = False
 
-                            """ Setup the OTP message sending process """
+                                    else:
+                                        specialcharcheck = False
+                            if not specialcharcheck:
+                                try:
+                                    warn.destroy()
+                                    warn = Label(signup_frame,
+                                                 text="Input some special characters",
+                                                 fg="#C09D47",
+                                                 bg="#565050",
+                                                 font=("Arial", 15),
+                                                 )
+                                    warn.place(x=517, y=430)
+                                except:
+                                    warn = Label(signup_frame,
+                                                 text="Input some special characters",
+                                                 fg="#C09D47",
+                                                 bg="#565050",
+                                                 font=("Arial", 15),
+                                                 )
+                                    warn.place(x=517, y=430)
+                            else:
+                                warn = Label(signup_frame,
+                                             text="OTP has been sent to your email.",
+                                             fg="#C09D47",
+                                             bg="#565050",
+                                             font=("Arial", 15),
+                                             )
+                                warn.place(x=500, y=430)
 
-                            s = smtplib.SMTP("smtp.gmail.com", 587)  # (host domain , port)
+                                # OTP Generator of 6 digit number
+                                a = random.randint(250000, 999999)
 
-                            # start TLS for security
-                            s.starttls()
+                                try:
+                                    """ Setup the OTP message sending process """
 
-                            # Authentication for the email that send OTP (not user email)
-                            s.login("theggserver@gmail.com", "@ppleWas01")
+                                    s = smtplib.SMTP("smtp.gmail.com", 587)  # (host domain , port)
 
-                            # OTP Generator of 6 digit number
-                            a = random.randint(250000, 999999)
-                            print(a)
+                                    # start TLS for security
+                                    s.starttls()
 
-                            # Message sent to user
-                            message = f" Your OTP code is {a}."
+                                    # Authentication for the email that send OTP (not user email)
+                                    s.login("theggserver@gmail.com", "@ppleWas01")
 
-                            """ New frame after OTP is sent to user successfully """
-                            otp_frame = LabelFrame(signup_frame,
-                                                   width=261,
-                                                   height=138,
-                                                   bd=0,
-                                                   ).place(x=509, y=530)
+                                    # Message sent to user
+                                    message = "Your OTP code is " + str(a)
 
-                            # Background frame of OTP
-                            otp_frame_bg = PhotoImage(file="Images/OTP section.png")
-                            Label(otp_frame,
-                                  image=otp_frame_bg,
-                                  bg="#565050",
-                                  ).place(x=509, y=530)
+                                    # sending the message to user email
+                                    s.sendmail('theggserver@gmail.com', f'{email.get()}', message)
+                                    s.quit()  # stops the protocol
+                                except:
+                                    messagebox.showinfo('OTP', f'Your OTP code is {a}')
 
-                            otp_entry = Entry(otp_frame,
-                                              text=otp,
-                                              font=("Arial", 15),
-                                              bd=0,
-                                              width=10,
-                                              bg="#5E9387",
-                                              )
-                            otp_entry.place(x=564, y=580)
+                                """ New frame after OTP is sent to user successfully """
+                                Button(signup_frame,
+                                       image=signup_button,
+                                       bg="#565050",
+                                       relief=FLAT,
+                                       bd=0,
+                                       activebackground="#565050",
+                                       command=checkmail,
+                                       state=DISABLED
+                                       ).place(x=579, y=465)
 
-                            def submit():
-                                """ Checks the user inputted OTP and saves the new user info in database of OTP is correct """
-                                global warn, fullname, email, c_password, s_password, signup_frame
+                                otp_frame = LabelFrame(signup_frame,
+                                                       width=261,
+                                                       height=138,
+                                                       bd=0,
+                                                       ).place(x=509, y=530)
 
-                                if otp.get() == str(a):
-                                    try:
-                                        warn.destroy()
-                                        Label(signup_frame,
-                                              text="Signup Successful",
-                                              fg="#C09D47",
-                                              bg="#565050",
-                                              font=("Arial", 15),
-                                              ).place(x=560, y=430)
-                                        login_page()
+                                # Background frame of OTP
+                                otp_frame_bg = PhotoImage(file="Images/OTP section.png")
+                                Label(otp_frame,
+                                      image=otp_frame_bg,
+                                      bg="#565050",
+                                      ).place(x=509, y=530)
+
+                                otp_entry = Entry(otp_frame,
+                                                  text=otp,
+                                                  font=("Arial", 15),
+                                                  bd=0,
+                                                  width=10,
+                                                  bg="#5E9387",
+                                                  )
+                                otp_entry.place(x=564, y=580)
+
+                                def submit():
+                                    """ Checks the user inputted OTP and saves the new user info in database of OTP is correct """
+                                    global warn, fullname, email, c_password, s_password, signup_frame
+
+                                    if otp.get() == str(a):
+                                        messagebox.showinfo('Signup', "Your sign up successful.")
+                                        try:
+                                            warn.destroy()
+                                            Label(signup_frame,
+                                                  text="Signup Successful",
+                                                  fg="#C09D47",
+                                                  bg="#565050",
+                                                  font=("Arial", 15),
+                                                  ).place(x=560, y=430)
+                                            login_page()
 
 
-                                    except:
-                                        Label(signup_frame,
-                                              text="Signup Successful",
-                                              fg="#C09D47",
-                                              bg="#565050",
-                                              font=("Arial", 15),
-                                              ).place(x=560, y=430)
-                                        login_page()
+                                        except:
+                                            Label(signup_frame,
+                                                  text="Signup Successful",
+                                                  fg="#C09D47",
+                                                  bg="#565050",
+                                                  font=("Arial", 15),
+                                                  ).place(x=560, y=430)
 
-                                    # connecting to database
-                                    db = sqlite3.connect("Database.db")
+                                            login_page()
 
-                                    # creating cursor
-                                    d = db.cursor()
+                                        # connecting to database
+                                        db = sqlite3.connect("Database.db")
 
-                                    # Inserting valvues in to table
-                                    try:
-                                        # Create table if it doesn't already exist
-                                        d.execute(
-                                            " CREATE TABLE Signups(fullname text,email text,password text,image text) "
-                                        )
-                                        db.commit()
-                                        # writing in table if it doesn't already exist
-                                        d.execute(
-                                            "INSERT INTO Signups VALUES (:f_name,:email,:cpassword,:img)",
-                                            {
-                                                "f_name": fullname.get(),
-                                                "email": email.get(),
-                                                "cpassword": c_password.get(),
-                                                "img": ''
-                                            },
-                                        )
-                                        db.commit()
-                                        db.close()
-                                    except:
+                                        # creating cursor
+                                        d = db.cursor()
 
-                                        d.execute(
-                                            "INSERT INTO Signups VALUES (:f_name,:email,:cpassword,:img)",
-                                            {
-                                                "f_name": fullname.get(),
-                                                "email": email.get(),
-                                                "cpassword": c_password.get(),
-                                                "img": ''
-                                            },
-                                        )
-                                        db.commit()
-                                        db.close()
+                                        # Inserting valvues in to table
+                                        try:
+                                            # Create table if it doesn't already exist
+                                            d.execute(
+                                                " CREATE TABLE Signups(fullname text,email text,password text,image text) "
+                                            )
+                                            db.commit()
+                                            # writing in table if it doesn't already exist
+                                            d.execute(
+                                                "INSERT INTO Signups VALUES (:f_name,:email,:cpassword,:img)",
+                                                {
+                                                    "f_name": fullname.get(),
+                                                    "email": email.get(),
+                                                    "cpassword": c_password.get(),
+                                                    "img": ''
+                                                },
+                                            )
+                                            db.commit()
+                                            db.close()
+                                        except:
 
-                                        """ Setting the user inputs to default after the succession of the execution """
+                                            d.execute(
+                                                "INSERT INTO Signups VALUES (:f_name,:email,:cpassword,:img)",
+                                                {
+                                                    "f_name": fullname.get(),
+                                                    "email": email.get(),
+                                                    "cpassword": c_password.get(),
+                                                    "img": ''
+                                                },
+                                            )
+                                            db.commit()
+                                            db.close()
 
-                                        fullname.set("Full Name")
-                                        email.set("XYZ@gmail.com")
-                                        s_password.set("Password")
-                                        c_password.set("Confirm Password")
-                                else:
-                                    """ In event of database failure user is notified with friendly message """
-                                    try:
-                                        warn.destroy()
-                                        warn = Label(signup_frame,
-                                                     text="Signup Unsuccessful",
-                                                     fg="#C09D47",
-                                                     bg="#565050",
-                                                     font=("Arial", 15),
-                                                     )
-                                        warn.place(x=560, y=430)
+                                            """ Setting the user inputs to default after the succession of the execution """
 
-                                    except:
-                                        warn = Label(signup_frame,
-                                                     text="Signup Unsuccessful",
-                                                     fg="#C09D47",
-                                                     bg="#565050",
-                                                     font=("Arial", 15),
-                                                     )
-                                        warn.place(x=560, y=430)
+                                            fullname.set("Full Name")
+                                            email.set("XYZ@gmail.com")
+                                            s_password.set("Password")
+                                            c_password.set("Confirm Password")
+                                    else:
+                                        """ In event of database failure user is notified with friendly message """
+                                        try:
+                                            warn.destroy()
+                                            warn = Label(signup_frame,
+                                                         text="Signup Unsuccessful",
+                                                         fg="#C09D47",
+                                                         bg="#565050",
+                                                         font=("Arial", 15),
+                                                         )
+                                            warn.place(x=560, y=430)
 
-                            # Image of the confirm button of OTP frame
-                            otp_confirm = PhotoImage(file="Images/Confirm Button.png")
-                            Button(otp_frame,
-                                   image=otp_confirm,
-                                   bg="#5E5A5A",
-                                   bd=0,
-                                   activebackground="#5E5A5A",
-                                   command=submit,
-                                   ).place(x=595, y=624)
+                                        except:
+                                            warn = Label(signup_frame,
+                                                         text="Signup Unsuccessful",
+                                                         fg="#C09D47",
+                                                         bg="#565050",
+                                                         font=("Arial", 15),
+                                                         )
+                                            warn.place(x=560, y=430)
+
+                                # Image of the confirm button of OTP frame
+                                otp_confirm = PhotoImage(file="Images/Confirm Button.png")
+                                Button(otp_frame,
+                                       image=otp_confirm,
+                                       bg="#5E5A5A",
+                                       bd=0,
+                                       activebackground="#5E5A5A",
+                                       command=submit,
+                                       ).place(x=595, y=624)
 
                     else:
                         """ If email isn't real notifies the user """
@@ -633,13 +681,11 @@ def logsin_page():
 
                     def pw_change():
 
-
-
                         def password_warn():
                             """
                             function to check the strength of passwords
                             """
-                            global warn_text, warn
+                            global warn_text, warn, keep_checking
 
                             warn_text = StringVar()
 
@@ -711,11 +757,14 @@ def logsin_page():
                             elif np_entry.get() == npc_entry.get():
                                 spe = ['!', '@', "#", '$', '%', '&', '*']
                                 specialcharcheck = False
+                                keep_checking = True
                                 for i in np_entry.get():
-                                    if i in spe:
-                                        specialcharcheck = True
-                                    else:
-                                        specialcharcheck = False
+                                    if keep_checking:
+                                        if i in spe:
+                                            specialcharcheck = True
+                                            keep_checking = False
+                                        else:
+                                            specialcharcheck = False
 
                                 if not specialcharcheck:
                                     try:
@@ -757,10 +806,11 @@ def logsin_page():
                                     d.execute("""UPDATE Signups SET 
                                                                     password=:new_pass 
                                                                     WHERE email=:em""",
-                                                  {'new_pass': new_passwordc.get(), 'em': Reg_email.get()}
-                                                  )
+                                              {'new_pass': new_passwordc.get(), 'em': Reg_email.get()}
+                                              )
                                     db.commit()
                                     db.close()
+                                    messagebox.showinfo('Forgot Password', "Your password has been changed.")
                                     login_page()
 
                         password_warn()
@@ -977,25 +1027,29 @@ def logsin_page():
                         )
                         error.place(x=530, y=619)
 
-                """ Sending conformation ID"""
                 CID = random.randint(100000, 999999)
-                print(CID)
-                """
-                s = smtplib.SMTP("smtp.gmail.com", 587)  # (host domain , port)
 
-                # start Transfer Layer Security(TLS) for security
-                s.starttls()
+                try:
+                    """ Sending conformation ID"""
 
-                # Email that sends conformation ID , App password for python
-                s.login("theggserver@gmail.com", "@ppleWas01")
+                    s = smtplib.SMTP("smtp.gmail.com", 587)  # (host domain , port)
 
-                # message ent to the user
-                msg = "Your conformation id is "   str(CID)
+                    # start Transfer Layer Security(TLS) for security
+                    s.starttls()
 
-                #sending the mail
-                s.sendmail('theggserver@gmail.com','Reg_email.get',msg)
+                    # Email that sends conformation ID , App password for python
+                    s.login("theggserver@gmail.com", "@ppleWas01")
 
-                """
+                    # message ent to the user
+                    msg = "Your conformation id for forgot password is " + str(CID)
+
+                    # sending the mail
+                    s.sendmail('theggserver@gmail.com', f'{Reg_email.get()}', msg)
+
+                    s.quit()  # stops the protocol
+                except:
+                    messagebox.showinfo('Forgot Password', f"Your OTP is {CID}")
+
                 # message to check email
                 try:
                     no_mail.destroy()
@@ -1349,55 +1403,81 @@ def logsin_page():
                      )
         eye.place(x=774, y=460)
 
-        def login_check():
+        def login_c():
             """ Checks the login info from database """
-            global username, password, logsin, a, oid
+            global username, password, logsin, a
 
             db = sqlite3.connect("Database.db")
             d = db.cursor()
-            try:
-                d.execute("SELECT *, oid FROM Signups")
-                rec = d.fetchall()
+            d.execute("SELECT *, oid FROM Signups")
+            rec = d.fetchall()
 
-                emailtry = False
-                passtry = False
-                oid = ''
+            warn_login_text = StringVar()
 
-                for i in rec:
+            for i in rec:
 
-                    if i[1] == username.get():
-                        oid = i[-1]
-                        emailtry = True
-
-                    if i[2] == password.get() and i[-1] == oid:
-                        passtry = True
-
-                if emailtry and passtry:
+                if i[1] == username.get() and i[2] == password.get():
                     """ Takes user to dashboard after login successfully """
                     account_global.who_is_logged_in = username.get()
                     logsin.withdraw()
                     import Dashboard
                     Dashboard.dashboard()
 
+                elif i[1] != username.get():
 
-                elif not emailtry:
-                    print("Email not registered")
+                    try:
+                        a.destroy()
+                        warn_login_text.set("Email not registered")
+                        a = Label(login_frame, text=warn_login_text.get(),
+                                  bg="#565050",
+                                  font=("Arial", 10, "bold"),
+                                  fg="#C09D47",
+                                  bd=0,
+                                  activeforeground="grey",
+                                  activebackground="#565050",
+                                  relief=FLAT, )
+                        a.place(x=585, y=530)
+                    except:
+                        warn_login_text.set("Email not registered")
+                        a = Label(login_frame, text=warn_login_text.get(),
+                                  bg="#565050",
+                                  font=("Arial", 10, "bold"),
+                                  fg="#C09D47",
+                                  bd=0,
+                                  activeforeground="grey",
+                                  activebackground="#565050",
+                                  relief=FLAT, )
+                        a.place(x=585, y=530)
 
-                elif not passtry:
-                    print("Wrong password")
+                elif i[2] != password.get():
+                    try:
+                        a.destroy()
+                        warn_login_text.set("Wrong Password")
+                        a = Label(login_frame, text=warn_login_text.get(),
+                                  bg="#565050",
+                                  font=("Arial", 10, "bold"),
+                                  fg="#C09D47",
+                                  bd=0,
+                                  activeforeground="grey",
+                                  activebackground="#565050",
+                                  relief=FLAT,
+                                  )
+                        a.place(x=595, y=530)
+                    except:
+                        warn_login_text.set("Wrong Password")
+                        a = Label(login_frame, text=warn_login_text.get(),
+                                  bg="#565050",
+                                  font=("Arial", 10, "bold"),
+                                  fg="#C09D47",
+                                  bd=0,
+                                  activeforeground="grey",
+                                  activebackground="#565050",
+                                  relief=FLAT,
+                                  )
+                        a.place(x=595, y=530)
 
-                db.commit()
-                db.close()
-            except:
-                b_login = Button(login_frame,
-                                 image=login_img,
-                                 bg="#565050",
-                                 bd=0,
-                                 activebackground="#565050",
-                                 state=DISABLED,
-                                 command=login_check,
-                                 )
-                b_login.place(x=584, y=562)
+            db.commit()
+            db.close()
 
         login_img = PhotoImage(file="Images/Login Button.png")
         b_login = Button(login_frame,
@@ -1405,7 +1485,7 @@ def logsin_page():
                          bg="#565050",
                          bd=0,
                          activebackground="#565050",
-                         command=login_check,
+                         command=login_c,
                          )
         b_login.place(x=584, y=562)
 
