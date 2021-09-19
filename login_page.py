@@ -512,6 +512,7 @@ def logsin_page():
                                                   font=("Arial", 15),
                                                   ).place(x=560, y=430)
                                             login_page()
+                                            # inser message box
 
                                         # connecting to database
                                         db = sqlite3.connect("Database.db")

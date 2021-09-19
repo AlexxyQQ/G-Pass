@@ -31,7 +31,7 @@ def dashboard():
 
     def main():
         global bg_image, image_bg, folder_frame, new_image, topcard, \
-            addbutton, vault, generate, settings, trash, edit_user, image_dis, ed_b, img_u
+            addbutton, vault, generate, settings, trash, edit_user, image_dis, ed_b, img_u,user_image
 
         main_f = LabelFrame(dashboard_win, width=1280, height=720, bd=0)
         main_f.place(x=-3, y=-3)
@@ -257,7 +257,7 @@ def dashboard():
 
             def A_login_frame():
                 global Add_login_entries, Add_login_entries_label, \
-                    folder_drop, img_eyes
+                    folder_drop, img_eyes,user_image
 
                 add_login = LabelFrame(add_f, width=1043, height=418,
                                        bd=0)
@@ -613,13 +613,14 @@ def dashboard():
         d = db.cursor()
         d.execute('SELECT *, oid FROM Signups')
         all_snups = d.fetchall()
+        img_u = account_global.def_selection
         for i in all_snups:
 
             if account_global.who_is_logged_in == i[1]:
-                img_u = i[3]
+                if i[3] != '':
+                    img_u = i[3]
             else:
                 img_u = account_global.def_selection
-
         user_image = Image.open(img_u)
         fixed_size = user_image.resize((122, 120), Image.ANTIALIAS)
         new_image = ImageTk.PhotoImage(fixed_size)
@@ -1689,5 +1690,3 @@ def dashboard():
 
     dashboard_win.mainloop()
 
-
-dashboard()
