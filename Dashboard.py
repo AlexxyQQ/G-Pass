@@ -1,11 +1,11 @@
-import datetime as dt
-import sqlite3
 from tkinter import *
 from tkinter import messagebox
-
 from PIL import Image, ImageTk
 
+import re
 import account_global
+import datetime as dt
+import sqlite3
 
 line = account_global.who_is_logged_in
 line = re.sub('[@.]', '', line)
@@ -774,7 +774,7 @@ def dashboard():
 
 
             except:
-                print('didnt work')
+                pass
 
             def restore():
                 if l.get(ANCHOR) == '':
@@ -877,11 +877,14 @@ def dashboard():
                         pass
 
             def delete_trash():
+
                 if l.get(ANCHOR) == '':
+
                     a = messagebox.askyesno('Delete All?', 'Yes or No')
 
                     try:
                         for a in all_l_d:
+                            print(a)
                             d.execute(f'DELETE from DeletedLogins{line} WHERE oid={a[-1]}')
 
                             db.commit()
