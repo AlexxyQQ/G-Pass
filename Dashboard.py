@@ -1,3 +1,4 @@
+import datetime as dt
 import re
 import sqlite3
 from tkinter import *
@@ -31,7 +32,7 @@ def dashboard():
 
     def main():
         global bg_image, image_bg, folder_frame, new_image, topcard, \
-            addbutton, vault, generate, settings, trash, edit_user, image_dis, ed_b, img_u,user_image
+            addbutton, vault, generate, settings, trash, edit_user, image_dis, ed_b, img_u, user_image
 
         main_f = LabelFrame(dashboard_win, width=1280, height=720, bd=0)
         main_f.place(x=-3, y=-3)
@@ -257,7 +258,7 @@ def dashboard():
 
             def A_login_frame():
                 global Add_login_entries, Add_login_entries_label, \
-                    folder_drop, img_eyes,user_image
+                    folder_drop, img_eyes, user_image
 
                 add_login = LabelFrame(add_f, width=1043, height=418,
                                        bd=0)
@@ -617,6 +618,7 @@ def dashboard():
         for i in all_snups:
 
             if account_global.who_is_logged_in == i[1]:
+                user_who = i[0]
                 if i[3] != '':
                     img_u = i[3]
             else:
@@ -625,6 +627,30 @@ def dashboard():
         fixed_size = user_image.resize((122, 120), Image.ANTIALIAS)
         new_image = ImageTk.PhotoImage(fixed_size)
         Label(main_f, image=new_image, bg='#C4C4C4').place(x=1085, y=68)
+
+        # To display greeting message according to the local time
+
+        time = dt.datetime.now()
+
+        hour = time.hour
+
+        if hour < 12:
+            greeting = "Good Morning,"
+
+        elif hour >= 12 and hour < 17:
+            greeting = "Good Afternoon,"
+
+        elif hour >= 17 and hour <= 24:
+            greeting = "Good Evening,"
+
+        asl = ''
+        for sp in user_who:
+            asl += sp
+            if sp == ' ':
+                break
+        greet = Label(main_f, text=greeting, font=("Arial", 25, "bold"), bg="#565050", fg="#06EBB4").place(x=801, y=88)
+        user_to_greet = Label(main_f, text=asl, font=("Arial", 25, "bold"), bg="#565050", fg="#06EBB4").place(
+            x=801, y=125)
 
         topcard = PhotoImage(file='Images/Top Card Frame.png')
         Label(main_f, image=topcard, bg='#565050').place(x=256, y=51)
@@ -1689,4 +1715,3 @@ def dashboard():
     main()
 
     dashboard_win.mainloop()
-
