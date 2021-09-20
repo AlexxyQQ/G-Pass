@@ -1,5 +1,4 @@
 import datetime as dt
-import re
 import sqlite3
 from tkinter import *
 from tkinter import messagebox

@@ -64,15 +64,14 @@ def edit_profile():
     ).place(x=592, y=83)
 
     def ed_img():
-        global pp_img, new_image
+        global pp_img, new_image ,user_img
 
-        comp_sel = \
-            filedialog.askopenfilename(
+        comp_sel = filedialog.askopenfilename(
                 initialdir='C:\\Users\\aayus\\OneDrive\\School\\Python\\TkinterLab\\BasicStart\\pic'
                 , title='Select a image', filetypes=(('PNG', '*.png'),
                                                      ('JPG', '*.jpg'), ('All Files', '*.*')))
 
-        account_global.selected = comp_sel
+        user_img = account_global.selected = comp_sel
         pp_img = Image.open(comp_sel)
         fixed_size = pp_img.resize((380, 316), Image.ANTIALIAS)
         new_image = ImageTk.PhotoImage(fixed_size)
@@ -88,7 +87,7 @@ def edit_profile():
                             WHERE OID = :oide""",
                           {
                               'fn': f_name.get(),
-                              'im': account_global.selected,
+                              'im': user_img,
                               'oide': i[-1],
                           })
                 db.commit()
