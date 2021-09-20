@@ -1,11 +1,11 @@
-from tkinter import *
-from tkinter import messagebox
-from PIL import Image, ImageTk
-
-import re
-import account_global
 import datetime as dt
 import sqlite3
+from tkinter import *
+from tkinter import messagebox
+
+from PIL import Image, ImageTk
+
+import account_global
 
 line = account_global.who_is_logged_in
 line = re.sub('[@.]', '', line)
@@ -823,7 +823,7 @@ def dashboard():
                                 db.commit()
                         except:
                             pass
-
+                        show_trash()
                 if l.get(ANCHOR) != '\n':
 
                     try:
@@ -881,29 +881,32 @@ def dashboard():
                 if l.get(ANCHOR) == '':
 
                     a = messagebox.askyesno('Delete All?', 'Yes or No')
+                    if a:
 
-                    try:
-                        for a in all_l_d:
-                            print(a)
-                            d.execute(f'DELETE from DeletedLogins{line} WHERE oid={a[-1]}')
+                        try:
+                            for a in all_l_d:
+                                print(a)
+                                d.execute(f'DELETE from DeletedLogins{line} WHERE oid={a[-1]}')
 
-                            db.commit()
-                    except:
-                        pass
-                    try:
-                        for b in all_c_d:
-                            d.execute(f'DELETE from DeletedCards{line} WHERE oid={b[-1]}')
+                                db.commit()
+                        except:
+                            pass
+                        try:
+                            for b in all_c_d:
+                                d.execute(f'DELETE from DeletedCards{line} WHERE oid={b[-1]}')
 
-                            db.commit()
-                    except:
-                        pass
-                    try:
-                        for c in all_n_d:
-                            d.execute(f'DELETE from DeleteddNotes{line} WHERE oid={c[-1]}')
+                                db.commit()
+                        except:
+                            pass
+                        try:
+                            for c in all_n_d:
+                                d.execute(f'DELETE from DeleteddNotes{line} WHERE oid={c[-1]}')
 
-                            db.commit()
-                    except:
-                        pass
+                                db.commit()
+                        except:
+                            pass
+
+                        main()
 
                 if l.get(ANCHOR) != '\n':
 
