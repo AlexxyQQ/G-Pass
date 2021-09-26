@@ -57,7 +57,7 @@ the necessary functions that a normal password manager should perform.
 </p>
 
 <h3>Previews</h3>
-
+<a href="https://github.com/AlexxyQQ"> <img src="https://i.imgur.com/dR934ce.gif" width="500" /> </a>
 
 
 <h2>Getting Started</h2>
