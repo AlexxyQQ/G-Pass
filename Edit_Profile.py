@@ -69,7 +69,7 @@ def edit_profile():
 
         comp_sel = filedialog.askopenfilename(
             initialdir='C:\\Users\\aayus\\OneDrive\\School\\Python\\TkinterLab\\BasicStart\\pic'
-            , title='Select a image', filetypes=('PNG', '*.png'))
+            , title='Select a image', filetypes=(('PNG', '*.png'),))
 
         user_img = account_global.selected = comp_sel
         pp_img = Image.open(comp_sel)
