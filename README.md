@@ -46,6 +46,7 @@ length of the password.
 </p>
 
 <h3>Built With</h3>
+
 - Tkinter
 - SQLite3
 
@@ -57,6 +58,7 @@ the necessary functions that a normal password manager should perform.
 </p>
 
 <h3>Previews</h3>
+
 - Password Generator <br>
 <a href="https://github.com/AlexxyQQ"> <img src="https://i.imgur.com/dR934ce.gif" width="500" /> </a>
 <br>
@@ -71,6 +73,7 @@ the necessary functions that a normal password manager should perform.
 <h2>Getting Started</h2>
 
 <h2>Acknowledgements</h2>
+
 - [Figma](https://www.figma.com)
 - [Imgur](https://imgur.com)
 - [Flaticon](https://www.flaticon.com)
