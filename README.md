@@ -57,11 +57,13 @@ the necessary functions that a normal password manager should perform.
 </p>
 
 <h3>Previews</h3>
-- Password Generator
+- Password Generator <br>
 <a href="https://github.com/AlexxyQQ"> <img src="https://i.imgur.com/dR934ce.gif" width="500" /> </a>
-- Edit Profile
+<br>
+- Edit Profile <br>
 <a href="https://github.com/AlexxyQQ"> <img src="https://i.imgur.com/WUhxyQh.gif" width="500" /> </a>
-- Add logins
+<br>
+- Add logins<br>
 <a href="https://github.com/AlexxyQQ"> <img src="https://i.imgur.com/Y19Zr29.gif" width="500" /> </a>
 
 
