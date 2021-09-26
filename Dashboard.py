@@ -27,7 +27,7 @@ def dashboard():
 
     dashboard_win = Toplevel()
     dashboard_win.geometry('1280x720+0+0')
-    dashboard_win.title('G-Pass-Dashboard')
+    dashboard_win.title('G-Pass')
     dashboard_win.resizable(False, False)
 
     def main():
