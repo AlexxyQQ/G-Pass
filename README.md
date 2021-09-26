@@ -57,10 +57,24 @@ the necessary functions that a normal password manager should perform.
 </p>
 
 <h3>Previews</h3>
+- Password Generator
 <a href="https://github.com/AlexxyQQ"> <img src="https://i.imgur.com/dR934ce.gif" width="500" /> </a>
+- Edit Profile
+<a href="https://github.com/AlexxyQQ"> <img src="https://i.imgur.com/WUhxyQh.gif" width="500" /> </a>
+- Add logins
+<a href="https://github.com/AlexxyQQ"> <img src="https://i.imgur.com/Y19Zr29.gif" width="500" /> </a>
+
 
 
 <h2>Getting Started</h2>
+
+<h2>Acknowledgements</h2>
+- [Figma](https://www.figma.com)
+- [Imgur](https://imgur.com)
+- [Flaticon](https://www.flaticon.com)
+- [Shields.io](https://shields.io/)
+
+
 
 
 
