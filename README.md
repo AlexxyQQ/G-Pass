@@ -72,6 +72,31 @@ the necessary functions that a normal password manager should perform.
 
 <h2>Getting Started</h2>
 
+Theses are the instructions on how you can run the program with or without pycharm or python installed.
+<h3>Without Pycharm or Python</h3>
+Just [download]() the code and run the **G-Pass.exe**
+
+<h3>With Pycharm or Python</h3>
+
+<h4>Installation</h4>
+
+1. Clone the repo<br>
+``` python
+git clone https://github.com/your_username_/Project-Name.git
+```
+   <br>
+   
+
+2. Install SMPTLib for the OTP sending process to work<br>
+``` python
+pip install smptlib
+```
+   <br>
+   
+3. Install requests module for the entered email to be checked for its validation.<br>
+``` python
+pip install requests
+```
 <h2>Acknowledgements</h2>
 
 - [Figma](https://www.figma.com)
