@@ -1,10 +1,11 @@
+import datetime as dt
 import re
 import sqlite3
 from tkinter import *
 from tkinter import messagebox
 
 from PIL import Image, ImageTk
-
+import re
 import account_global
 
 line = account_global.who_is_logged_in
@@ -26,12 +27,12 @@ def dashboard():
 
     dashboard_win = Toplevel()
     dashboard_win.geometry('1280x720+0+0')
-    dashboard_win.title('G-Pass-Dashboard')
+    dashboard_win.title('G-Pass')
     dashboard_win.resizable(False, False)
 
     def main():
         global bg_image, image_bg, folder_frame, new_image, topcard, \
-            addbutton, vault, generate, settings, trash, edit_user, image_dis, ed_b, img_u,user_image
+            addbutton, vault, generate, settings, trash, edit_user, image_dis, ed_b, img_u, user_image
 
         main_f = LabelFrame(dashboard_win, width=1280, height=720, bd=0)
         main_f.place(x=-3, y=-3)
@@ -43,7 +44,7 @@ def dashboard():
 
         def add_items():
             global f_bg_image, add_back, add_save, add_item_logo, \
-                b_frame, items_drop, C_frame
+                b_frame, items_drop, C_frame, Save_butt
 
             main_f.destroy()
             add_f = LabelFrame(dashboard_win, width=1280, height=720,
@@ -56,6 +57,8 @@ def dashboard():
 
             def database_storing():
 
+                global inputValue
+
                 # connecting to database
 
                 db = sqlite3.connect('Database.db')
@@ -63,6 +66,9 @@ def dashboard():
                 # creating cursor
 
                 d = db.cursor()
+
+                # Note Variables
+                inputValue = ''
 
                 if clicked.get() == 'Login':
                     login_entries_values = A_login_frame()
@@ -210,14 +216,15 @@ def dashboard():
 
             add_save = PhotoImage(file='Images/Save Button.png')
 
-            Button(
+            Save_butt = Button(
                 add_f,
                 image=add_save,
                 bg='#565050',
                 bd=0,
                 activebackground='#565050',
                 command=database_storing,
-            ).place(x=1157, y=47)
+            )
+            Save_butt.place(x=1157, y=47)
 
             add_item_logo = PhotoImage(file='Images/Add Item.png')
             Label(add_f, image=add_item_logo, bg='#565050'
@@ -257,7 +264,7 @@ def dashboard():
 
             def A_login_frame():
                 global Add_login_entries, Add_login_entries_label, \
-                    folder_drop, img_eyes,user_image
+                    folder_drop, img_eyes, user_image, Save_butt
 
                 add_login = LabelFrame(add_f, width=1043, height=418,
                                        bd=0)
@@ -284,14 +291,17 @@ def dashboard():
                 def clear_entry_n(event):
                     if Web_name.get() == 'xyz.com':
                         Web_name.set('')
+                        Save_butt.config(state=NORMAL)
 
                 def clear_entry_e(event):
                     if add_email_u.get() == 'xyz@gmail.com':
                         add_email_u.set('')
+                        Save_butt.config(state=NORMAL)
 
                 def clear_entry_p(event):
                     if add_password.get() == 'Password':
                         add_password.set('')
+                        Save_butt.config(state=NORMAL)
 
                 W_name = Entry(
                     add_login,
@@ -352,6 +362,11 @@ def dashboard():
                 drop_f['menu'].configure(font=('Arial', 15),
                                          bg='#48E8C2', bd=0, activebackground='#48E8C2')
                 drop_f.place(x=670, y=71)
+
+                if Web_name.get() != 'xyz.com' or add_email_u.get() != 'xyz@gmail.com' or add_password.get() != 'Password':
+                    Save_butt.config(state=NORMAL)
+                else:
+                    Save_butt.config(state=DISABLED)
 
                 def show_pass():
                     global img_eyes
@@ -422,6 +437,7 @@ def dashboard():
                         add_password.get(), dropped_f.get()]
 
             def A_card_frame():
+
                 add_card = LabelFrame(add_f, width=1043, height=418,
                                       bd=0)
 
@@ -433,22 +449,27 @@ def dashboard():
                 def clear_entry_cn(event):
                     if c_num.get() == '1234 5678 9123 4567':
                         c_num.set('')
+                        Save_butt.config(state=NORMAL)
 
                 def clear_entry_vf(event):
                     if vf.get() == 'M/Y':
                         vf.set('')
+                        Save_butt.config(state=NORMAL)
 
                 def clear_entry_vt(event):
                     if vt.get() == 'M/Y':
                         vt.set('')
+                        Save_butt.config(state=NORMAL)
 
                 def clear_entry_cna(event):
                     if c_name.get() == 'Shyam Dai':
                         c_name.set('')
+                        Save_butt.config(state=NORMAL)
 
                 def clear_entry_cvv(event):
                     if cvv.get() == '123':
                         cvv.set('')
+                        Save_butt.config(state=NORMAL)
 
                 C_num = Entry(
                     add_card,
@@ -508,6 +529,11 @@ def dashboard():
                 return [c_num.get(), vf.get(), vt.get(), c_name.get(),
                         cvv.get()]
 
+            if c_num.get() != '1234 5678 9123 4567' or vf.get() != 'M/Y' or vt.get() != 'M/Y' or c_name.get() != 'Shyam Dai' or cvv.get() != '123':
+                Save_butt.config(state=NORMAL)
+            else:
+                Save_butt.config(state=DISABLED)
+
             def A_note_frame():
                 global back_note
 
@@ -557,11 +583,6 @@ def dashboard():
                                          bg='#48E8C2', bd=0, activebackground='#48E8C2')
                 drop_f.place(x=670, y=44)
 
-                def retrieve_input():
-                    inputValue = T.get('1.0', 'end-1c')
-
-                    return inputValue
-
                 T = Text(
                     add_note,
                     height=5.4,
@@ -572,9 +593,10 @@ def dashboard():
                 )
                 T.insert(INSERT, 'Type note here.')
                 T.place(x=76, y=154)
+                inputValue = T.get('1.0', 'end')
 
                 return [n_name.get(), dropped_f_n.get(),
-                        retrieve_input()]
+                        ' ']
 
             def opt(event):
 
@@ -617,6 +639,7 @@ def dashboard():
         for i in all_snups:
 
             if account_global.who_is_logged_in == i[1]:
+                user_who = i[0]
                 if i[3] != '':
                     img_u = i[3]
             else:
@@ -625,6 +648,30 @@ def dashboard():
         fixed_size = user_image.resize((122, 120), Image.ANTIALIAS)
         new_image = ImageTk.PhotoImage(fixed_size)
         Label(main_f, image=new_image, bg='#C4C4C4').place(x=1085, y=68)
+
+        # To display greeting message according to the local time
+
+        time = dt.datetime.now()
+
+        hour = time.hour
+
+        if hour < 12:
+            greeting = "Good Morning,"
+
+        elif hour >= 12 and hour < 17:
+            greeting = "Good Afternoon,"
+
+        elif hour >= 17 and hour <= 24:
+            greeting = "Good Evening,"
+
+        asl = ''
+        for sp in user_who:
+            asl += sp
+            if sp == ' ':
+                break
+        greet = Label(main_f, text=greeting, font=("Arial", 25, "bold"), bg="#565050", fg="#06EBB4").place(x=801, y=88)
+        user_to_greet = Label(main_f, text=asl, font=("Arial", 25, "bold"), bg="#565050", fg="#06EBB4").place(
+            x=801, y=125)
 
         topcard = PhotoImage(file='Images/Top Card Frame.png')
         Label(main_f, image=topcard, bg='#565050').place(x=256, y=51)
@@ -749,7 +796,7 @@ def dashboard():
 
 
             except:
-                print('didnt work')
+                pass
 
             def restore():
                 if l.get(ANCHOR) == '':
@@ -798,7 +845,7 @@ def dashboard():
                                 db.commit()
                         except:
                             pass
-
+                        show_trash()
                 if l.get(ANCHOR) != '\n':
 
                     try:
@@ -852,30 +899,36 @@ def dashboard():
                         pass
 
             def delete_trash():
+
                 if l.get(ANCHOR) == '':
+
                     a = messagebox.askyesno('Delete All?', 'Yes or No')
+                    if a:
 
-                    try:
-                        for a in all_l_d:
-                            d.execute(f'DELETE from DeletedLogins{line} WHERE oid={a[-1]}')
+                        try:
+                            for a in all_l_d:
+                                print(a)
+                                d.execute(f'DELETE from DeletedLogins{line} WHERE oid={a[-1]}')
 
-                            db.commit()
-                    except:
-                        pass
-                    try:
-                        for b in all_c_d:
-                            d.execute(f'DELETE from DeletedCards{line} WHERE oid={b[-1]}')
+                                db.commit()
+                        except:
+                            pass
+                        try:
+                            for b in all_c_d:
+                                d.execute(f'DELETE from DeletedCards{line} WHERE oid={b[-1]}')
 
-                            db.commit()
-                    except:
-                        pass
-                    try:
-                        for c in all_n_d:
-                            d.execute(f'DELETE from DeleteddNotes{line} WHERE oid={c[-1]}')
+                                db.commit()
+                        except:
+                            pass
+                        try:
+                            for c in all_n_d:
+                                d.execute(f'DELETE from DeleteddNotes{line} WHERE oid={c[-1]}')
 
-                            db.commit()
-                    except:
-                        pass
+                                db.commit()
+                        except:
+                            pass
+
+                        main()
 
                 if l.get(ANCHOR) != '\n':
 
@@ -1689,4 +1742,3 @@ def dashboard():
     main()
 
     dashboard_win.mainloop()
-

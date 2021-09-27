@@ -1,16 +1,18 @@
-from tkinter import *
 import sqlite3
-import account_global
+from tkinter import *
 from tkinter import filedialog
+
 from PIL import Image, ImageTk
+
+import account_global
 
 
 def edit_profile():
-    global bg, back, save, e_f, user_image_box,user_img
+    global bg, back, save, e_f, user_image_box, user_img
 
     edit_p = Toplevel()
     edit_p.geometry('1280x720+0+0')
-    edit_p.title('G-Pass-Edit_Profile')
+    edit_p.title('G-Pass')
     edit_p.resizable(False, False)
 
     bg = PhotoImage(file='Images/Edit Profile Background.png')
@@ -53,7 +55,6 @@ def edit_profile():
             if i[3] != '':
                 user_img = i[3]
 
-
     Entry(
         edit_frame,
         text=f_name,
@@ -64,15 +65,13 @@ def edit_profile():
     ).place(x=592, y=83)
 
     def ed_img():
-        global pp_img, new_image
+        global pp_img, new_image, user_img
 
-        comp_sel = \
-            filedialog.askopenfilename(
-                initialdir='C:\\Users\\aayus\\OneDrive\\School\\Python\\TkinterLab\\BasicStart\\pic'
-                , title='Select a image', filetypes=(('PNG', '*.png'),
-                                                     ('JPG', '*.jpg'), ('All Files', '*.*')))
+        comp_sel = filedialog.askopenfilename(
+            initialdir='C:\\Users\\aayus\\OneDrive\\School\\Python\\TkinterLab\\BasicStart\\pic'
+            , title='Select a image', filetypes=(('PNG', '*.png'),))
 
-        account_global.selected = comp_sel
+        user_img = account_global.selected = comp_sel
         pp_img = Image.open(comp_sel)
         fixed_size = pp_img.resize((380, 316), Image.ANTIALIAS)
         new_image = ImageTk.PhotoImage(fixed_size)
@@ -88,13 +87,14 @@ def edit_profile():
                             WHERE OID = :oide""",
                           {
                               'fn': f_name.get(),
-                              'im': account_global.selected,
+                              'im': user_img,
                               'oide': i[-1],
                           })
                 db.commit()
                 edit_p.destroy()
                 import Dashboard
                 Dashboard.dashboard()
+
     pp_img = Image.open(user_img)
     fixed_size = pp_img.resize((380, 316), Image.ANTIALIAS)
     new_image = ImageTk.PhotoImage(fixed_size)
